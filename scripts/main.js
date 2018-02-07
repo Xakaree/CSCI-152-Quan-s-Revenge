@@ -1,5 +1,7 @@
 var background = document.getElementById("layer0"); //canvas for background draws
 var canvas = document.getElementById("layer1"); //main canvas
+var QS1 = document.getElementById("QS1"); // Version 1 of Quan
+var QS2 = document.getElementById("QS2"); // Version 2 of Quan
 
 //use these ctx for draw calls
 var ctx0 = background.getContext("2d"); //background context
