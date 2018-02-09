@@ -10,9 +10,18 @@ function Player(x, y,w,h, controls, color) {
     this.attacking = false;
     this.jumping = false;
 
+    this.input = {
+        left: {keyPress:false,keyDown: false},
+        right: {keyPress:false,keyDown: false},
+        down: {keyPress:false,keyDown: false},
+        up: {keyPress:false,keyDown: false},
+        jump: {keyPress:false,keyDown: false},
+        attack: {keyPress:false,keyDown: false},
+    }
+
     //handles all responses to input
-    this.input = function() {
-        if(input[this.controls.left]) {
+    this.movement = function() {
+        if(this.input.left.keyDown) {
             if(!this.jumping) {
                 this.entity.vx = -this.speed;
             }
@@ -21,7 +30,7 @@ function Player(x, y,w,h, controls, color) {
             }
             this.facing = -1;
         } 
-        else if(input[this.controls.right]) {
+        if(this.input.right.keyDown) {
             if(!this.jumping) {
                 this.entity.vx = this.speed;
             }
@@ -30,7 +39,7 @@ function Player(x, y,w,h, controls, color) {
             }
             this.facing = 1;
         } 
-        else {
+        if(!this.input.right.keyDown && !this.input.left.keyDown) {
             //if no input while on the ground player stops immediately
             if(!this.jumping) {
                 this.entity.vx = 0.0;
@@ -45,7 +54,7 @@ function Player(x, y,w,h, controls, color) {
                 }
             }
         } 
-        if(input[this.controls.jump] && !this.jumping) {
+        if(this.input.jump.keyPress && !this.jumping) {
             this.entity.vy = -1100.0;
             this.jumping = true;
         }
@@ -57,7 +66,8 @@ function Player(x, y,w,h, controls, color) {
     */
     this.Update = function() {
         
-        this.input(); //respond to input
+        this.updateInput();
+        this.movement(); //respond to input
 
         /*
             NOTE: when adjusting positions over time
@@ -94,4 +104,36 @@ function Player(x, y,w,h, controls, color) {
         ctx1.fillStyle = color;
         ctx1.fillRect(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
     }
+}
+
+Player.prototype.updateInput = function() {
+    if(this.input.left.keyPress) this.input.left.keyPress = false;
+    if(!this.input.left.keyDown && input[this.controls.left])
+        this.input.left.keyPress = true;
+    this.input.left.keyDown = input[this.controls.left];
+    
+    if(this.input.right.keyPress) this.input.right.keyPress = false;
+    if(!this.input.right.keyDown && input[this.controls.right])
+        this.input.right.keyPress = true;
+    this.input.right.keyDown = input[this.controls.right];
+
+    if(this.input.up.keyPress) this.input.up.keyPress = false;
+    if(!this.input.up.keyDown && input[this.controls.up])
+        this.input.up.keyPress = true;
+    this.input.up.keyDown = input[this.controls.up];
+
+    if(this.input.down.keyPress) this.input.down.keyPress = false;
+    if(!this.input.down.keyDown && input[this.controls.down])
+        this.input.down.keyPress = true;
+    this.input.down.keyDown = input[this.controls.down];
+
+    if(this.input.jump.keyPress) this.input.jump.keyPress = false;
+    if(!this.input.jump.keyDown && input[this.controls.jump])
+        this.input.jump.keyPress = true;
+    this.input.jump.keyDown = input[this.controls.jump];
+
+    if(this.input.attack.keyPress) this.input.attack.keyPress = false;
+    if(!this.input.attack.keyDown && input[this.controls.attack])
+        this.input.attack.keyPress = true;
+    this.input.attack.keyDown = input[this.controls.attack];
 }
