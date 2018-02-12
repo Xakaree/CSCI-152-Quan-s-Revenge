@@ -102,15 +102,15 @@ function GameLoop() {
     while(deltaTime >= interval) {
         deltaTime -= interval;
         //scene.Update();
-		menu.Update();
+		startScreen.Update();
     }
     //scene.Draw();
-	menu.Draw();
+	startScreen.Draw();
 
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
 
-menu = new Menu();
+startScreen = new startScreen();
 
 //scene = new Scene();
 //scene.Start();
