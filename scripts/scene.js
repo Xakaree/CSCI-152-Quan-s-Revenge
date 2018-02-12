@@ -12,7 +12,7 @@ function Scene() {
         //test objects - TEMPORARY
         var p1 = new Player(400,100,tileSize,tileSize,p1controls,QS1);
         this.entities.push(p1);
-        var p2 = new Player(800,400,tileSize,tileSize,p2controls,QS2);
+        var p2 = new Player(800,400,tileSize,tileSize,p2controls,LC2);
         this.entities.push(p2);
         this.entities.push(new SolidTile(8,11,15,1));
         this.entities.push(new SolidTile(10,7,3,1));
