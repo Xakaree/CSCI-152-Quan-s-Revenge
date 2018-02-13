@@ -38,7 +38,6 @@ function startScreen(){
 				}
 				else {
 						ctx1.fillRect(width/4,height/2+150,250,50);  //default retangle
-						ctx1.fillText("play", width/4,height/2+150);
 		  	}
 			  ctx1.fillStyle = "grey";
 
