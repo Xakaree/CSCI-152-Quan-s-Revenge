@@ -35,10 +35,10 @@ function Menu(){
 
   this.Update = function(){
     if (this.active){
-        if (input[38] && this.option > 0){
+        if (input.keyPress(38) && this.option > 0){
               this.option -= 1;
         }
-        else if (input[40] && this.option < 3){
+        else if (input.keyPress(40) && this.option < 3){
               this.option +=1;
         }
     }// end active loop

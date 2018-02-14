@@ -5,18 +5,18 @@ function startScreen(){
 
 		this.Update = function(){
 			if (this.active){
-					if (input[37]){ //37 is left arrow
+					if (input.keyPress(37)){ //37 is left arrow
 						this.options = 0;
 					}
-					else if (input[39]){ //39 is right arrow
+					else if (input.keyPress(39)){ //39 is right arrow
 						this.options = 1;
 					}
-					else if (input[32] && this.options == 0){ //start game
+					else if (input.keyPress(32) && this.options == 0){ //start game
 						this.menu =  new Menu();
 						this.menu.Start();
 						this.active = false;
 					}
-					else if (input[32] && this.options == 1){ // quit
+					else if (input.keyPress(32) && this.options == 1){ // quit
 						ctx1.clearRect(0,0,width,height);
 						this.active = false;
 					}

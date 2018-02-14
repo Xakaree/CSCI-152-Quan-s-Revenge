@@ -25,34 +25,6 @@ for(var i = 0; i < width/tileSize; i++) {
 }
 ctx0.stroke();
 
-//initialize input array of bools -- use input[keycode] to see if key pressed
-var input = new Array(91);
-for (var i = 0; i < input.length; i++) {
-    input[i] = false;
-}
-
-//event listeners for input
-document.addEventListener('keydown',doKeyDown,false);
-document.addEventListener('keyup',doKeyRelease,false);
-
-/*
-input function called everytime key is pushed down
-*/
-function doKeyDown(e) {
-    var key = e.keyCode;
-    input[key] = true;
-}
-
-/*
-input function called everytime key is released
-*/
-function doKeyRelease(e) {
-    var key = e.keyCode;
-    input[key] = false;
-}
-
-
-
 /*
 control mapping
   -set values equal to the keycode of the desired key
@@ -102,6 +74,7 @@ function GameLoop() {
     while(deltaTime >= interval) {
         deltaTime -= interval;
         //scene.Update();
+          input.Update();
 		startScreen.Update();
     }
     //scene.Draw();
@@ -110,6 +83,7 @@ function GameLoop() {
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
 
+input = new InputHandler();
 startScreen = new startScreen();
 
 //scene = new Scene();
