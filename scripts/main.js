@@ -111,5 +111,10 @@ function GameLoop() {
 scene = new Scene();
 scene.Start();
 
+//playTrackList(soundTrackList);
+
+
+
+
 oldTime = performance.now(); //start time of scene (needed for delatime)
 requestAnimationFrame(GameLoop); //starts game loop
