@@ -17,7 +17,7 @@ function Camera() {
     this.Update = function(players) {
 
         if(this.lowX < this.x + 100 || this.lowY < this.y || this.highX > this.x + this.width - 100 || this.highY > this.y + this.height) {
-            if(scale > 0.5) scale -= 0.3 * interval;
+            if(scale > 0.1) scale -= 0.3 * interval;
         }
         if(this.lowX > this.x + this.width/4 || this.highX < this.x + (3*this.width/4)) {
             if(scale < 1.0) scale += 0.3 *interval;

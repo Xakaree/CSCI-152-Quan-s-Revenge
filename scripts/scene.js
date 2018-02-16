@@ -18,6 +18,8 @@ function Scene() {
         this.players.push(p2);
         this.entities.push(p2);
         this.entities.push(new SolidTile(8,11,15,1));
+        this.entities.push(new SolidTile(4,16,5,1));
+        this.entities.push(new SolidTile(22,16,5,1));
         this.entities.push(new SolidTile(10,7,3,1));
         this.entities.push(new SolidTile(18,7,3,1));
         this.entities.push(new SolidTile(0,0,width/tileSize,1));
@@ -82,7 +84,7 @@ function Scene() {
 
         this.camera.Update(this.players);
 
-        ctx0.translate(-this.camera.x, -this.camera.y);
+        //ctx0.translate(-this.camera.x, -this.camera.y);
         ctx1.translate(-this.camera.x, -this.camera.y);
 
         for(var i = 0; i < this.entities.length; i++) {
