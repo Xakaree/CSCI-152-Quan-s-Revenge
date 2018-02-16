@@ -17,6 +17,7 @@ function Projectile(x,y,w,h, dir) {
     this.entity = new Entity(x,y,w,h,"projectile");
     this.entity.vx = 800 * dir;
     this.entity.grav = 0;
+    this.dmg = 10;
 
     this.onCollision = function(collider) {
         if(collider.entity.tag == "projectile") {
@@ -49,12 +50,17 @@ function rangeItem(cx, cy, w, h) {
         this.parent = parent;
     }
 
-    this.drop = function() {
+    this.drop = function(facing) {
         this.parent = null;
+        if(facing == 1) {
+            this.entity.vx = 300;
+        }
+        else this.entity.vx = -300;
+        
+        this.entity.vy = -600;
     }
 
     this.attack = function() {
-        console.log("attack");
         if(this.parent.facing == 1) {
             scene.entities.push(new Projectile(this.entity.getRight(), this.entity.y, 15,15,this.parent.facing));
         }
@@ -65,7 +71,7 @@ function rangeItem(cx, cy, w, h) {
     }
 
     this.onCollision = function(collider) {
-        if(collider.entity.tag == "solid") {
+        if(this.parent == null && collider.entity.tag == "solid") {
             this.entity.solidCollision(collider);
         }
     }
@@ -89,10 +95,14 @@ function rangeItem(cx, cy, w, h) {
         }
     }
 
+    this.manualDraw = function() {
+        ctx1.drawImage(this.img, this.entity.x, this.entity.y);
+    }
+
     this.Draw = function() {
         ctx1.fillStyle = "white";
         //ctx1.fillRect(this.entity.x, this.entity.y,this.entity.width,this.entity.height);
-        ctx1.drawImage(this.img, this.entity.x, this.entity.y);
+        if(this.parent == null) ctx1.drawImage(this.img, this.entity.x, this.entity.y);
     }
 
     

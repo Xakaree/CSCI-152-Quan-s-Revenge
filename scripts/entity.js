@@ -12,6 +12,9 @@ function Entity(x,y,w,h,tag) {
     //acceleration
     this.ax = 0.0;
     this.ay = 0.0;
+
+    this.friction = 700.0;
+
     //width and height of box collider
     this.width = w;
     this.height = h;
@@ -93,6 +96,13 @@ function Entity(x,y,w,h,tag) {
                 this.y = collider.entity.getTop() - this.height;
                 this.vy = 0;
                 this.ay = 0;
+
+                if(this.vx > 0) {
+                    this.vx = Math.max(0, this.vx - (this.friction * interval));
+                }
+                else if(this.vx < 0) {
+                    this.vx = Math.min(0, this.vx + (this.friction * interval));
+                }
                 return 0;
             }
         }

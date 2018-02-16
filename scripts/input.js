@@ -17,12 +17,12 @@ function InputHandler() {
 
     function doKeyDown(e) {
         var key = e.keyCode;
-        input[key].key = true;
+        if(key < input.length) input[key].key = true;
     }
 
     function doKeyRelease(e) {
         var key = e.keyCode;
-        input[key].key = false;
+        if(key < input.length) input[key].key = false;
     }
 
     this.updateKeys = function() {
