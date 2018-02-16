@@ -13,9 +13,12 @@ var interval = 1/fps; //interval time (see game loop)
 var oldTime, newTime, deltaTime = 0; //var for storing frame time difference
 
 //Note: width and height below do not change canvas size
-var width = 1024; //width of game level
-var height = 704; //height of game level
+var width = 3000; //width of game level
+var height = 720; //height of game level
 var tileSize = 32; //size of tiles in level
+
+var scale = 1.0;
+
 
 //Draw tile grid -- TEMPORARY
 ctx0.fillStyle = "grey";
@@ -81,6 +84,7 @@ function GameLoop() {
         input.Update();
         scene.Update();
         scene.Draw();
+
     }
     
 

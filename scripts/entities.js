@@ -8,7 +8,7 @@ function SolidTile(cx,cy,cw,ch) {
 
     this.Draw = function() {
         ctx1.fillStyle = "black";
-        ctx1.fillRect(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
     }
 
 }
@@ -37,7 +37,7 @@ function Projectile(x,y,w,h, dir) {
 
     this.Draw = function() {
         ctx1.fillStyle = "red";
-        ctx1.fillRect(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
     }
 }
 
@@ -96,13 +96,13 @@ function rangeItem(cx, cy, w, h) {
     }
 
     this.manualDraw = function() {
-        ctx1.drawImage(this.img, this.entity.x, this.entity.y);
+        ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
     }
 
     this.Draw = function() {
         ctx1.fillStyle = "white";
         //ctx1.fillRect(this.entity.x, this.entity.y,this.entity.width,this.entity.height);
-        if(this.parent == null) ctx1.drawImage(this.img, this.entity.x, this.entity.y);
+        if(this.parent == null) ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
     }
 
     

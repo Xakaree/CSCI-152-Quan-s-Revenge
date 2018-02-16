@@ -118,7 +118,7 @@ function Player(x, y,w,h, controls, color) {
     //All draw calls must be done in tbis function
     this.Draw = function() {
         ctx1.fillStyle = color;
-        ctx1.fillRect(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
         if(this.item != null) this.item.manualDraw();
     }
 }
