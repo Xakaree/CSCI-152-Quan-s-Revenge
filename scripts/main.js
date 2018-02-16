@@ -5,6 +5,9 @@ var canvas = document.getElementById("layer1"); //main canvas
 var ctx0 = background.getContext("2d"); //background context
 var ctx1 = canvas.getContext("2d"); //main canvas
 
+var dbrlR = document.getElementById("dbrlR");
+var dbrlL = document.getElementById("dbrlL");
+
 var fps = 60; //frame rate at which the game updates
 var interval = 1/fps; //interval time (see game loop)
 var oldTime, newTime, deltaTime = 0; //var for storing frame time difference
@@ -29,7 +32,9 @@ ctx0.stroke();
 control mapping
   -set values equal to the keycode of the desired key
   -pass as parameter when creating player
+
 */
+
 var defaultcontrols = {  //player controls are set to this if no controls passed in
     left: null,
     right: null,
@@ -54,7 +59,7 @@ var p2controls = {
     up: 87,     //w
     down: 83,   //s
     jump: 87,   //w
-    attack: null
+    attack: 90
 }
 
 /*

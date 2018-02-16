@@ -3,12 +3,13 @@ function Player(x, y,w,h, controls, color) {
     this.speed = 350.0; //how fast player moves left/right
     this.accel = 2.0; //UNUSED FOR NOW
     this.decel = 2.0;
-    this.grav = 3000.0; //how fast player accelerates downward
     this.controls = controls || defaultcontrols;
 
     this.facing = 1; //direction of player, -1=left 1=right
     this.attacking = false;
     this.jumping = false;
+
+    this.item = null;
 
     //handles all responses to input
     this.movement = function() {
@@ -49,6 +50,10 @@ function Player(x, y,w,h, controls, color) {
             this.entity.vy = -1100.0;
             this.jumping = true;
         }
+
+        if(input.keyPress(this.controls.attack)) {
+            if(this.item != null) this.item.attack();
+        }
     }
 
     /*(REQUIRED)
@@ -56,22 +61,10 @@ function Player(x, y,w,h, controls, color) {
         -Use this function for all positional updates anything that needs constant checking/updating
     */
     this.Update = function() {
-        
-        //this.updateInput();
+    
         this.movement(); //respond to input
-
-        /*
-            NOTE: when adjusting positions over time
-            values have to be multiplied by the interval for smoothing and to
-            keep them framerate independent (See below)
-        */
-
-        //apply velocity changes        
-        this.entity.vx += this.entity.ax * interval;
-        this.entity.vy += (this.entity.ay * interval) + (this.grav * interval);
-        //apply positional changes based on velocity (this is capped at 20 pixels per frame right now)
-        this.entity.x += Math.min(20, this.entity.vx * interval);
-        this.entity.y += Math.min(20, this.entity.vy * interval);
+        this.entity.updatePhysics(); //apply acceleration, velocity to position
+        
     }
 
     //runs whenever collision detected involving this object
@@ -79,6 +72,14 @@ function Player(x, y,w,h, controls, color) {
     this.onCollision = function(collider) {
         if(collider.entity.tag == "player") {
 
+        }
+        if(collider.entity.tag == "item") {
+            if(input.keyDown(this.controls.down) && input.keyPress(this.controls.attack)) {
+                if(this.item == null) {
+                    collider.pickUp(this);
+                    this.item = collider;
+                }
+            }
         }
         if(collider.entity.tag == "solid") {
             switch(this.entity.solidCollision(collider)) {

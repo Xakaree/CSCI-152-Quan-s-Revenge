@@ -21,6 +21,8 @@ function Scene() {
         this.entities.push(new SolidTile(0,height/tileSize - 1,width/tileSize,1));
         this.entities.push(new SolidTile(0,1,1,height/tileSize-2));
         this.entities.push(new SolidTile(width/tileSize-1,1,1,height/tileSize-2));
+        this.entities.push(new rangeItem(14, 7, 26, 13));
+        this.entities.push(new rangeItem(24, 18, 26, 13));
     }
 
     /*

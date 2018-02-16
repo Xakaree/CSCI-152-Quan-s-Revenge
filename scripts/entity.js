@@ -1,6 +1,8 @@
 function Entity(x,y,w,h,tag) {
     this.active = true; //toggle phyics/collision (NEEDS WORKS)
 
+    this.grav = 3000.0;
+
     //positions
     this.x = x;
     this.y = y;
@@ -24,6 +26,21 @@ function Entity(x,y,w,h,tag) {
 
     this.getMidX = function() {return this.x + (this.width/2);}
     this.getMidY = function() {return this.y + (this.height/2);}
+
+    this.updatePhysics = function() {
+        /*
+            NOTE: when adjusting positions over time
+            values have to be multiplied by the interval for smoothing and to
+            keep them framerate independent (See below)
+        */
+
+        //apply velocity changes        
+        this.vx += this.ax * interval;
+        this.vy += (this.ay * interval) + (this.grav * interval);
+        //apply positional changes based on velocity (this is capped at 20 pixels per frame right now)
+        this.x += Math.min(20, this.vx * interval);
+        this.y += Math.min(20, this.vy * interval);
+    }
 
     this.solidCollision = function(collider) {
         //calculate a normalized distance between entity and colliding entity
