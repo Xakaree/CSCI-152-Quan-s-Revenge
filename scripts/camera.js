@@ -16,7 +16,7 @@ function Camera() {
 
     this.Update = function(players) {
 
-        if(this.lowX < this.x + 100 || this.lowY < this.y || this.highX > this.x + this.width - 100 || this.highY > this.y + this.height) {
+        if(this.lowX < this.x + 200 || this.lowY < this.y || this.highX > this.x + this.width - 200 || this.highY > this.y + this.height) {
             if(scale > 0.1) scale -= 0.3 * interval;
         }
         if(this.lowX > this.x + this.width/4 || this.highX < this.x + (3*this.width/4)) {
@@ -36,8 +36,6 @@ function Camera() {
         }
         this.midX = ((this.lowX + this.highX) / 2);
         this.midY = ((this.lowY + this.highY) / 2);
-        console.log("low " + this.lowY.toString());
-        console.log("high " + this.highY.toString());
         this.x = this.midX - (this.width/2);
         this.y = this.midY - (this.height/2);
 

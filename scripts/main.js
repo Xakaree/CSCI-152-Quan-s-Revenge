@@ -13,15 +13,16 @@ var interval = 1/fps; //interval time (see game loop)
 var oldTime, newTime, deltaTime = 0; //var for storing frame time difference
 
 //Note: width and height below do not change canvas size
-var width = 3000; //width of game level
+var width = 1280; //width of game level
 var height = 720; //height of game level
 var tileSize = 32; //size of tiles in level
 
 var scale = 1.0;
 
+var step = false;
 
 //Draw tile grid -- TEMPORARY
-ctx0.fillStyle = "grey";
+/*ctx0.fillStyle = "grey";
 ctx0.fillRect(0,0,width,height);
 ctx0.fillStyle = "black";
 for(var i = 0; i < width/tileSize; i++) {
@@ -29,7 +30,7 @@ for(var i = 0; i < width/tileSize; i++) {
         ctx0.rect(i*tileSize,j*tileSize,tileSize,tileSize);
     }
 }
-ctx0.stroke();
+ctx0.stroke();*/
 
 /*
 control mapping
@@ -81,9 +82,22 @@ function GameLoop() {
     */
     while(deltaTime >= interval) {
         deltaTime -= interval;
+
         input.Update();
-        scene.Update();
-        scene.Draw();
+
+        if(input.keyPress(90)) {
+            step = false;
+        }
+        if(!step) {
+            
+            scene.Update();
+            scene.Draw();
+        }
+
+        if(input.keyPress(90)) {
+            step = true;
+        }
+            
 
     }
     

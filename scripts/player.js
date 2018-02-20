@@ -88,7 +88,6 @@ function Player(x, y,w,h, controls, color) {
         this.updateDropCnt(); //handles cooldown between dropping item and being able to pickup another
         this.movement(); //respond to input
         this.entity.updatePhysics(); //apply acceleration, velocity to position
-        
     }
 
     //runs whenever collision detected involving this object

@@ -1,7 +1,8 @@
 function Entity(x,y,w,h,tag) {
     this.active = true; //toggle phyics/collision (NEEDS WORKS)
 
-    this.grav = 3000.0;
+    //this.grav = 3000.0;
+    this.grav = 3000;
 
     //positions
     this.x = x;
@@ -13,6 +14,7 @@ function Entity(x,y,w,h,tag) {
     this.ax = 0.0;
     this.ay = 0.0;
 
+    this.airfriction = 200.0;
     this.friction = 700.0;
 
     //width and height of box collider
@@ -40,17 +42,24 @@ function Entity(x,y,w,h,tag) {
 
             //apply velocity changes        
             this.vx += this.ax * interval;
+            if(this.vx > 0 && this.vy != 0) {
+                this.vx = Math.max(0.0, this.vx - (this.airfriction * interval));
+            }
+            else if(this.vx < 0 && this.vy != 0) {
+                this.vx = Math.min(0.0, this.vx + (this.airfriction * interval));
+            }
             this.vy += (this.ay * interval) + (this.grav * interval);
             //apply positional changes based on velocity (this is capped at 20 pixels per frame right now)
             this.x += Math.min(20, this.vx * interval);
             this.y += Math.min(20, this.vy * interval);
+            
         }
     }
 
     this.solidCollision = function(collider) {
         //calculate a normalized distance between entity and colliding entity
-        var dx = (collider.entity.getMidX() - this.getMidX()) / (collider.entity.width/2);
-        var dy = (collider.entity.getMidY() - this.getMidY()) / (collider.entity.height/2);
+        var dx = (collider.entity.getMidX() - this.getMidX()) / (collider.entity.width/2.0);
+        var dy = (collider.entity.getMidY() - this.getMidY()) / (collider.entity.height/2.0);
         //absolute values of the above variables
         var absDx = Math.abs(dx);
         var absDy = Math.abs(dy);
@@ -63,7 +72,7 @@ function Entity(x,y,w,h,tag) {
         */
 
         //if x and y absolutes are close to each other then entity is on a corner
-        if(Math.abs(absDx - absDy) < 0.01) {
+        /*if(Math.abs(absDx - absDy) < 0.01) {
             if(dx < 0) { //approaching from right
                 this.x = collider.entity.getRight();
             }
@@ -77,20 +86,37 @@ function Entity(x,y,w,h,tag) {
                 this.y = collider.entity.getTop() - this.height;
             }
             return 4;
-        }
-        else if(absDx > absDy) { //appraoching from the side
+        }*/
+        if(absDx > absDy) { //appraoching from the side
+            /*step = true;
+            console.log("px - "  + this.x.toString());
+            console.log("py - "  + this.y.toString());
+            console.log("cx - "  + collider.entity.x.toString());
+            console.log("cy - "  + collider.entity.y.toString());
+            console.log("pmX - "  + this.getMidX().toString());
+            console.log("pmY - "  + this.getMidY().toString());
+            console.log("cmX - "  + collider.entity.getMidX().toString());
+            console.log("cmY - "  + collider.entity.getMidY().toString());
+            console.log(collider.entity.width);
+            console.log(collider.entity.height);
+            console.log("dX - "  + dx.toString());
+            console.log("dY - "  + dy.toString());
+            return;*/
             if(dx < 0) { //approaching from the right
                 this.x = collider.entity.getRight();
+                this.vx = 0;
                 return 1;
             }
             else { //approaching from left
                 this.x = collider.entity.getLeft() - this.width;
+                this.vx = 0;
                 return 3;
             }
         }
         else { //approaching from the top/bottom
             if(dy < 0) { //approaching from bottom
                 this.y = collider.entity.getBot();
+                console.log("top)")
                 this.vy = 0;
                 return 2;
             }
@@ -100,10 +126,10 @@ function Entity(x,y,w,h,tag) {
                 this.ay = 0;
 
                 if(this.vx > 0) {
-                    this.vx = Math.max(0, this.vx - (this.friction * interval));
+                    this.vx = Math.max(0.0, this.vx - (this.friction * interval));
                 }
                 else if(this.vx < 0) {
-                    this.vx = Math.min(0, this.vx + (this.friction * interval));
+                    this.vx = Math.min(0.0, this.vx + (this.friction * interval));
                 }
                 return 0;
             }
