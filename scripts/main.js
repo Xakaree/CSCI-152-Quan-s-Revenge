@@ -30,6 +30,7 @@ control mapping
   -set values equal to the keycode of the desired key
   -pass as parameter when creating player
 */
+
 var defaultcontrols = {  //player controls are set to this if no controls passed in
     left: null,
     right: null,

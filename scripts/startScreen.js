@@ -1,22 +1,22 @@
 function startScreen(){
 		this.active = true;
-		this.options = 0; // 0 is the left button,  1 is the right button
+		this.startOptions = 0; // 0 is the left button,  1 is the right button
 		this.menu = null;
 
 		this.Update = function(){
 			if (this.active){
 					if (input.keyPress(37)){ //37 is left arrow
-						this.options = 0;
+						this.startOptions = 0;
 					}
 					else if (input.keyPress(39)){ //39 is right arrow
-						this.options = 1;
+						this.startOptions = 1;
 					}
-					else if (input.keyPress(32) && this.options == 0){ //start game
+					else if (input.keyPress(32) && this.startOptions == 0){ //start game
 						this.menu =  new Menu();
 						this.menu.Start();
 						this.active = false;
 					}
-					else if (input.keyPress(32) && this.options == 1){ // quit
+					else if (input.keyPress(32) && this.startOptions == 1){ // quit
 						ctx1.clearRect(0,0,width,height);
 						this.active = false;
 					}
@@ -32,7 +32,7 @@ function startScreen(){
 				ctx1.fillStyle = "white"; // background color
 				ctx1.fillRect(0,0,width,height);
 				ctx1.fillStyle = "grey";
-				if(!this.options){ //left button selected
+				if(!this.startOptions){ //left button selected
 						ctx1.fillStyle = "blue";
 						ctx1.fillRect(width/4-25,height/2+37.5,300,125);
 				}
@@ -41,7 +41,7 @@ function startScreen(){
 		  	}
 			  ctx1.fillStyle = "grey";
 
-				if(this.options){ //right button selected
+				if(this.startOptions){ //right button selected
 					ctx1.fillStyle = "red";
 					ctx1.fillRect(width*3/5-25,height/2+37.5,300,125);
 			  }

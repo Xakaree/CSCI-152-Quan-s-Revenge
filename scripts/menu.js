@@ -1,7 +1,8 @@
 function Menu(){
   this.active = false;
-  this.option = 0;
+  this.menuOption = 0;
   this.scene = null;
+  this.options = null;
 
   this.Start = function(){
     this.active = true;
@@ -11,36 +12,60 @@ function Menu(){
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height);
 
-    if(this.option == 0){
+    if(this.menuOption == 0){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(100,100,250,100);
 
-    if(this.option == 1){
+    if(this.menuOption == 1){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(120,210,250,100);
 
-    if(this.option == 2){
+    if(this.menuOption == 2){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(140,320,250,100);
 
-    if(this.option == 3){
+    if(this.menuOption == 3){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(100,430,250,100);
 
+    if(this.options != null){
+      this.options.Draw();
+    }
   }
 
   this.Update = function(){
     if (this.active){
-        if (input.keyPress(38) && this.option > 0){
-              this.option -= 1;
+        if (input.keyPress(38) && this.menuOption > 0){
+              this.menuOption -= 1;
         }
-        else if (input.keyPress(40) && this.option < 3){
-              this.option +=1;
+        else if (input.keyPress(40) && this.menuOption < 3){
+              this.menuOption +=1;
         }
+
+
+      if(this.menuOption == 0 && input.keyPress(32))
+      {
+        alert("2player under development");
+      }
+      else if(this.menuOption == 1 && input.keyPress(32)){
+        alert ("3player under development");
+      }
+      else if (this.menuOption == 2 && input.keyPress(32)){
+        alert("4 player under development");
+      }
+      else if (this.menuOption == 3 && input.keyPress(32)){
+          this.options = new Options();
+          this.options.Start();
+          this.active = false;
+      }
+
+      if(this.options != null){
+        this.options.Update();
+      }
     }// end active loop
   }//end update
 }//end menu
