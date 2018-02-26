@@ -50,19 +50,32 @@ function Entity(x,y,w,h,tag) {
             }
             this.vy += (this.ay * interval) + (this.grav * interval);
             //apply positional changes based on velocity (this is capped at 20 pixels per frame right now)
-            this.x += Math.min(20, this.vx * interval);
-            this.y += Math.min(20, this.vy * interval);
+            if(this.vx > 0) this.x += Math.min(20, this.vx * interval);
+            else this.x += Math.max(-20, this.vx * interval);
+            if(this.vy > 0) this.y += Math.min(20, this.vy * interval);
+            else this.y += Math.max(-20, this.vy * interval);
             
         }
     }
 
     this.solidCollision = function(collider) {
+        var tx, ty;
+        if(this.vx > 0) tx = this.getMidX() - Math.min(10, (this.vx * interval)/2);
+        else tx = this.getMidX() - Math.max(-10, (this.vx * interval)/2);
+        if(this.vy > 0) ty = this.getMidY() - Math.min(10, (this.vy * interval)/2);
+        else ty = this.getMidY() - Math.max(-10, (this.vy * interval)/2);
+
         //calculate a normalized distance between entity and colliding entity
-        var dx = (collider.entity.getMidX() - this.getMidX()) / (collider.entity.width/2.0);
-        var dy = (collider.entity.getMidY() - this.getMidY()) / (collider.entity.height/2.0);
+        var dx = (collider.entity.getMidX() - tx) / (collider.entity.width/2.0);
+        var dy = (collider.entity.getMidY() - ty) / (collider.entity.height/2.0);
         //absolute values of the above variables
-        var absDx = Math.abs(dx);
-        var absDy = Math.abs(dy);
+        var absDx, absDy;
+        absDx = Math.abs(dx);
+        absDy = Math.abs(dy);
+        /*if(this.vx != 0) absDx = Math.abs(dx/(this.vx));
+        else absDx = 0;
+        if(this.vy != 0) absDy = Math.abs(dy/(this.vy));
+        else absDy = 0;*/
 
 
         /* collision return codes (numbers are this entity's position relative to collidee)
@@ -72,7 +85,7 @@ function Entity(x,y,w,h,tag) {
         */
 
         //if x and y absolutes are close to each other then entity is on a corner
-        /*if(Math.abs(absDx - absDy) < 0.01) {
+        if(Math.abs(absDx - absDy) < 0.01) {
             if(dx < 0) { //approaching from right
                 this.x = collider.entity.getRight();
             }
@@ -86,22 +99,8 @@ function Entity(x,y,w,h,tag) {
                 this.y = collider.entity.getTop() - this.height;
             }
             return 4;
-        }*/
-        if(absDx > absDy) { //appraoching from the side
-            /*step = true;
-            console.log("px - "  + this.x.toString());
-            console.log("py - "  + this.y.toString());
-            console.log("cx - "  + collider.entity.x.toString());
-            console.log("cy - "  + collider.entity.y.toString());
-            console.log("pmX - "  + this.getMidX().toString());
-            console.log("pmY - "  + this.getMidY().toString());
-            console.log("cmX - "  + collider.entity.getMidX().toString());
-            console.log("cmY - "  + collider.entity.getMidY().toString());
-            console.log(collider.entity.width);
-            console.log(collider.entity.height);
-            console.log("dX - "  + dx.toString());
-            console.log("dY - "  + dy.toString());
-            return;*/
+        }
+        else if(absDx > absDy) { //appraoching from the side
             if(dx < 0) { //approaching from the right
                 this.x = collider.entity.getRight();
                 this.vx = 0;
