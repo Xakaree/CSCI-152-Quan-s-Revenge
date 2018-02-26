@@ -2,7 +2,8 @@ function Player(x, y,w,h, controls, sprite) {
     this.animation = new animation(sprite,controls);
     this.entity = new Entity(x,y,w,h,"player"); //attach entity to this object for physics/collision
     this.speed = 350.0; //how fast player moves left/right
-    this.accel = 5.0; //UNUSED FOR NOW
+    this.accel = 2.0; //UNUSED FOR NOW
+    this.decel = 2.0;
     this.grav = 3000.0; //how fast player accelerates downward
     this.controls = controls || defaultcontrols;
 
@@ -21,10 +22,16 @@ function Player(x, y,w,h, controls, sprite) {
 	var aniSpd = 6; //Speed Cap on animation
 
     //handles all responses to input
-    this.input = function() {
-        if(input[this.controls.left]) {
-            this.entity.vx = -this.speed;
+    this.movement = function() {
+        if(input.keyDown(this.controls.left)) {
+            if(!this.jumping) {
+                this.entity.vx = -this.speed;
+            }
+            else {
+                this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
+            }
             this.facing = -1;
+<<<<<<< HEAD
 			if(lastInput != 2 && !this.jumping){
 				srcX=0,srcY=7;
 				lastInput = 2;
@@ -56,6 +63,34 @@ function Player(x, y,w,h, controls, sprite) {
 			}
         }
         if(input[this.controls.jump] && !this.jumping) {
+=======
+        } 
+        if(input.keyDown(this.controls.right)) {
+            if(!this.jumping) {
+                this.entity.vx = this.speed;
+            }
+            else {
+                this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
+            }
+            this.facing = 1;
+        } 
+        if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
+            //if no input while on the ground player stops immediately
+            if(!this.jumping) {
+                this.entity.vx = 0.0;
+            }
+            //if in the air player slows down over time
+            else {
+                if(this.entity.vx > 0) {
+                    this.entity.vx = Math.max(0.0, this.entity.vx - this.decel);
+                }
+                else if(this.entity.vx < 0) {
+                    this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
+                }
+            }
+        } 
+        if(input.keyPress(this.controls.jump) && !this.jumping) {
+>>>>>>> master
             this.entity.vy = -1100.0;
             this.jumping = true;
 			if(lastInput != 3){
@@ -71,8 +106,14 @@ function Player(x, y,w,h, controls, sprite) {
         -Use this function for all positional updates anything that needs constant checking/updating
     */
     this.Update = function() {
+<<<<<<< HEAD
 
         this.input(); //respond to input
+=======
+        
+        //this.updateInput();
+        this.movement(); //respond to input
+>>>>>>> master
 
         /*
             NOTE: when adjusting positions over time
