@@ -66,6 +66,24 @@ var p2controls = {
     attack: 90
 }
 
+var p3controls = {  //player controls are set to this if no controls passed in
+    left: null,
+    right: null,
+    up: null,
+    down: null,
+    jump: null,
+    attack: null
+}
+
+var p4controls = {  //player controls are set to this if no controls passed in
+    left: null,
+    right: null,
+    up: null,
+    down: null,
+    jump: null,
+    attack: null
+}
+
 /*
 Main loop for the game
 	-runs the update function based on the interval set above (1/fps)
@@ -84,21 +102,8 @@ function GameLoop() {
         deltaTime -= interval;
 
         input.Update();
-
-        if(input.keyPress(90)) {
-            step = false;
-        }
-        if(!step) {
-            
-            scene.Update();
-            scene.Draw();
-        }
-
-        if(input.keyPress(90)) {
-            step = true;
-        }
-            
-
+        scene.Update();
+        scene.Draw();
     }
     
 

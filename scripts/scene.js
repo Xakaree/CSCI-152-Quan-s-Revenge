@@ -6,7 +6,7 @@ var map = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,2,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,0,0,0,0,2,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,3,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -17,7 +17,7 @@ var map = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
@@ -48,6 +48,16 @@ function Scene() {
                         this.entities.push(p2);
                         break;
                     case 4:
+                        var p3 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, "purple");
+                        this.players.push(p3);
+                        this.entities.push(p3);
+                        break;
+                    case 5:
+                        var p4 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, "yellow");
+                        this.players.push(p4);
+                        this.entities.push(p4);
+                        break;
+                    case 6:
                         this.entities.push(new rangeItem(j, i, 26, 13));
                         break;
 
@@ -140,7 +150,21 @@ function Scene() {
             this.entities[i].Draw();
         }
 
-        
+        for(var i = 0; i < this.players.length; i++) {
+            ctx1.fillStyle = "grey";
+            ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 40 + this.camera.y, 40,30);
+
+            ctx1.fillStyle  = "black";
+
+            ctx1.font = "30px Arial";
+            ctx1.fillText("P" + (i+1).toString(), canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 15 + this.camera.y);
+
+            ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 5 + this.camera.y, 100 * 2.5 + 10, 25 + 10);
+            ctx1.fillStyle  = "grey";
+            ctx1.fillRect(canvas.width/4 * i + this.camera.x + 20, canvas.height*7/8 + this.camera.y, 100 * 2.5, 25);
+            ctx1.fillStyle  = "green";
+            ctx1.fillRect(canvas.width/4 * i + this.camera.x + 20, canvas.height*7/8 + this.camera.y, Math.max(0,this.players[i].health * 2.5), 25);
+        }
 
         ctx0.restore();
         ctx1.restore();

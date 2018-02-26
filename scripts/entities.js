@@ -23,10 +23,15 @@ function Projectile(x,y,w,h, dir) {
         if(collider.entity.tag == "projectile") {
 
         }
+        if(collider.entity.tag == "player") {
+            this.entity.active = false;
+            this.entity.x = -2000;
+            this.entity.y = -2000;
+        }
         if(collider.entity.tag == "solid") {
             this.entity.active = false;
-            this.entity.x = -20;
-            this.entity.y = -20;
+            this.entity.x = -2000;
+            this.entity.y = -2000;
            // scene.entities.pop();
         }
     }
@@ -65,7 +70,7 @@ function rangeItem(cx, cy, w, h) {
             scene.entities.push(new Projectile(this.entity.getRight(), this.entity.y, 15,15,this.parent.facing));
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.entity.x, this.entity.y, 15,15,this.parent.facing));
+            scene.entities.push(new Projectile(this.entity.x - 10, this.entity.y, 15,15,this.parent.facing));
         }
         
     }

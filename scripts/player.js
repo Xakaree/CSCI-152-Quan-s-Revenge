@@ -17,38 +17,55 @@ function Player(x, y,w,h, controls, color) {
     this.dropcnt = 0; //drop cooldown counter
     this.dropTime = 5; //number of frames that drop cooldown lasts
 
+    this.knockback = false;
+    this.knockcnt = 0;
+    this.knockTime = 5;
+
+    this.health = 100;
+    this.isAlive = true;
+
     //handles cooldown between dropping item and being able to pickup another
-    this.updateDropCnt = function() {
+    this.updateCnts = function() {
         if(this.dropCool) this.dropcnt++;
         if(this.dropcnt == this.dropTime) {
             this.dropCool = false;
             this.dropcnt = 0;
+        }
+
+        if(this.knockback) this.knockcnt++;
+        if(this.knockcnt == this.knockTime) {
+            this.knockback = false;
+            this.knockcnt = 0;
         }
     }
 
     //handles all responses to input
     this.movement = function() {
         if(input.keyDown(this.controls.left)) {
-            if(!this.jumping) {
-                this.entity.vx = -this.speed;
-            }
-            else {
-                this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
+            if(!this.knockback) {
+                if(!this.jumping) {
+                    this.entity.vx = -this.speed;
+                }
+                else {
+                    this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
+                }
             }
             this.facing = -1;
         } 
         if(input.keyDown(this.controls.right)) {
-            if(!this.jumping) {
-                this.entity.vx = this.speed;
-            }
-            else {
-                this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
+            if(!this.knockback) {
+                if(!this.jumping) {
+                    this.entity.vx = this.speed;
+                }
+                else {
+                    this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
+                }
             }
             this.facing = 1;
         } 
         if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
             //if no input while on the ground player stops immediately
-            if(!this.jumping) {
+            if(!this.jumping && !this.knockback) {
                 this.entity.vx = 0.0;
             }
             //if in the air player slows down over time
@@ -61,7 +78,7 @@ function Player(x, y,w,h, controls, color) {
                 }
             }*/
         } 
-        if(input.keyPress(this.controls.jump) && !this.jumping) {
+        if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
             this.entity.vy = -1100.0;
             this.jumping = true;
         }
@@ -84,9 +101,17 @@ function Player(x, y,w,h, controls, color) {
         -Use this function for all positional updates anything that needs constant checking/updating
     */
     this.Update = function() {
+
+        if(this.health < 0) {
+            if(this.isAlive) {
+                if(this.item != null) this.item.drop(this.facing);
+                this.item = null;
+                this.isAlive = false;
+            }
+        }
         
-        this.updateDropCnt(); //handles cooldown between dropping item and being able to pickup another
-        this.movement(); //respond to input
+        this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
+        if(this.isAlive) this.movement(); //respond to input
         this.entity.updatePhysics(); //apply acceleration, velocity to position
     }
 
@@ -94,6 +119,13 @@ function Player(x, y,w,h, controls, color) {
     //Use collider.entity.tag to determine colliders object type (player, solid object, etc)
     this.onCollision = function(collider) {
         if(collider.entity.tag == "player") {
+
+        }
+        if(collider.entity.tag == "projectile") {
+            this.knockback = true;
+            this.knockcnt = 0;
+            this.entity.vx = collider.entity.vx
+            this.health -= 10;
 
         }
         if(collider.entity.tag == "item") {
@@ -117,7 +149,10 @@ function Player(x, y,w,h, controls, color) {
     //All draw calls must be done in tbis function
     this.Draw = function() {
         ctx1.fillStyle = color;
-        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+        if(this.knockback) ctx1.fillStyle = "red";
+        if(!this.isAlive) ctx1.fillStyle = "white";
+        if(this.isAlive) ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+        else ctx1.fillRect(this.entity.x * scale, (this.entity.y+(this.entity.height/2)) * scale,this.entity.width * scale,(this.entity.height/2) * scale);
         if(this.item != null) this.item.manualDraw();
     }
 }

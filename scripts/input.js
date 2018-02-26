@@ -39,10 +39,12 @@ function InputHandler() {
     }
 
     this.keyDown = function(key) {
+        if(key == null) return false;
         return input[key].keyDown;
     }
 
     this.keyPress = function(key) {
+        if(key == null) return false;
         return input[key].keyPress;
     }
 
