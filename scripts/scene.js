@@ -38,7 +38,7 @@ function Scene() {
                         this.entities.push(new SolidTile(j,i, 1,1));
                         break;
                     case 2:
-                        var p1 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, "green");
+                        var p1 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, "orange");
                         this.players.push(p1);
                         this.entities.push(p1);
                         break;
