@@ -127,6 +127,26 @@ function Scene() {
         }
     }
 
+    this.drawHealth = function() {
+        for(var i = 0; i < this.players.length; i++) {
+            ctx1.fillStyle = "grey";
+            ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 40 + this.camera.y, 40,30);
+
+            ctx1.fillStyle  = "black";
+
+            ctx1.font = "30px Arial";
+            if(this.players[i].isAlive) ctx1.fillText("P" + (i+1).toString(), canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 15 + this.camera.y);
+            else ctx1.fillText("X", canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 15 + this.camera.y);
+
+            ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 5 + this.camera.y, 100 * 2.5 + 10, 25 + 10);
+            ctx1.fillStyle  = "grey";
+            ctx1.fillRect(canvas.width/4 * i + this.camera.x + 20, canvas.height*7/8 + this.camera.y, 100 * 2.5, 25);
+            if(this.players[i].health < 40) ctx1.fillStyle  = "red";
+            else if(this.players[i].health < 70) ctx1.fillStyle  = "yellow";
+            else ctx1.fillStyle  = "green";
+            ctx1.fillRect(canvas.width/4 * i + this.camera.x + 20, canvas.height*7/8 + this.camera.y, Math.max(0,this.players[i].health * 2.5), 25);
+        }
+    }
 
     /*
     clears canvas and runs draw function for each object
@@ -150,21 +170,7 @@ function Scene() {
             this.entities[i].Draw();
         }
 
-        for(var i = 0; i < this.players.length; i++) {
-            ctx1.fillStyle = "grey";
-            ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 40 + this.camera.y, 40,30);
-
-            ctx1.fillStyle  = "black";
-
-            ctx1.font = "30px Arial";
-            ctx1.fillText("P" + (i+1).toString(), canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 15 + this.camera.y);
-
-            ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 5 + this.camera.y, 100 * 2.5 + 10, 25 + 10);
-            ctx1.fillStyle  = "grey";
-            ctx1.fillRect(canvas.width/4 * i + this.camera.x + 20, canvas.height*7/8 + this.camera.y, 100 * 2.5, 25);
-            ctx1.fillStyle  = "green";
-            ctx1.fillRect(canvas.width/4 * i + this.camera.x + 20, canvas.height*7/8 + this.camera.y, Math.max(0,this.players[i].health * 2.5), 25);
-        }
+        this.drawHealth();
 
         ctx0.restore();
         ctx1.restore();

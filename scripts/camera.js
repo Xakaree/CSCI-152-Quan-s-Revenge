@@ -14,6 +14,8 @@ function Camera() {
     this.midX = 0;
     this.midY = 0;
 
+    this.moveSpeed = 0.1;
+
     this.Update = function(players) {
 
         if(this.lowX < this.x + 200 || this.lowY < this.y || this.highX > this.x + this.width - 200 || this.highY > this.y + this.height) {
@@ -28,6 +30,7 @@ function Camera() {
         this.highX = -Infinity;
         this.highY = -Infinity;
         for(var i = 0; i < players.length; i++) {
+            if(!players[i].isAlive) continue;
             this.lowX = Math.min(this.lowX, players[i].entity.getMidX() * scale);
             this.lowY = Math.min(this.lowY, players[i].entity.getMidY() * scale);
             this.highX = Math.max(this.highX, players[i].entity.getMidX() * scale);
@@ -36,8 +39,8 @@ function Camera() {
         }
         this.midX = ((this.lowX + this.highX) / 2);
         this.midY = ((this.lowY + this.highY) / 2);
-        this.x = this.midX - (this.width/2);
-        this.y = this.midY - (this.height/2);
+        this.x = this.x + this.moveSpeed * ((this.midX - (this.width/2) - this.x));
+        this.y = this.y + this.moveSpeed * ((this.midY - (this.height/2) - this.y));
 
         
 

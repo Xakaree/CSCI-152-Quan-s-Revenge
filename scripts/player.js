@@ -102,7 +102,7 @@ function Player(x, y,w,h, controls, color) {
     */
     this.Update = function() {
 
-        if(this.health < 0) {
+        if(this.health <= 0) {
             if(this.isAlive) {
                 if(this.item != null) this.item.drop(this.facing);
                 this.item = null;
