@@ -1,27 +1,27 @@
 //Scrapcode
 //New
-  var LCsprite{
+  var LCsprite={
     v1Sprite:LC1,
     v2Sprite:LC2,
     frameLimits:[4,4,2,2,3,3,11,11],
     width:64,
     height:64
   }
-  var QSsprite{
+  var QSsprite={
     v1Sprite:QS1,
     v2Sprite:QS2,
     frameLimits:[4,4,2,2,3,3,11,11],
     width:64,
     height:64
   }
-  var GZsprite{
+  var GZsprite={
     v1Sprite:null,
     v2Sprite:null,
     frameLimits:[4,4,2,2,3,3,11,11],
     width:64,
     height:64
   }
-  var SHsprite{
+  var SHsprite={
     v1Sprite:null,
     v2Sprite:null,
     frameLimits:[4,4,2,2,3,3,11,11],
@@ -47,15 +47,17 @@ function animation(sprite,controls){
   this.Update = function(){
     counter++;
 		if(counter == aniSpd){
-      if(!loop && srcX < frameLimit){
-        srcX++
+      srcX++;
+      if(!loop && srcX > frameLimit){
+        srcX = frameLimit;
       }
-      if(loopp && srcX == frameLimit){
+      if(loop && srcX == frameLimit){
         srcX = 0;
       }
 			counter = 0;
+    }
   }
   this.Draw = function(x,y,width,height){
-    ctx1.drawImage(curSprite,srcX,srcY,sprite.width,sprite.height,x,y,width,height)
+    ctx1.drawImage(curSprite,srcX*sprite.width,srcY*sprite.height,sprite.width,sprite.height,x,y,width,height)
   }
 }

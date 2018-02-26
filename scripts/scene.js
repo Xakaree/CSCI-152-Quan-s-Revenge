@@ -10,9 +10,9 @@ function Scene() {
     this.Start = function() {
 
         //test objects - TEMPORARY
-        var p1 = new Player(400,100,tileSize,tileSize,p1controls,QS1);
+        var p1 = new Player(400,100,tileSize,tileSize,p1controls,QSsprite);
         this.entities.push(p1);
-        var p2 = new Player(800,400,tileSize,tileSize,p2controls,LC2);
+        var p2 = new Player(800,400,tileSize,tileSize,p2controls,LCsprite);
         this.entities.push(p2);
         this.entities.push(new SolidTile(8,11,15,1));
         this.entities.push(new SolidTile(10,7,3,1));
@@ -73,7 +73,7 @@ function Scene() {
 
         ctx0.translate(-this.camera.x, -this.camera.y);
         ctx1.translate(-this.camera.x, -this.camera.y);*/
-        
+
 
         for(var i = 0; i < this.entities.length; i++) {
             this.entities[i].Draw();
