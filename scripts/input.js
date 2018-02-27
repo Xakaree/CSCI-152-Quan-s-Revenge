@@ -8,11 +8,7 @@ function InputHandler() {
             keyDown: false
         };
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> master
 
     //event listeners for input
     document.addEventListener('keydown',doKeyDown,false);
@@ -33,17 +29,10 @@ function InputHandler() {
         for(var i = 0; i < input.length; i++) {
             if(input[i].keyPress) {
                 input[i].keyPress = false;
-<<<<<<< HEAD
             }
             if(!input[i].keyDown && input[i].key) {
                 input[i].keyPress = true;
             }
-=======
-            } 
-            if(!input[i].keyDown && input[i].key) {
-                input[i].keyPress = true;
-            } 
->>>>>>> master
             input[i].keyDown = input[i].key;
         }
 
@@ -61,8 +50,3 @@ function InputHandler() {
         this.updateKeys();
     }
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master

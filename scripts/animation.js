@@ -15,15 +15,15 @@
     height:64
   }
   var GZsprite={
-    v1Sprite:null,
-    v2Sprite:null,
+    v1Sprite:GZ1,
+    v2Sprite:GZ2,
     frameLimits:[4,4,2,2,3,3,11,11],
     width:64,
     height:64
   }
   var SHsprite={
-    v1Sprite:null,
-    v2Sprite:null,
+    v1Sprite:SH1,
+    v2Sprite:SH2,
     frameLimits:[4,4,2,2,3,3,11,11],
     width:64,
     height:64
@@ -48,8 +48,8 @@ function animation(sprite,controls){
     counter++;
 		if(counter == aniSpd){
       srcX++;
-      if(!loop && srcX > frameLimit){
-        srcX = frameLimit;
+      if(!loop && srcX == frameLimit){
+        srcX = frameLimit -1;
       }
       if(loop && srcX == frameLimit){
         srcX = 0;

@@ -12,14 +12,8 @@ function Player(x, y,w,h, controls, sprite) {
     this.facing = 1; //direction of player, -1=left 1=right
     this.attacking = false;
     this.jumping = false;
+    this.idling = false;
 
-	//Animation Variables
-	var srcX=0; //To track frame
-	var srcY=0;	//To track animation
-	var lastInput = 0; // No Input
-	var frameLimit = 4; //To keep row looping
-	var counter=0;
-	var aniSpd = 6; //Speed Cap on animation
 
     //handles all responses to input
     this.movement = function() {
@@ -31,40 +25,7 @@ function Player(x, y,w,h, controls, sprite) {
                 this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
             }
             this.facing = -1;
-<<<<<<< HEAD
-			if(lastInput != 2 && !this.jumping){
-				srcX=0,srcY=7;
-				lastInput = 2;
-				frameLimit = 11;
-			}
-			else if(lastInput != 2 && this.jumping){
-				srcY=1;
-			}
         }
-        else if(input[this.controls.right]) {
-            this.entity.vx = this.speed;
-            this.facing = 1;
-			if(lastInput != 1 && !this.jumping){
-				srcX=0,srcY=6;
-				lastInput = 1;
-				frameLimit = 11;
-			}
-			else if(lastInput != 1 && this.jumping){
-				srcY=0;
-			}
-        }
-        else {
-            this.entity.vx = 0.0;
-			if(lastInput != 0 && !this.jumping){
-				if(this.facing == 1){ srcX=0,srcY=0;}
-				else{ srcX=0,srcY=1;}
-				lastInput = 0;
-				frameLimit = 4;
-			}
-        }
-        if(input[this.controls.jump] && !this.jumping) {
-=======
-        } 
         if(input.keyDown(this.controls.right)) {
             if(!this.jumping) {
                 this.entity.vx = this.speed;
@@ -73,7 +34,7 @@ function Player(x, y,w,h, controls, sprite) {
                 this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
             }
             this.facing = 1;
-        } 
+        }
         if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
             //if no input while on the ground player stops immediately
             if(!this.jumping) {
@@ -88,17 +49,49 @@ function Player(x, y,w,h, controls, sprite) {
                     this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
                 }
             }
-        } 
+        }
         if(input.keyPress(this.controls.jump) && !this.jumping) {
->>>>>>> master
             this.entity.vy = -1100.0;
             this.jumping = true;
-			if(lastInput != 3){
-				lastInput = 3;
-				if(this.facing == 1){srcX=0,srcY=2;}
-				else{srcX=0,srcY=3;}
-			}
         }
+    }
+    this.aniChange = function() {
+      if(!input.keyDown(this.controls.left) &&
+          !input.keyDown(this.controls.right) &&
+          !input.keyDown(this.controls.up)){
+            if(!this.idling) {
+              if(this.facing == 1) {
+                  this.animation.play(0,true);
+              }
+              else{
+                this.animation.play(1,true);
+              }
+              this.idling = true;
+            }
+      }
+      else {
+        this.idling = false;
+      }
+
+      if(input.keyPress(this.controls.up)){
+        if(this.facing == 1){
+          this.animation.play(2,false);
+        }
+        else{ this.animation.play(3,false);}
+      }
+
+      /*if(input.keyPress(this.controls.attack) && facing == 1){
+        this.animation.play(4,false);
+      }
+      if(input.keyPress(this.controls.attack) && facing == -1){
+        this.animation.play(5,false);
+      }*/
+      if(input.keyPress(this.controls.right)){
+        this.animation.play(6,true);
+      }
+      if(input.keyPress(this.controls.left)){
+        this.animation.play(7,true);
+      }
     }
 
     /*(REQUIRED)
@@ -106,15 +99,10 @@ function Player(x, y,w,h, controls, sprite) {
         -Use this function for all positional updates anything that needs constant checking/updating
     */
     this.Update = function() {
-<<<<<<< HEAD
 
-        this.input(); //respond to input
-=======
-        
         //this.updateInput();
         this.movement(); //respond to input
->>>>>>> master
-
+        this.aniChange();
         /*
             NOTE: when adjusting positions over time
             values have to be multiplied by the interval for smoothing and to
