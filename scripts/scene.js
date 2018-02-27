@@ -52,6 +52,10 @@ function Scene() {
     this.camera = new Camera();
 
     this.loadMap = function(map) {
+        this.entities = [];
+        this.solidentities = [];
+        this.players = [];
+
         for(var i = 0; i < map.length; i++) {
             for(var j = 0; j < map[i].length; j++) {
                 switch(map[i][j]) {
@@ -59,20 +63,16 @@ function Scene() {
                         this.solidentities.push(new SolidTile(j,i, 1,1));
                         break;
                     case 2:
-                        var p1 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, "orange");
-                        this.players.push(p1);
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, "orange"));
                         break;
                     case 3:
-                        var p2 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, "blue");
-                        this.players.push(p2);
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, "blue"));
                         break;
                     case 4:
-                        var p3 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, "purple");
-                        this.players.push(p3);
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, "purple"));
                         break;
                     case 5:
-                        var p4 = new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, "yellow");
-                        this.players.push(p4);
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, "yellow"));
                         break;
                     case 6:
                         this.entities.push(new rangeItem(j, i, 26, 13));
@@ -114,6 +114,10 @@ function Scene() {
     runs update functions of each entity and then checks and resolve collisions
     */
     this.Update  = function() {
+        if(input.keyPress(82)) {
+            this.loadMap(map);
+        }
+
         for(var i = 0; i < this.players.length; i++) {
             this.players[i].Update();
         }
