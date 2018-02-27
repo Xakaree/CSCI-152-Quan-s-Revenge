@@ -128,6 +128,10 @@ function Player(x, y,w,h, controls, color) {
             this.health -= 10;
 
         }
+        if(collider.entity.tag == "dead") {
+            this.health = 0;
+            this.entity.active = false;
+        }
         if(collider.entity.tag == "item") {
             if(input.keyDown(this.controls.down) && input.keyPress(this.controls.attack)) {
                 if(this.item == null && !this.dropCool) {

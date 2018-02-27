@@ -13,6 +13,19 @@ function SolidTile(cx,cy,cw,ch) {
 
 }
 
+function deathTile(cx,cy,cw,ch) {
+    this.entity = new Entity(cx,cy, cw*tileSize,ch*tileSize, "dead");
+
+    this.Update = function() {
+
+    }
+
+    this.Draw = function() {
+        /*ctx1.fillStyle = "red";
+        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);*/
+    }
+}
+
 function Projectile(x,y,w,h, dir) {
     this.entity = new Entity(x,y,w,h,"projectile");
     this.entity.vx = 800 * dir;
