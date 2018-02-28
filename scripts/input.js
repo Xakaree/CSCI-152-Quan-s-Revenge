@@ -9,7 +9,6 @@ function InputHandler() {
         };
     }
 
-
     //event listeners for input
     document.addEventListener('keydown',doKeyDown,false);
     document.addEventListener('keyup',doKeyRelease,false);
@@ -29,10 +28,10 @@ function InputHandler() {
         for(var i = 0; i < input.length; i++) {
             if(input[i].keyPress) {
                 input[i].keyPress = false;
-            }
+            } 
             if(!input[i].keyDown && input[i].key) {
                 input[i].keyPress = true;
-            }
+            } 
             input[i].keyDown = input[i].key;
         }
 

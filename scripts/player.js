@@ -25,7 +25,7 @@ function Player(x, y,w,h, controls, sprite) {
                 this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
             }
             this.facing = -1;
-        }
+        } 
         if(input.keyDown(this.controls.right)) {
             if(!this.jumping) {
                 this.entity.vx = this.speed;
@@ -34,7 +34,7 @@ function Player(x, y,w,h, controls, sprite) {
                 this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
             }
             this.facing = 1;
-        }
+        } 
         if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
             //if no input while on the ground player stops immediately
             if(!this.jumping) {
@@ -49,7 +49,7 @@ function Player(x, y,w,h, controls, sprite) {
                     this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
                 }
             }
-        }
+        } 
         if(input.keyPress(this.controls.jump) && !this.jumping) {
             this.entity.vy = -1100.0;
             this.jumping = true;
