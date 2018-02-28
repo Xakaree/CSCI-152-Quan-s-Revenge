@@ -1,4 +1,4 @@
-function cSelect(){
+function CSelect(){
   this.active = false;
 
   this.char1 = {
@@ -31,6 +31,7 @@ function cSelect(){
   }
 
   this.Update = function(){
+    if (this.active){
     if (input[p1controls.up]){
       this.char1.character = (this.char1.character+1)% this.characters.length;}
       //same for dow0
@@ -40,7 +41,8 @@ function cSelect(){
       this.char1.character = (this.char1.character +1)% this.characters.length;
     }
   }
-
+}
+  if (this.active){
   this.Draw = function(){
     ctx1.fillStyle = "navy";
 
@@ -54,7 +56,7 @@ function cSelect(){
     ctx1.fillRect(this.char4.x, this.char4.y, this.char4.w, this.char4.h);
 
   }
-
+}
   this.Start = function(){
     this.active = true;
   }
