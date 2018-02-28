@@ -1,9 +1,9 @@
 function Player(x, y,w,h, controls, sprite) {
     this.animation = new animation(sprite,controls);
     this.entity = new Entity(x,y,w,h,"player"); //attach entity to this object for physics/collision
-    this.speed = 350.0; //how fast player moves left/right
-    this.accel = 2.0; //UNUSED FOR NOW
-    this.decel = 2.0;
+    this.speed = 350.0 * tileScale; //how fast player moves left/right
+    this.accel = 2.0 * tileScale; //UNUSED FOR NOW
+    this.decel = 2.0 * tileScale;
     this.controls = controls || defaultcontrols;
 
 	this.sprite = sprite;
@@ -81,7 +81,7 @@ function Player(x, y,w,h, controls, sprite) {
             }*/
         } 
         if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
-            this.entity.vy = -1100.0;
+            this.entity.vy = -1100.0 * tileScale;
             this.jumping = true;
         }
 

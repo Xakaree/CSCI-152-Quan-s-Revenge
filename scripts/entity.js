@@ -2,7 +2,7 @@ function Entity(x,y,w,h,tag) {
     this.active = true; //toggle phyics/collision (NEEDS WORKS)
 
     //this.grav = 3000.0;
-    this.grav = 3000;
+    this.grav = 3000 * tileScale;
 
     //positions
     this.x = x;
@@ -14,8 +14,8 @@ function Entity(x,y,w,h,tag) {
     this.ax = 0.0;
     this.ay = 0.0;
 
-    this.airfriction = 200.0;
-    this.friction = 700.0;
+    this.airfriction = 200.0 * tileScale;
+    this.friction = 700.0 * tileScale;
 
     //width and height of box collider
     this.width = w;
@@ -50,20 +50,20 @@ function Entity(x,y,w,h,tag) {
             }
             this.vy += (this.ay * interval) + (this.grav * interval);
             //apply positional changes based on velocity (this is capped at 20 pixels per frame right now)
-            if(this.vx > 0) this.x += Math.min(20, this.vx * interval);
-            else this.x += Math.max(-20, this.vx * interval);
-            if(this.vy > 0) this.y += Math.min(20, this.vy * interval);
-            else this.y += Math.max(-20, this.vy * interval);
+            if(this.vx > 0) this.x += Math.min(20*tileScale, this.vx * interval);
+            else this.x += Math.max(-20*tileScale, this.vx * interval);
+            if(this.vy > 0) this.y += Math.min(20*tileScale, this.vy * interval);
+            else this.y += Math.max(-20*tileScale, this.vy * interval);
             
         }
     }
 
     this.solidCollision = function(collider) {
         var tx, ty;
-        if(this.vx > 0) tx = this.getMidX() - Math.min(10, (this.vx * interval)/2);
-        else tx = this.getMidX() - Math.max(-10, (this.vx * interval)/2);
-        if(this.vy > 0) ty = this.getMidY() - Math.min(10, (this.vy * interval)/2);
-        else ty = this.getMidY() - Math.max(-10, (this.vy * interval)/2);
+        if(this.vx > 0) tx = this.getMidX() - Math.min(10*tileScale, (this.vx * interval)/2);
+        else tx = this.getMidX() - Math.max(-10*tileScale, (this.vx * interval)/2);
+        if(this.vy > 0) ty = this.getMidY() - Math.min(10*tileScale, (this.vy * interval)/2);
+        else ty = this.getMidY() - Math.max(-10*tileScale, (this.vy * interval)/2);
 
         //calculate a normalized distance between entity and colliding entity
         var dx = (collider.entity.getMidX() - tx) / (collider.entity.width/2.0);

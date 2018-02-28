@@ -28,7 +28,7 @@ function deathTile(cx,cy,cw,ch) {
 
 function Projectile(x,y,w,h, dir) {
     this.entity = new Entity(x,y,w,h,"projectile");
-    this.entity.vx = 800 * dir;
+    this.entity.vx = 800 * dir * tileScale;
     this.entity.grav = 0;
     this.dmg = 10;
 
@@ -71,11 +71,11 @@ function rangeItem(cx, cy, w, h) {
     this.drop = function(facing) {
         this.parent = null;
         if(facing == 1) {
-            this.entity.vx = 300;
+            this.entity.vx = 300*tileScale;
         }
-        else this.entity.vx = -300;
+        else this.entity.vx = -300*tileScale;
         
-        this.entity.vy = -600;
+        this.entity.vy = -600*tileScale;
     }
 
     this.attack = function() {
@@ -100,12 +100,12 @@ function rangeItem(cx, cy, w, h) {
         }
         else {
             if(this.parent.facing == 1) {
-                this.entity.x = this.parent.entity.x+5;
+                this.entity.x = this.parent.entity.x+16*tileScale;
                 this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
                 this.img = dbrlR;
             }
             if(this.parent.facing == -1) {
-                this.entity.x = this.parent.entity.getRight() - 32;
+                this.entity.x = this.parent.entity.getRight() - 32*tileScale;
                 this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
                 this.img = dbrlL;
             }

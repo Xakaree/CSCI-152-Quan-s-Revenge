@@ -82,7 +82,7 @@ function Scene() {
             }
         }
 
-        this.entities.push(new deathTile(-500,height+500,width,1));
+        this.entities.push(new deathTile(-500*tileScale,height+500*tileScale,width,1));
     }
 
     //runs at start of scene
