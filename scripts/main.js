@@ -34,6 +34,7 @@ control mapping
   -set values equal to the keycode of the desired key
   -pass as parameter when creating player
 */
+
 var defaultcontrols = {  //player controls are set to this if no controls passed in
     left: null,
     right: null,
@@ -77,18 +78,21 @@ function GameLoop() {
     */
     while(deltaTime >= interval) {
         deltaTime -= interval;
-        input.Update();
-        scene.Update();
-        scene.Draw();
+        //scene.Update();
+          input.Update();
+		startScreen.Update();
     }
-    
+    //scene.Draw();
+	startScreen.Draw();
 
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
 
 input = new InputHandler();
-scene = new Scene();
-scene.Start();
+startScreen = new startScreen();
+
+//scene = new Scene();
+//scene.Start();
 
 oldTime = performance.now(); //start time of scene (needed for delatime)
 requestAnimationFrame(GameLoop); //starts game loop
