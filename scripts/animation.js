@@ -58,6 +58,6 @@ function animation(sprite,controls){
     }
   }
   this.Draw = function(x,y,width,height){
-    ctx1.drawImage(curSprite,srcX*sprite.width,srcY*sprite.height,sprite.width,sprite.height,x,y,width,height)
+    ctx1.drawImage(curSprite,srcX*sprite.width,srcY*sprite.height,sprite.width,sprite.height,x*scale,y*scale,width*scale,height*scale)
   }
 }
