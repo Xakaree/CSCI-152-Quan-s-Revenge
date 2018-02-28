@@ -55,8 +55,8 @@ function Menu(){
       {
 
         this.cSelect = new CSelect();
-        this.active = false;
         this.cSelect.Start();
+        //this.active = false;
       }
 
       else if (this.menuOption == 3 && input.keyPress(32)){
