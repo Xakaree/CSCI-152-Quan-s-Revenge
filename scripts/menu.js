@@ -3,6 +3,7 @@ function Menu(){
   this.menuOption = 0;
   this.scene = null;
   this.options = null;
+  this.cSelect = null;
 
   this.Start = function(){
     this.active = true;
@@ -35,6 +36,9 @@ function Menu(){
     if(this.options != null){
       this.options.Draw();
     }
+    if(this.cSelect != null){
+      this.cSelect.Draw();
+    }
   }
 
   this.Update = function(){
@@ -47,16 +51,14 @@ function Menu(){
         }
 
 
-      if(this.menuOption == 0 && input.keyPress(32))
+      if(this.menuOption == 1 && input.keyPress(32))
       {
-        alert("2player under development");
+
+        this.cSelect = new CSelect();
+        this.cSelect.Start();
+        //this.active = false;
       }
-      else if(this.menuOption == 1 && input.keyPress(32)){
-        alert ("3player under development");
-      }
-      else if (this.menuOption == 2 && input.keyPress(32)){
-        alert("4 player under development");
-      }
+
       else if (this.menuOption == 3 && input.keyPress(32)){
         input.resetKeys();
         this.options = new Options();
@@ -66,6 +68,9 @@ function Menu(){
 
       if(this.options != null){
         this.options.Update();
+      }
+      if(this.cSelect != null){
+        this.cSelect.Update();
       }
     }// end active loop
   }//end update
