@@ -45,6 +45,14 @@ function InputHandler() {
         return input[key].keyPress;
     }
 
+    this.resetKeys = function() {
+        for(var i = 0; i < input.length; i++) {
+            input[i].key = false;
+            input[i].keyDown = false;
+            input[i].keyPress = false;
+        }   
+    }
+
     this.Update = function() {
         this.updateKeys();
     }
