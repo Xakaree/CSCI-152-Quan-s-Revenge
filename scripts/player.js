@@ -1,16 +1,18 @@
-function Player(x, y,w,h, controls, color) {
-    this.drawObject = true;
-    this.updateObject = true;
-
+function Player(x, y,w,h, controls, sprite) {
+    this.animation = new animation(sprite,controls);
     this.entity = new Entity(x,y,w,h,"player"); //attach entity to this object for physics/collision
     this.speed = 350.0; //how fast player moves left/right
     this.accel = 2.0; //UNUSED FOR NOW
     this.decel = 2.0;
     this.controls = controls || defaultcontrols;
 
+	this.sprite = sprite;
+
     this.facing = 1; //direction of player, -1=left 1=right
     this.attacking = false;
     this.jumping = false;
+    this.idling = false;
+
 
     this.item = null;
     this.dropCool = false; //items cant be picked up during dropcool
@@ -95,6 +97,44 @@ function Player(x, y,w,h, controls, color) {
 
         
     }
+    this.aniChange = function() {
+      if(!input.keyDown(this.controls.left) &&
+          !input.keyDown(this.controls.right) &&
+          !input.keyDown(this.controls.up)){
+            if(!this.idling) {
+              if(this.facing == 1) {
+                  this.animation.play(0,true);
+              }
+              else{
+                this.animation.play(1,true);
+              }
+              this.idling = true;
+            }
+      }
+      else {
+        this.idling = false;
+      }
+
+      if(input.keyPress(this.controls.up)){
+        if(this.facing == 1){
+          this.animation.play(2,false);
+        }
+        else{ this.animation.play(3,false);}
+      }
+
+      /*if(input.keyPress(this.controls.attack) && facing == 1){
+        this.animation.play(4,false);
+      }
+      if(input.keyPress(this.controls.attack) && facing == -1){
+        this.animation.play(5,false);
+      }*/
+      if(input.keyPress(this.controls.right)){
+        this.animation.play(6,true);
+      }
+      if(input.keyPress(this.controls.left)){
+        this.animation.play(7,true);
+      }
+    }
 
     /*(REQUIRED)
         Update function loops after every interval
@@ -112,7 +152,11 @@ function Player(x, y,w,h, controls, color) {
         
         this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
         if(this.isAlive) this.movement(); //respond to input
+        this.aniChange();
         this.entity.updatePhysics(); //apply acceleration, velocity to position
+
+        
+        this.animation.Update();
     }
 
     //runs whenever collision detected involving this object
@@ -147,16 +191,15 @@ function Player(x, y,w,h, controls, color) {
                     break;
             }
         }
-        
+
     }
 
-    //All draw calls must be done in tbis function
+    //All draw calls must be done in this function
     this.Draw = function() {
-        ctx1.fillStyle = color;
-        if(this.knockback) ctx1.fillStyle = "red";
-        if(!this.isAlive) ctx1.fillStyle = "white";
-        if(this.isAlive) ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
-        else ctx1.fillRect(this.entity.x * scale, (this.entity.y+(this.entity.height/2)) * scale,this.entity.width * scale,(this.entity.height/2) * scale);
+       // ctx1.fillStyle = color;
+       // ctx1.fillRect(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+	     //ctx1.drawImage(this.sprite,srcX*64,srcY*64,64,64,this.entity.x,this.entity.y,tileSize,tileSize)
+       this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
         if(this.item != null) this.item.manualDraw();
     }
 }

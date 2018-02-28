@@ -8,7 +8,6 @@ function InputHandler() {
             keyDown: false
         };
     }
-    
 
     //event listeners for input
     document.addEventListener('keydown',doKeyDown,false);
@@ -52,5 +51,3 @@ function InputHandler() {
         this.updateKeys();
     }
 }
-
-

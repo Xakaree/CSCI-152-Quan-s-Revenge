@@ -63,16 +63,16 @@ function Scene() {
                         this.solidentities.push(new SolidTile(j,i, 1,1));
                         break;
                     case 2:
-                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, "orange"));
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, QSsprite));
                         break;
                     case 3:
-                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, "blue"));
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, GZsprite));
                         break;
                     case 4:
-                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, "purple"));
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, SHsprite));
                         break;
                     case 5:
-                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, "yellow"));
+                        this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, LCsprite));
                         break;
                     case 6:
                         this.entities.push(new rangeItem(j, i, 26, 13));
@@ -87,27 +87,7 @@ function Scene() {
 
     //runs at start of scene
     this.Start = function() {
-
         this.loadMap(map);
-
-        /*//test objects - TEMPORARY
-        var p1 = new Player(400,100,tileSize,tileSize,p1controls, "green");
-        this.players.push(p1);
-        this.entities.push(p1);
-        var p2 = new Player(800,400,tileSize,tileSize,p2controls, "blue");
-        this.players.push(p2);
-        this.entities.push(p2);
-        this.entities.push(new SolidTile(8,11,15,1));
-        this.entities.push(new SolidTile(4,16,5,1));
-        this.entities.push(new SolidTile(22,16,5,1));
-        this.entities.push(new SolidTile(10,7,3,1));
-        this.entities.push(new SolidTile(18,7,3,1));
-        this.entities.push(new SolidTile(0,0,width/tileSize,1));
-        this.entities.push(new SolidTile(1,height/tileSize - 1,width/tileSize,5));
-        this.entities.push(new SolidTile(-1,1,2,height/tileSize-2));
-        this.entities.push(new SolidTile(width/tileSize-1,1,1,height/tileSize-2));
-        this.entities.push(new rangeItem(14, 7, 26, 13));
-        this.entities.push(new rangeItem(24, 18, 26, 13));*/
     }
 
     /*
