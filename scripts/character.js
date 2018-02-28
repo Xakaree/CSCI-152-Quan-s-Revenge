@@ -42,8 +42,13 @@ function CSelect(){
     }
   }
 }
-  if (this.active){
+
   this.Draw = function(){
+    if (this.active){
+      ctx1.clearRect(0,0,width,height);
+      ctx1.fillStyle = "white";
+      ctx1.fillRect(0,0,width,height);
+      
     ctx1.fillStyle = "navy";
 
     ctx1.fillRect(this.char1.x, this.char1.y, this.char1.w, this.char1.h);

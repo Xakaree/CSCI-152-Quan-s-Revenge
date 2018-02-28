@@ -69,7 +69,7 @@ function Menu(){
         this.options.Update();
       }
       if(this.cSelect != null){
-        this.cSelect.update();
+        this.cSelect.Update();
       }
     }// end active loop
   }//end update
