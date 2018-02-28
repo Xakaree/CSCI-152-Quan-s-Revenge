@@ -60,9 +60,10 @@ function Menu(){
       }
 
       else if (this.menuOption == 3 && input.keyPress(32)){
-          this.options = new Options();
-          this.options.Start();
-          this.active = false;
+        input.resetKeys();
+        this.options = new Options();
+        this.options.Start();
+        this.active = false;
       }
 
       if(this.options != null){
