@@ -12,6 +12,7 @@ function startScreen(){
 						this.startOptions = 1;
 					}
 					else if (input.keyPress(32) && this.startOptions == 0){ //start game
+						input.resetKeys();
 						this.menu =  new Menu();
 						this.menu.Start();
 						this.active = false;

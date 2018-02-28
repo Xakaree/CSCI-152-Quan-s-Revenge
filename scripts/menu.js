@@ -41,9 +41,10 @@ function Menu(){
         //character select
       }
       else if (this.menuOption == 1 && input.keyPress(32)){
-          this.options = new Options();
-          this.options.Start();
-          this.active = false;
+        input.resetKeys();
+        this.options = new Options();
+        this.options.Start();
+        this.active = false;
       }
 
       if(this.options != null){
