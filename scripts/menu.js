@@ -43,7 +43,10 @@ function Menu(){
 
       if(this.menuOption == 0 && input.keyPress(32))
       {
-        //character select
+        input.resetKeys();
+        this.cSelect = new CSelect();
+        this.active = false;
+        this.cSelect.Start();
       }
       else if (this.menuOption == 1 && input.keyPress(32)){
         input.resetKeys();
@@ -58,6 +61,10 @@ function Menu(){
     if(this.options != null){
       this.options.Update();
       console.log('54')
+}
+    if(this.cSelect != null){
+      this.cSelect.Update();
+
     }
   }//end update
 }//end menu
