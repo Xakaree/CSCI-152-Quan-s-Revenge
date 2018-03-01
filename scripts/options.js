@@ -1,6 +1,7 @@
 function Options() {
   this.active = false;
   this.option = 0;
+  this.controlMapping = null;
 
   this.Start = function(){
     this.active = true;
@@ -15,19 +16,19 @@ function Options() {
       if(this.option == 0){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(100,100,250,100);
-      ctx.font = "30px Arial";
-      ctx.fillText("character",120,120);
 
       if(this.option == 1){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(120,210,250,100);
-
     } // end active
+
+    if(this.controlMapping != null){
+      this.controlMapping.Draw();
+    }
   } // end draw
 
   this.Update = function(){
-    console.log('got here');
-      console.log(input.keyPress(38));
+    if(this.active){
           if (input.keyPress(38) && this.option > 0){
                 this.option -= 1;
                 console.log("arrow key up");
@@ -36,6 +37,17 @@ function Options() {
                 this.option += 1;
                 console.log("arrow key down");
           }
+     if(input.keyPress(32) && this.option == 0){
+       input.resetKeys();
+       this.controlMapping = new controlMapping();
+       this.controlMapping.Start();
+       this.active = false;
+     }
+     }//end active
+
+     if(this.controlMapping != null){
+       this.controlMapping.Update();
+     }
 
   } // end update
 } // end Options
