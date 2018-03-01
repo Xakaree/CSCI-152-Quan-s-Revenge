@@ -7,6 +7,7 @@ function Menu(){
 
   this.Start = function(){
     this.active = true;
+
   }
   this.Draw = function() {
     ctx1.clearRect(0,0,width,height);
@@ -23,16 +24,6 @@ function Menu(){
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(120,210,250,100);
 
-    if(this.menuOption == 2){
-      ctx1.fillStyle = "green";
-    }else {ctx1.fillStyle = "grey";}
-    ctx1.fillRect(140,320,250,100);
-
-    if(this.menuOption == 3){
-      ctx1.fillStyle = "green";
-    }else {ctx1.fillStyle = "grey";}
-    ctx1.fillRect(100,430,250,100);
-
     if(this.options != null){
       this.options.Draw();
     }
@@ -46,32 +37,27 @@ function Menu(){
         if (input.keyPress(38) && this.menuOption > 0){
               this.menuOption -= 1;
         }
-        else if (input.keyPress(40) && this.menuOption < 3){
+        else if (input.keyPress(40) && this.menuOption < 1){
               this.menuOption +=1;
         }
 
-
-      if(this.menuOption == 1 && input.keyPress(32))
+      if(this.menuOption == 0 && input.keyPress(32))
       {
-
-        this.cSelect = new CSelect();
-        this.cSelect.Start();
-        //this.active = false;
+        //character select
       }
-
-      else if (this.menuOption == 3 && input.keyPress(32)){
+      else if (this.menuOption == 1 && input.keyPress(32)){
         input.resetKeys();
         this.options = new Options();
-        this.options.Start();
+        //console.log('47');
         this.active = false;
+        this.options.Start();
       }
 
-      if(this.options != null){
-        this.options.Update();
-      }
-      if(this.cSelect != null){
-        this.cSelect.Update();
-      }
+
     }// end active loop
+    if(this.options != null){
+      this.options.Update();
+      console.log('54')
+    }
   }//end update
 }//end menu
