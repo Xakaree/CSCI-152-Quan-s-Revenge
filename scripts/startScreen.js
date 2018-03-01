@@ -12,7 +12,7 @@ function startScreen(){
 						this.startOptions = 1;
 					}
 					else if (input.keyPress(32) && this.startOptions == 0){ //start game
-						input.resetKeys();
+						input.resetKeys(); //  needed when
 						this.menu =  new Menu();
 						this.menu.Start();
 						this.active = false;
@@ -33,6 +33,7 @@ function startScreen(){
 				ctx1.fillStyle = "white"; // background color
 				ctx1.fillRect(0,0,width,height);
 				ctx1.fillStyle = "grey";
+
 				if(!this.startOptions){ //left button selected
 						ctx1.fillStyle = "blue";
 						ctx1.fillRect(width/4-25,height/2+37.5,300,125);
@@ -49,10 +50,10 @@ function startScreen(){
 			 else{
 					ctx1.fillRect(width*3/5,height/2+150,250,50); // default rectangle
 			 }
+
 			}
 			if(this.menu != null){
 				this.menu.Draw();
 			}
-
 		}
 } // end draw

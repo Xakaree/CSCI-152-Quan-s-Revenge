@@ -6,6 +6,7 @@ function Menu(){
 
   this.Start = function(){
     this.active = true;
+
   }
   this.Draw = function() {
     ctx1.clearRect(0,0,width,height);
@@ -43,13 +44,16 @@ function Menu(){
       else if (this.menuOption == 1 && input.keyPress(32)){
         input.resetKeys();
         this.options = new Options();
-        this.options.Start();
+        //console.log('47');
         this.active = false;
+        this.options.Start();
       }
 
-      if(this.options != null){
-        this.options.Update();
-      }
+
     }// end active loop
+    if(this.options != null){
+      this.options.Update();
+      console.log('54')
+    }
   }//end update
 }//end menu
