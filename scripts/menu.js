@@ -44,7 +44,6 @@ function Menu(){
       else if (this.menuOption == 1 && input.keyPress(32)){
         input.resetKeys();
         this.options = new Options();
-        //console.log('47');
         this.active = false;
         this.options.Start();
       }
@@ -53,7 +52,6 @@ function Menu(){
     }// end active loop
     if(this.options != null){
       this.options.Update();
-      console.log('54')
     }
   }//end update
 }//end menu

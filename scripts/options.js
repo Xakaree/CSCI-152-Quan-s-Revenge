@@ -15,6 +15,8 @@ function Options() {
       if(this.option == 0){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(100,100,250,100);
+      ctx.font = "30px Arial";
+      ctx.fillText("character",120,120);
 
       if(this.option == 1){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
