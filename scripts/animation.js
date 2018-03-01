@@ -9,8 +9,14 @@ function animation(sprite,controls){
   var counter=0;
   var aniSpd = 6; //Speed Cap on animation
   var loop = true;
-  var curSprite = sprite.v1Sprite;
+  var bseSprite = sprite.v1Sprite;
+  var dmgSprite = sprite.v1dSprite;
+  var curSprite = bseSprite;
 
+  this.swapSprite = function(){
+      if(curSprite == sprite.v1Sprite){ curSprite = sprite.v1v1dSprite;}
+      else{ curSprite = sprite.v1Sprite;}
+  }
   this.play = function(aniY, lp){
     srcY = aniY;
     srcX = 0;
