@@ -53,6 +53,13 @@ function InputHandler() {
         }   
     }
 
+    this.getKeyPress = function() {
+        for(var i = 0; i < input.length; i++) {
+            if(input[i].keyPress == true) return i;
+        }
+        return null;
+    }
+
     this.Update = function() {
         this.updateKeys();
     }
