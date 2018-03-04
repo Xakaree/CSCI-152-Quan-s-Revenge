@@ -1,6 +1,6 @@
 function Player(x, y,w,h, controls, sprite) {
     this.animation = new animation(sprite,controls);
-    this.entity = new Entity(x,y,w,h,"player"); //attach entity to this object for physics/collision
+    this.entity = new Entity(x,y,64,64,"player"); //attach entity to this object for physics/collision
     this.speed = 350.0 * tileScale; //how fast player moves left/right
     this.accel = 2.0 * tileScale; //UNUSED FOR NOW
     this.decel = 2.0 * tileScale;
@@ -91,7 +91,7 @@ function Player(x, y,w,h, controls, sprite) {
             this.dropCool = true;
         }
 
-        else if(input.keyPress(this.controls.attack)) {
+        else if(input.keyDown(this.controls.attack)) {
             if(this.item != null) this.item.attack();
         }
 
@@ -165,7 +165,7 @@ function Player(x, y,w,h, controls, sprite) {
         if(collider.entity.tag == "player") {
 
         }
-        if(collider.entity.tag == "projectile") {
+        if(collider.entity.tag == "projectile" && collider.parent != this) {
             this.knockback = true;
             this.knockcnt = 0;
             this.entity.vx = collider.entity.vx
@@ -197,7 +197,7 @@ function Player(x, y,w,h, controls, sprite) {
     //All draw calls must be done in this function
     this.Draw = function() {
        // ctx1.fillStyle = color;
-       // ctx1.fillRect(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+        //ctx1.fillRect(this.entity.x*scale,this.entity.y*scale,this.entity.width*scale,this.entity.height*scale);
 	     //ctx1.drawImage(this.sprite,srcX*64,srcY*64,64,64,this.entity.x,this.entity.y,tileSize,tileSize)
        this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
         if(this.item != null) this.item.manualDraw();

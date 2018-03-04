@@ -26,17 +26,18 @@ function deathTile(cx,cy,cw,ch) {
     }
 }
 
-function Projectile(x,y,w,h, dir) {
+function Projectile(parent,x,y,w,h, dir) {
     this.entity = new Entity(x,y,w,h,"projectile");
     this.entity.vx = 800 * dir * tileScale;
     this.entity.grav = 0;
     this.dmg = 10;
+    this.parent = parent;
 
     this.onCollision = function(collider) {
         if(collider.entity.tag == "projectile") {
 
         }
-        if(collider.entity.tag == "player") {
+        if(collider.entity.tag == "player" && this.parent) {
             this.entity.active = false;
             this.entity.x = -2000;
             this.entity.y = -2000;
@@ -59,10 +60,14 @@ function Projectile(x,y,w,h, dir) {
     }
 }
 
-function rangeItem(cx, cy, w, h) {
+function TommyGun(cx, cy, w, h) {
     this.parent = null;
     this.entity = new Entity(cx*tileSize, cy*tileSize, w, h, "item");
-    this.img = dbrlR;
+    this.img = TGR;
+    this.atkDelay = 5;
+    this.atkcnt = 0;
+    this.atkCool = false;
+    this.offset = 2;
 
     this.pickUp = function(parent) {
         this.parent = parent;
@@ -79,11 +84,16 @@ function rangeItem(cx, cy, w, h) {
     }
 
     this.attack = function() {
-        if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.entity.getRight(), this.entity.y, 15,15,this.parent.facing));
-        }
-        if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.entity.x - 10, this.entity.y, 15,15,this.parent.facing));
+        if(!this.atkCool) {
+            this.offset = -this.offset;
+            if(this.offset < 0) this.offset = -(Math.random(6) + 3);
+            this.atkCool  = true;
+            if(this.parent.facing == 1) {
+                scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing));
+            }
+            if(this.parent.facing == -1) {
+                scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing));
+            }
         }
         
     }
@@ -95,19 +105,27 @@ function rangeItem(cx, cy, w, h) {
     }
 
     this.Update = function() {
+        if(this.atkCool) {
+            this.atkcnt++;
+            if(this.atkcnt == this.atkDelay) {
+                this.atkcnt = 0;
+                this.atkCool = false;   
+            }
+        }
+
         if(this.parent == null) {
             this.entity.updatePhysics();
         }
         else {
             if(this.parent.facing == 1) {
-                this.entity.x = this.parent.entity.x+16*tileScale;
+                this.entity.x = this.parent.entity.x+16*tileScale*2;
                 this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
-                this.img = dbrlR;
+                this.img = TGR;
             }
             if(this.parent.facing == -1) {
-                this.entity.x = this.parent.entity.getRight() - 32*tileScale;
+                this.entity.x = this.parent.entity.getRight() - 36*tileScale*2;
                 this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
-                this.img = dbrlL;
+                this.img = TGL;
             }
             
         }

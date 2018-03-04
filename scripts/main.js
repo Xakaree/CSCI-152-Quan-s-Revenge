@@ -19,7 +19,7 @@ var oldTime, newTime, deltaTime = 0; //var for storing frame time difference
 //Note: width and height below do not change canvas size
 var width = 1280; //width of game level
 var height = 720; //height of game level
-var tileSize = 64; //size of tiles in level
+var tileSize = 32; //size of tiles in level
 var tileScale = tileSize/32;
 
 var scale = 1.0;
