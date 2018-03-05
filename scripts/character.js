@@ -95,7 +95,7 @@ function CSelect(){
 //This is for char2
 //------------------------------------------------------------------------------------------
     ctx1.fillRect(this.char2.x, this.char2.y, this.char2.w, this.char2.h);
-
+    //ctx1.fillStyle = "red";
     ctx1.fillRect(350,height/5,150,150);
 
     if (this.char2.color == 0) {
@@ -114,7 +114,7 @@ function CSelect(){
 // This is for char 3
 //--------------------------------------------------------------------------------------------------
     ctx1.fillRect(this.char3.x, this.char3.y, this.char3.w, this.char3.h);
-
+    //ctx1.fillStyle = "green";
     ctx1.fillRect(550,height/5,150, 150);
 
     if (this.char3.color == 0) {
@@ -135,7 +135,7 @@ function CSelect(){
 //---------------------------------------------------------------------------------------------------------------
 
     ctx1.fillRect(this.char4.x, this.char4.y, this.char4.w, this.char4.h);
-
+    //ctx1.fillStyle = "blue";
     ctx1.fillRect(750,height/5,150,150);
 
     if (this.char4.color == 0) {
