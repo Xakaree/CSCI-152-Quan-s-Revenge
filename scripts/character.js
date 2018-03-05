@@ -59,7 +59,7 @@ function CSelect(){
 
     if(input.keyPress(32)){
       this.active = false;
-      this.scene = new Scene();
+      this.scene = scene;
       this.scene.Start();
     }
   }

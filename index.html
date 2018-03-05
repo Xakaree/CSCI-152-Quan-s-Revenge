@@ -2,8 +2,13 @@
 <html>
 
 <head>
-  <title>Fighting Game</title>
-  <img	src="sprites/QS1.png" id="QS1" style ="width:0px; height:0px;"></img>
+    <title>Fighting Game</title>
+
+    <img id="dbrlR" src="sprites/Double_Barrel.png" style="width:0; height:0;"></img>
+    <img id="dbrlL" src="sprites/DBL.png" style="width:0; height:0;"></img>
+    <img id="TGL" src="sprites/TGL.png" style="width:0; height:0;"></img>
+    <img id="TGR" src="sprites/TGR.png" style="width:0; height:0;"></img>
+    <img	src="sprites/QS1.png" id="QS1" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/QS2.png" id="QS2" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/LC1.png" id="LC1" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/LC2.png" id="LC2" style ="width:0px; height:0px;"></img>
@@ -22,18 +27,22 @@
   <img  src="background/MPCTY.png" id="MPCTY" style ="width:0px; height:0px;"></img>
   <img  src="background/MPSPC.png" id="MPSPC" style ="width:0px; height:0px;"></img>
   <img	src="portraits/QSP.png" id="QSP" style ="width:0px; height:0px;"></img>
+  <img	src="sprites/QS1D.png" id="QSPD" style ="width:0px; height:0px;"></img>
   <img	src="portraits/LCP.png" id="LCP" style ="width:0px; height:0px;"></img>
   <img	src="portraits/LCP2.png" id="LCP2" style ="width:0px; height:0px;"></img>
+  <img	src="sprites/LC1D.png" id="LCPD" style ="width:0px; height:0px;"></img>
   <img	src="portraits/GZP.png" id="GZP" style ="width:0px; height:0px;"></img>
+  <img	src="sprites/GZ1D.png" id="GZPD" style ="width:0px; height:0px;"></img>
   <img	src="portraits/GZP2.png" id="GZP2" style ="width:0px; height:0px;"></img>
   <img	src="portraits/SHP.png" id="SHP" style ="width:0px; height:0px;"></img>
+  <img	src="sprites/SH1D.png" id="SHPD" style ="width:0px; height:0px;"></img>
   <img	src="portraits/SHP2.png" id="SHP2" style ="width:0px; height:0px;"></img>
 	<style type="text/css">
         body {
             width: 100%;
             height: 100%;
             margin: 0;
-            background-color: grey;
+            background-color: black;
         }
 
         #layer1, #layer0 {
@@ -63,6 +72,7 @@
 <script src="scripts/entity.js"></script>
 <script src="scripts/player.js"></script>
 <script src="scripts/entities.js"></script>
+<script src="scripts/camera.js"></script>
 <script src="scripts/scene.js"></script>
 <script src="scripts/options.js"></script>
 <script src="scripts/menu.js"></script>
