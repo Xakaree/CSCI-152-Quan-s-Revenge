@@ -1,7 +1,8 @@
 function CSelect(){
   this.active = false;
   this.scene = null;
-  this.selection = [];
+  this.selection = []; // array used for the player's character selections
+  this.versions = 2; // current available versions of characters
 
   this.char1 = {
     x: width/15.85,
@@ -41,16 +42,22 @@ function CSelect(){
 
     if (input.keyPress(38))
     {
-          this.char1.color = (this.char1.color + 1)% 2;
+          this.char1.color = (this.char1.color + 1)% this.versions;
     }
       else if (input.keyPress(40))
     {
-          this.char1.color = (this.char1.color + 1)% 2;
+          this.char1.color = (this.char1.color -1)% this.versions;
+          if (this.char1.color < 0){
+            this.char1.color = this.versions-1;
+          }
     }
 
     if (input.keyPress(37)) {
       this.char1.color = 0;
-      this.char1.character = (this.char1.character+1)% this.characters.length;
+      this.char1.character = (this.char1.character-1)% this.characters.length;
+    if (this.char1.character < 0){
+      this.char1.character = this.characters.length-1;
+    }
     }
     else if (input.keyPress(39)) {
           this.char1.color = 0;
@@ -84,6 +91,7 @@ function CSelect(){
    else if(this.char1.color == 1){
     ctx1.drawImage(this.characters[this.char1.character].v2Sprite,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
   }
+
 //
 
 //This is for char2
@@ -96,14 +104,8 @@ function CSelect(){
       ctx1.drawImage(this.characters[this.char2.character].v1Sprite,0, 0, 64, 64,this.char2.x, this.char2.y, this.char2.w, this.char2.h );
     }
     else if(this.char2.color == 1){
-      ctx1.drawImage(this.characters[this.char2.character].v1dSprite,0, 0, 64, 64,this.char2.x, this.char2.y, this.char2.w, this.char2.h );
-    }
-    else if(this.char2.color == 2){
     ctx1.drawImage(this.characters[this.char2.character].v2Sprite,0, 0, 64, 64,this.char2.x, this.char2.y, this.char2.w, this.char2.h );
   }
-  else if (this.char2.color == 3){
-  ctx1.drawImage(this.characters[this.char2.character].v2dSprite,0, 0, 64, 64,this.char2.x, this.char2.y, this.char2.w, this.char2.h );
-}
 
 // This is for char 3
 //--------------------------------------------------------------------------------------------------
@@ -115,14 +117,9 @@ function CSelect(){
       ctx1.drawImage(this.characters[this.char3.character].v1Sprite,0, 0, 64, 64,this.char3.x, this.char3.y, this.char3.w, this.char3.h );
     }
     else if (this.char3.color == 1) {
-      ctx1.drawImage(this.characters[this.char3.character].v1dSprite,0, 0, 64, 64,this.char3.x, this.char3.y, this.char3.w, this.char3.h );
-    }
-    else if (this.char3.color == 2) {
       ctx1.drawImage(this.characters[this.char3.character].v2Sprite,0, 0, 64, 64,this.char3.x, this.char3.y, this.char3.w, this.char3.h );
     }
-    else if (this.char3.color == 3) {
-      ctx1.drawImage(this.characters[this.char3.character].v2dSprite,0, 0, 64, 64,this.char3.x, this.char3.y, this.char3.w, this.char3.h );
-    }
+
 
 
 //This is for char4
@@ -136,13 +133,7 @@ function CSelect(){
       ctx1.drawImage(this.characters[this.char4.character].v1Sprite,0, 0, 64, 64,this.char4.x, this.char4.y, this.char4.w, this.char4.h );
     }
     else if (this.char4.color == 1) {
-      ctx1.drawImage(this.characters[this.char4.character].v1dSprite,0, 0, 64, 64,this.char4.x, this.char4.y, this.char4.w, this.char4.h );
-    }
-    else if (this.char4.color == 2) {
       ctx1.drawImage(this.characters[this.char4.character].v2Sprite,0, 0, 64, 64,this.char4.x, this.char4.y, this.char4.w, this.char4.h );
-    }
-    else if (this.char4.color == 3) {
-      ctx1.drawImage(this.characters[this.char4.character].v2dSprite,0, 0, 64, 64,this.char4.x, this.char4.y, this.char4.w, this.char4.h );
     }
 
 
