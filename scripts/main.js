@@ -30,39 +30,6 @@ for(var i = 0; i < width/tileSize; i++) {
 ctx0.stroke();
 
 /*
-control mapping
-  -set values equal to the keycode of the desired key
-  -pass as parameter when creating player
-*/
-
-var defaultcontrols = {  //player controls are set to this if no controls passed in
-    left: null,
-    right: null,
-    up: null,
-    down: null,
-    jump: null,
-    attack: null
-}
-
-var p1controls = {
-    left: 37,   //left arrow
-    right: 39,  //right arrow
-    up: 38,     //up arrow
-    down: 40,   //down arrow
-    jump: 38,   //up arrow
-    attack: 32  //spacebar
-}
-
-var p2controls = {
-    left: 65,   //a
-    right: 68,  //d
-    up: 87,     //w
-    down: 83,   //s
-    jump: 87,   //w
-    attack: null
-}
-
-/*
 Main loop for the game
 	-runs the update function based on the interval set above (1/fps)
 */
@@ -84,7 +51,7 @@ function GameLoop() {
     }
     //scene.Draw();
 	startScreen.Draw();
-
+  
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
 

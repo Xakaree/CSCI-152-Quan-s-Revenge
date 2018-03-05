@@ -2,6 +2,8 @@ function controlMapping(){
   this.active = false;
   this.cmOption = 0;
 
+  this.requestingKey = false;
+
   this.Start = function(){
     this.active = true;
   }
@@ -35,30 +37,61 @@ function controlMapping(){
       if(this.cmOption == 6){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(560,385,250,75); //attack
+
+      if(this.requestingKey) {
+        //test message
+        ctx1.font = "30px Arial";
+        ctx1.fillText("Press New Key", width/2 - 100, 200);
+      }
     }//end active
   }// end draw
 
   this.Update = function(){
     if(this.active){
-      if(input.keyPress(38) && this.cmOption == 1){
-        this.cmOption = 5;
+      if(this.requestingKey) { //waiting for key pess
+          var k = input.getKeyPress() //returns first keyPress == true it finds
+          if(k != null) {
+            this.setControl(0, this.cmOption, k); //When you implement multiple players replace 0 with variable for player number
+            this.requestingKey = false;
+          }
       }
-      else if (input.keyPress(39)){
-        this.cmOption = 2;
-      }
-      else if(input.keyPress(40)){
-        this.cmOption = 3;
-      }
-      else if(input.keyPress(37)){
-        this.cmOption = 4;
-      }
-      else if(input.keyPress(38)){
-        this.cmOption = 1;
-      }
-      else if(input.keyPress(32)){
-        this.cmOption = 6;
+      else { //Normal menu stuff here
+        if(input.keyPress(38) && this.cmOption == 1){
+          this.cmOption = 5;
+        }
+        else if (input.keyPress(39)){
+          this.cmOption = 2;
+        }
+        else if(input.keyPress(40)){
+          this.cmOption = 3;
+        }
+        else if(input.keyPress(pcontrols[0].left)){ //use pcontrols instead of numbers (this should be done on other menus too)
+          this.cmOption = 4;
+          this.requestKey(); //call this after setting correct cmOption
+        }
+        else if(input.keyPress(38)){
+          this.cmOption = 1;
+        }
+        else if(input.keyPress(32)){
+          this.cmOption = 6;
+        }
       }
     }//end active
   }//end upadte
+
+  this.requestKey = function() { //Stops menu interaction and waits for key press
+    input.resetKeys();
+    this.requestingKey = true;
+  }
+
+  this.setControl = function(playerNum, cmOption, key) { //called automatically in update
+    if(cmOption == 4) {
+      pcontrols[playerNum].left = key;
+    }
+    //FILL IN REST OF OPTIONS
+
+
+    storeLocalControls(); //save controls to browser storage for later use (see controls.js)
+  }
 
 } // end controlMapping
