@@ -37,6 +37,9 @@ function startScreen(){
 				if(!this.startOptions){ //left button selected
 						ctx1.fillStyle = "blue";
 						ctx1.fillRect(width/4-25,height/2+37.5,300,125);
+						ctx1.fillStyle ="white";
+						ctx1.font = "120px Comic Sans";
+						ctx1.fillText("Play",width/4-25+35 , height/2+37.5 + 100);
 				}
 				else {
 						ctx1.fillRect(width/4,height/2+150,250,50);  //default retangle
@@ -46,6 +49,9 @@ function startScreen(){
 				if(this.startOptions){ //right button selected
 					ctx1.fillStyle = "red";
 					ctx1.fillRect(width*3/5-25,height/2+37.5,300,125);
+					ctx1.fillStyle ="white";
+					ctx1.font = "120px Comic Sans";
+					ctx1.fillText("Quit", width*3/5-25+35, height/2+37.5 + 100);
 			  }
 			 else{
 					ctx1.fillRect(width*3/5,height/2+150,250,50); // default rectangle

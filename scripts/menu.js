@@ -17,11 +17,17 @@ function Menu(){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(100,100,250,100);
+    ctx1.font = "30px Comic Sans";
+    ctx1.fillStyle = "white"
+    ctx1.fillText("Player Select",130,165);
 
     if(this.menuOption == 1){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
     ctx1.fillRect(120,210,250,100);
+    ctx1.font = "30px Comic Sans";
+    ctx1.fillStyle = "white"
+    ctx1.fillText("Options",170 ,275);
 
     if(this.options != null){
       this.options.Draw();

@@ -17,10 +17,16 @@ function Options() {
       if(this.option == 0){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(100,100,250,100);
+      ctx1.font = "30px Comic Sans";
+      ctx1.fillStyle = "white"
+      ctx1.fillText("Controls",130,165);
 
       if(this.option == 1){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(120,210,250,100);
+      ctx1.font = "30px Comic Sans";
+      ctx1.fillStyle = "white"
+      ctx1.fillText("Sounds",170 ,275);
     } // end active
 
     if(this.controlMapping != null){
@@ -51,7 +57,7 @@ function Options() {
        input.resetKeys();
        this.VolumeOptions = new VolumeOptions();
        this.VolumeOptions.Start();
-       this.active = false; 
+       this.active = false;
      }
      }//end active
 
