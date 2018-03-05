@@ -21,7 +21,7 @@ var map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
-/*var map = [
+var map2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -40,7 +40,7 @@ var map = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-]*/
+]
 /*
 Handles all objects, updates and draw calls
 */
@@ -59,6 +59,8 @@ function Scene() {
         for(var i = 0; i < map.length; i++) {
             for(var j = 0; j < map[i].length; j++) {
                 switch(map[i][j]) {
+                    case 0:
+                        break;
                     case 1:
                         this.solidentities.push(new SolidTile(j,i, 1,1));
                         break;
@@ -117,11 +119,12 @@ function Scene() {
     adds collisions to this.collisions for resolution
     */
     var distTo = function(a, b) {
-        return Math.sqrt(Math.pow((a.entity.x - b.entity.x),2) + Math.pow((a.entity.y - b.entity.y),2));
+        return Math.sqrt(Math.pow((a.entity.getMidX() - b.entity.getMidX()),2) + Math.pow((a.entity.getMidY() - b.entity.getMidY()),2));
     }
 
     this.checkCollisions = function() {
         this.collisions = []; //reset collision list
+
         for(var i = 0; i < this.players.length; i++) {
             if(!this.players[i].entity.active) {
                 continue;
@@ -133,7 +136,9 @@ function Scene() {
                 }
             }
             if(collisionCheck(this.players[i], this.solidentities[c[0]])) {
-                this.collisions.push([this.players[i], this.solidentities[c[0]]]);
+                //this.collisions.push([this.players[i], this.solidentities[c[0]]]);
+                collision(this.players[i], this.solidentities[c[0]]);
+                i--;
             }
         }
 
@@ -148,7 +153,9 @@ function Scene() {
                 }
             }
             if(collisionCheck(this.entities[i], this.solidentities[c[0]])) {
-                this.collisions.push([this.entities[i], this.solidentities[c[0]]]);
+                //this.collisions.push([this.entities[i], this.solidentities[c[0]]]);
+                collision(this.entities[i], this.solidentities[c[0]]);
+                i--;
             }
         }
 

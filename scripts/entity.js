@@ -72,11 +72,6 @@ function Entity(x,y,w,h,tag) {
         var absDx, absDy;
         absDx = Math.abs(dx);
         absDy = Math.abs(dy);
-        /*if(this.vx != 0) absDx = Math.abs(dx/(this.vx));
-        else absDx = 0;
-        if(this.vy != 0) absDy = Math.abs(dy/(this.vy));
-        else absDy = 0;*/
-
 
         /* collision return codes (numbers are this entity's position relative to collidee)
           4 0 4
@@ -87,40 +82,40 @@ function Entity(x,y,w,h,tag) {
         //if x and y absolutes are close to each other then entity is on a corner
         if(Math.abs(absDx - absDy) < 0.01) {
             if(dx < 0) { //approaching from right
-                this.x = collider.entity.getRight();
+                this.x = collider.entity.getRight()+1;
             }
             else { //appraoching from left
-                this.x = collider.entity.getLeft() - this.width;
+                this.x = collider.entity.getLeft() - this.width-1;
             }
             if(dy < 0) { //approaching from bottom
-                this.y = collider.entity.getBot();
+                this.y = collider.entity.getBot()+1;
             }
             else { //approaching from top
-                this.y = collider.entity.getTop() - this.height;
+                this.y = collider.entity.getTop() - this.height-1;
             }
             return 4;
         }
         else if(absDx > absDy) { //appraoching from the side
             if(dx < 0) { //approaching from the right
-                this.x = collider.entity.getRight();
+                this.x = collider.entity.getRight()+1;
                 this.vx = 0;
                 return 1;
             }
             else { //approaching from left
-                this.x = collider.entity.getLeft() - this.width;
+                this.x = collider.entity.getLeft() - this.width-1;
                 this.vx = 0;
                 return 3;
             }
         }
         else { //approaching from the top/bottom
             if(dy < 0) { //approaching from bottom
-                this.y = collider.entity.getBot();
-                console.log("top)")
+                this.y = collider.entity.getBot()+1;
+                //console.log("top)")
                 this.vy = 0;
                 return 2;
             }
             else { //approaching from top
-                this.y = collider.entity.getTop() - this.height;
+                this.y = collider.entity.getTop() - this.height-1;
                 this.vy = 0;
                 this.ay = 0;
 
@@ -137,15 +132,31 @@ function Entity(x,y,w,h,tag) {
 }
 
 function collisionCheck(collider, collidee) {
-    var l1 = collider.entity.getLeft();
-    var r1 = collider.entity.getRight();
-    var b1 = collider.entity.getBot();
-    var t1 = collider.entity.getTop();
+    if(collider instanceof Entity && collidee instanceof Entity) {
+        //console.log("Entity check");
+        var l1 = collider.getLeft();
+        var r1 = collider.getRight();
+        var b1 = collider.getBot();
+        var t1 = collider.getTop();
 
-    var l2 = collidee.entity.getLeft();
-    var r2 = collidee.entity.getRight();
-    var b2 = collidee.entity.getBot();
-    var t2 = collidee.entity.getTop();
+        var l2 = collidee.getLeft();
+        var r2 = collidee.getRight();
+        var b2 = collidee.getBot();
+        var t2 = collidee.getTop();
+    }
+    else {
+//console.log("Object check");
+        var l1 = collider.entity.getLeft();
+        var r1 = collider.entity.getRight();
+        var b1 = collider.entity.getBot();
+        var t1 = collider.entity.getTop();
+
+        var l2 = collidee.entity.getLeft();
+        var r2 = collidee.entity.getRight();
+        var b2 = collidee.entity.getBot();
+        var t2 = collidee.entity.getTop();
+    }
+    
 
 
     //checks if any edges of the box colliders are intersecting

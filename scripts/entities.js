@@ -71,10 +71,12 @@ function TommyGun(cx, cy, w, h) {
 
     this.pickUp = function(parent) {
         this.parent = parent;
+        this.entity.active = false;
     }
 
     this.drop = function(facing) {
         this.parent = null;
+        this.entity.active = true;
         if(facing == 1) {
             this.entity.vx = 300*tileScale;
         }
@@ -117,17 +119,21 @@ function TommyGun(cx, cy, w, h) {
             this.entity.updatePhysics();
         }
         else {
-            if(this.parent.facing == 1) {
-                this.entity.x = this.parent.entity.x+16*tileScale*2;
-                this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
-                this.img = TGR;
-            }
-            if(this.parent.facing == -1) {
-                this.entity.x = this.parent.entity.getRight() - 36*tileScale*2;
-                this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
-                this.img = TGL;
-            }
+            this.updatePosition();
             
+        }
+    }
+    
+    this.updatePosition = function() {
+        if(this.parent.facing == 1) {
+            this.entity.x = this.parent.entity.x+12*tileScale*2;
+            this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
+            this.img = TGR;
+        }
+        if(this.parent.facing == -1) {
+            this.entity.x = this.parent.entity.getRight() - 32*tileScale*2;
+            this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
+            this.img = TGL;
         }
     }
 

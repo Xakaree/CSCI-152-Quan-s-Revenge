@@ -25,6 +25,7 @@ function Player(x, y,w,h, controls, sprite) {
 
     this.health = 100;
     this.isAlive = true;
+    this.drawPlayer = true;
 
     //handles cooldown between dropping item and being able to pickup another
     this.updateCnts = function() {
@@ -147,6 +148,8 @@ function Player(x, y,w,h, controls, sprite) {
                 if(this.item != null) this.item.drop(this.facing);
                 this.item = null;
                 this.isAlive = false;
+                this.entity.active = false;
+                this.drawPlayer = false;
             }
         }
         
@@ -190,16 +193,20 @@ function Player(x, y,w,h, controls, sprite) {
                     this.jumping = false;
                     break;
             }
+            if(this.item != null) this.item.updatePosition();
         }
 
     }
 
     //All draw calls must be done in this function
     this.Draw = function() {
-       // ctx1.fillStyle = color;
-        //ctx1.fillRect(this.entity.x*scale,this.entity.y*scale,this.entity.width*scale,this.entity.height*scale);
-	     //ctx1.drawImage(this.sprite,srcX*64,srcY*64,64,64,this.entity.x,this.entity.y,tileSize,tileSize)
-       this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
-        if(this.item != null) this.item.manualDraw();
+        if(this.drawPlayer) {
+            // ctx1.fillStyle = color;
+                //ctx1.fillRect(this.entity.x*scale,this.entity.y*scale,this.entity.width*scale,this.entity.height*scale);
+                //ctx1.drawImage(this.sprite,srcX*64,srcY*64,64,64,this.entity.x,this.entity.y,tileSize,tileSize)
+            this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+            if(this.item != null) this.item.manualDraw(this.entity.x, this.entity.y);
+        }
+       
     }
 }
