@@ -38,6 +38,7 @@ function Player(x, y,w,h, controls, sprite) {
         if(this.knockback) this.knockcnt++;
         if(this.knockcnt == this.knockTime) {
             this.knockback = false;
+            this.animation.curSprite = this.animation.bseSprite;
             this.knockcnt = 0;
         }
     }
@@ -170,6 +171,7 @@ function Player(x, y,w,h, controls, sprite) {
         }
         if(collider.entity.tag == "projectile" && collider.parent != this) {
             this.knockback = true;
+            this.animation.curSprite = this.animation.dmgSprite;
             this.knockcnt = 0;
             this.entity.vx = collider.entity.vx
             this.health -= 10;
