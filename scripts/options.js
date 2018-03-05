@@ -2,6 +2,7 @@ function Options() {
   this.active = false;
   this.option = 0;
   this.controlMapping = null;
+  this.VolumeOptions = null;
 
   this.Start = function(){
     this.active = true;
@@ -25,6 +26,9 @@ function Options() {
     if(this.controlMapping != null){
       this.controlMapping.Draw();
     }
+    if(this.VolumeOptions != null){
+      this.VolumeOptions.Draw();
+    }
   } // end draw
 
   this.Update = function(){
@@ -43,10 +47,19 @@ function Options() {
        this.controlMapping.Start();
        this.active = false;
      }
+     else if(input.keyPress(32) && this.option == 1){
+       input.resetKeys();
+       this.VolumeOptions = new VolumeOptions();
+       this.VolumeOptions.Start();
+       this.active = false; 
+     }
      }//end active
 
      if(this.controlMapping != null){
        this.controlMapping.Update();
+     }
+     if(this.VolumeOptions != null){
+       this.VolumeOptions.Update();
      }
 
   } // end update
