@@ -105,19 +105,21 @@ function GameLoop() {
     */
     while(deltaTime >= interval) {
         deltaTime -= interval;
-
+        //scene.Update();
         input.Update();
-        scene.Update();
-        scene.Draw();
+		startScreen.Update();
     }
-    
+    //scene.Draw();
+	startScreen.Draw();
 
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
 
 input = new InputHandler();
+startScreen = new startScreen();
+
 scene = new Scene();
-scene.Start();
+//scene.Start();
 
 oldTime = performance.now(); //start time of scene (needed for delatime)
 requestAnimationFrame(GameLoop); //starts game loop
