@@ -41,11 +41,11 @@ function CSelect(){
 
     if (input.keyPress(38))
     {
-          this.char1.color = (this.char1.color + 1)% this.characters.length;
+          this.char1.color = (this.char1.color + 1)% 2;
     }
       else if (input.keyPress(40))
     {
-          this.char1.color = (this.char1.color + 1)% this.characters.length;
+          this.char1.color = (this.char1.color + 1)% 2;
     }
 
     if (input.keyPress(37)) {
@@ -81,15 +81,9 @@ function CSelect(){
     if (this.char1.color == 0) {
       ctx1.drawImage(this.characters[this.char1.character].v1Sprite,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
     }
-    else if(this.char1.color == 1){
-      ctx1.drawImage(this.characters[this.char1.character].v1dSprite,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
-    }
-    else if(this.char1.color == 2){
+   else if(this.char1.color == 1){
     ctx1.drawImage(this.characters[this.char1.character].v2Sprite,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
   }
-  else if (this.char1.color == 3){
-  ctx1.drawImage(this.characters[this.char1.character].v2dSprite,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
-}
 //
 
 //This is for char2
