@@ -26,6 +26,10 @@ function Player(x, y,w,h, controls, sprite) {
     this.health = 100;
     this.isAlive = true;
     this.drawPlayer = true;
+    
+    this.jump = new sound("audioFiles/jump_3.wav", false, 1);
+    this.gun_pickup = new sound("audioFiles/gun_pickup.mp3", false, 1);
+    this.shootSound = new sound("audioFiles/laser_shoot_1_auto.mp3", false, 1);
 
     //handles cooldown between dropping item and being able to pickup another
     this.updateCnts = function() {
@@ -83,6 +87,7 @@ function Player(x, y,w,h, controls, sprite) {
             }*/
         } 
         if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
+            this.jump.play();
             this.entity.vy = -1100.0 * tileScale;
             this.jumping = true;
         }
@@ -91,11 +96,22 @@ function Player(x, y,w,h, controls, sprite) {
             this.item.drop(this.facing);
             this.item = null;
             this.dropCool = true;
+            
         }
 
         else if(input.keyDown(this.controls.attack)) {
-            if(this.item != null) this.item.attack();
+            if(this.item != null) {
+                this.shootSound.play();
+                this.item.attack();
+            }
+            }
+        else if(!input.keyDown(this.controls.attack)){
+                if (this.item != null){
+                this.shootSound.pause();
+                this.shootSound.load();
+                }
         }
+        
 
         
     }

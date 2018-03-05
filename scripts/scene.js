@@ -50,11 +50,13 @@ function Scene() {
     this.players = [];
     this.collisions = []; //list of collision to resolve
     this.camera = new Camera();
+    
 
     this.loadMap = function(map) {
         this.entities = [];
         this.solidentities = [];
         this.players = [];
+        playSoundtrack(0, battleList);
 
         for(var i = 0; i < map.length; i++) {
             for(var j = 0; j < map[i].length; j++) {
@@ -249,4 +251,6 @@ function Scene() {
         ctx0.restore();
         ctx1.restore();
     }
+    
+    
 }

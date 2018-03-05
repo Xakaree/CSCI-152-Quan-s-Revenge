@@ -57,7 +57,7 @@ function sound(src, loop, volume) {
     this.play = function(){
         this.sound.play();
     }
-    this.stop = function(){
+    this.pause = function(){
         this.sound.pause();
     }    
 
@@ -94,8 +94,8 @@ var bg_3 = new sound("audioFiles/bg_3.mp3", false , 1);
 
 
 // in-game soundtrack list
-battleList.push(bg_2);
 battleList.push(bg);
+battleList.push(bg_2);
 battleList.push(bg_3);
 
 
@@ -112,14 +112,14 @@ menuList.push(menu_2);
 
 // combat sounds 
 var punch = new sound("audioFiles/punch_1.wav", false, 1);
-var laser_1 = new sound("audioFiles/laser_shoot_1.wav", false, 1);
+//var laser_1 = new sound("audioFiles/laser_shoot_1.wav", false, 1);
 var laser_2 = new sound("audioFiles/laser_shoot_2.wav", false, 1);
 var shotgunShoot = new sound("audioFiles/shotgun_shoot.m4a", false, 1);
 var shotgunReload = new sound("audioFiles/shotgun_reload.m4a", false, 1);
 
 
 // player sounds
-var jump = new sound("audioFiles/jump_3.wav", false, 1);
+//var jump = new sound("audioFiles/jump_3.wav", false, 1);
 var powerup_1 = new sound("audioFiles/powerup_1.wav", false, 1);
 var powerup_2 = new sound("audioFiles/powerup_2.wav", false, 1);
 
