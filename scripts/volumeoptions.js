@@ -19,7 +19,8 @@ function VolumeOptions(){
     //toggle bar
     if(this.music){ctx1.fillStyle = "green";}
     else {ctx1.fillText="grey";}
-    ctx1.fillRect(100+this.toggleBar,90,10,45);
+    ctx1.fillRect(100+this.toggleBar,90,10,45); //  horizontal toggle
+    ctx1.fillRect(100,100,this.toggleBar,25); // background bar
   }
 }
 
