@@ -6,6 +6,7 @@ function controlMapping(){
 
   this.Start = function(){
     this.active = true;
+    console.log(pcontrols[0]);
   }
 
   this.Draw = function(){
