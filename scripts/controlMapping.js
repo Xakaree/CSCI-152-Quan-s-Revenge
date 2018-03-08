@@ -26,28 +26,38 @@ function controlMapping(){
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(290,290,150,50);//up
       ctx1.font = "30px Arial";
-      var key = String.fromCharCode(pcontrols[0].up);
-      ctx1.fillText(key,375, 270);
+      var key = this.keyPressed(pcontrols[0].up);
+      ctx1.fillText(key,365, 270);
 
       if(this.controls["down"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(290,410,150,50);//down
+      var key = this.keyPressed(pcontrols[0].down);
+      ctx1.fillText(key,340, 480);
 
       if(this.controls["left"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(205,350,150,50);//left
+      var key = this.keyPressed(pcontrols[0].left);
+      ctx1.fillText(key,205, 430);
 
       if(this.controls["right"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(375,350,150,50);//right
+      var key = this.keyPressed(pcontrols[0].right);
+      ctx1.fillText(key,450, 430);
 
       if(this.controls["jump"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(560,290,250,75); //jump
+      var key = this.keyPressed(pcontrols[0].jump);
+      ctx1.fillText(key,685,280);
 
       if(this.controls["attack"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(560,385,250,75); //attack
+      var key = this.keyPressed(pcontrols[0].attack);
+      ctx1.fillText(key,685, 480);
 
       if(this.requestingKey) {
         //test message
@@ -72,13 +82,13 @@ function controlMapping(){
           this.controls["jump"] = true;
           this.lastOption = "jump";
         }
-        else if (input.keyPress(39)){
+        else if (input.keyPress(pcontrols[0].right)){
           this.controls[this.lastOption] = false;
           this.controls["right"] = true;
           this.lastOption = "right";
           this.requestKey();
         }
-        else if(input.keyPress(40)){
+        else if(input.keyPress(pcontrols[0].down)){
             this.controls[this.lastOption] =  false;
             this.controls["down"] = true;
             this.lastOption = "down";
@@ -90,13 +100,13 @@ function controlMapping(){
           this.lastOption = "left";
           this.requestKey(); //call this after setting correct cmOption
         }
-        else if(input.keyPress(38)){
+        else if(input.keyPress(pcontrols[0].up)){
           this.controls[this.lastOption] = false;
           this.controls["up"] = true;
           this.lastOption = "up";
           this.requestKey();
         }
-        else if(input.keyPress(32)){
+        else if(input.keyPress(pcontrols[0].attack)){
           this.controls[this.lastOption] = false;
           this.controls["attack"] = true;
           this.lastOption = "attack";
@@ -135,4 +145,18 @@ function controlMapping(){
     console.log(pcontrols[0]);
   }
 
+  this.keyPressed = function(key){
+      if(key == 32)
+          return "space"
+      else if (key == 37)
+          return "left";
+      else if (key == 38)
+          return "up";
+      else if (key == 39)
+          return "right";
+      else if (key == 40)
+          return "down";
+      else
+          return String.fromCharCode(key);
+  }
 } // end controlMapping
