@@ -25,6 +25,9 @@ function controlMapping(){
       if(this.controls["up"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(290,290,150,50);//up
+      ctx1.font = "30px Arial";
+      var key = String.fromCharCode(pcontrols[0].up);
+      ctx1.fillText(key,375, 270);
 
       if(this.controls["down"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}

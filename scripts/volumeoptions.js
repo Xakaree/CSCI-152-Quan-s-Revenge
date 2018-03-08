@@ -26,9 +26,9 @@ function VolumeOptions(){
 
   this.Update = function(){
     if(this.active){
-      if (this.music && input.keyPress(pcontrols[0].right) && this.toggleBar < 500)
+      if (this.music && input.keyDown(pcontrols[0].right) && this.toggleBar < 500)
       {this.toggleBar +=5;}
-      else if (this.music && input.keyPress(pcontrols[0].left) && this.toggleBar > 0)
+      else if (this.music && input.keyDown(pcontrols[0].left) && this.toggleBar > 0)
       {this.toggleBar -=5;}
     }// end active
   }//end update
