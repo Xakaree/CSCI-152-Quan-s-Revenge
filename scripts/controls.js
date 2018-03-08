@@ -18,7 +18,7 @@ var p1controls = { //Default Player 1 Controls
     right: 39,  //right arrow
     up: 38,     //up arrow
     down: 40,   //down arrow
-    jump: 38,   //up arrow
+    jump: 67,   //up arrow
     attack: 32  //spacebar
 }
 
@@ -63,7 +63,7 @@ else {
     console.log("loading local pcontrols")
     loadLocalControls();
 }
-    
+
 
 function storeLocalControls() {
     localStorage.p1left = pcontrols[0].left;

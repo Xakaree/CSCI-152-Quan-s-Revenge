@@ -77,10 +77,11 @@ function controlMapping(){
           }
       }
       else { //Normal menu stuff here
-        if(input.keyPress(38) && this.controls["up"]){
+        if(input.keyPress(pcontrols[0].jump)){
           this.controls[this.lastOption] = false;
           this.controls["jump"] = true;
           this.lastOption = "jump";
+          this.requestKey();
         }
         else if (input.keyPress(pcontrols[0].right)){
           this.controls[this.lastOption] = false;
