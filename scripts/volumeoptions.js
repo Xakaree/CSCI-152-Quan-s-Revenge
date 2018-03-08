@@ -21,6 +21,10 @@ function VolumeOptions(){
     else {ctx1.fillText="grey";}
     ctx1.fillRect(100+this.toggleBar,90,10,45); //  horizontal toggle
     ctx1.fillRect(100,100,this.toggleBar,25); // background bar
+
+    ctx1.font = "30px comic sans";
+    ctx1.fillStyle = "grey";
+    ctx1.fillText(this.toggleBar/5,625,120);
   }
 }
 
