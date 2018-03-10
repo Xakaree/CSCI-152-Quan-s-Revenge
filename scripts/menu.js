@@ -37,18 +37,18 @@ function Menu(){
 
   this.Update = function(){
     if (this.active){
-        if (input.keyPress(38) && this.menuOption > 0){
+        if (input.keyPress(pcontrols[0].up) && this.menuOption > 0){
               this.menuOption -= 1;
         }
-        else if (input.keyPress(40) && this.menuOption < 1){
+        else if (input.keyPress(pcontrols[0].down) && this.menuOption < 1){
               this.menuOption +=1;
         }
 
-      if(this.menuOption == 0 && input.keyPress(32))
+      if(this.menuOption == 0 && input.keyPress(pcontrols[0].attack))
       {
         //character select
       }
-      else if (this.menuOption == 1 && input.keyPress(32)){
+      else if (this.menuOption == 1 && input.keyPress(pcontrols[0].attack)){
         input.resetKeys();
         this.options = new Options();
         this.active = false;

@@ -6,6 +6,7 @@ function VolumeOptions(){
   this.somethingslider = new Slider(150,400,ctx1); // forgot what this slider was for
   this.lastSelected = this.somethingslider;
   this.toggle = 0;
+  this.back = null;
 
   this.Start = function(){
     this.active = true;
@@ -24,7 +25,15 @@ function VolumeOptions(){
     this.menuslider.Draw();
     this.somethingslider.Draw();
 
+    if(this.toggle == 4){
+      ctx1.fillStyle = "green";
+    }else {ctx1.fillStyle = "grey";}
+    ctx1.fillRect(750,600,250,100);
   }//end active
+
+  if(this.back != null){
+    this.back.Draw();
+  }
 }//end draw
 
   this.Update = function(){
@@ -35,7 +44,7 @@ function VolumeOptions(){
           this.somethingslider.Update();
 
         ///switch between sliders
-        if(input.keyPress(pcontrols[0].down) && this.toggle < 3){
+        if(input.keyPress(pcontrols[0].down) && this.toggle < 4){
           this.toggle += 1;
           this.selectSlider();
         }
@@ -44,7 +53,19 @@ function VolumeOptions(){
           this.selectSlider();
         }
 
+        if (this.toggle == 4 && input.keyPress(pcontrols[0].attack)) {
+          this.lastSelected.unSelect();
+          this.lastSelected = this.musicslider;
+          input.resetKeys();
+          this.back = new Options();
+          this.back.Start();
+          this.active = false;
+          console.log("back start");
+        }
     }// end active
+    if(this.back != null){
+      this.back.Update();
+    }
   }//end update
 
   this.selectSlider = function(){
@@ -72,6 +93,7 @@ function VolumeOptions(){
       this.lastSelected = this.somethingslider;
       console.log("somethingslider");
     }
+    else {}
   }// end selectSlider
 
 } // end VolumeOptions
