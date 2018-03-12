@@ -38,8 +38,6 @@ for(var i = 0; i < width/tileSize; i++) {
 ctx0.stroke();*/
 
 /*
-<<<<<<< HEAD
-=======
 control mapping
   -set values equal to the keycode of the desired key
   -pass as parameter when creating player
@@ -92,7 +90,6 @@ var p4controls = {  //player controls are set to this if no controls passed in
 }
 
 /*
->>>>>>> master
 Main loop for the game
 	-runs the update function based on the interval set above (1/fps)
 */
@@ -114,7 +111,7 @@ function GameLoop() {
     }
     //scene.Draw();
 	startScreen.Draw();
-  
+
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
 

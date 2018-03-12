@@ -66,14 +66,11 @@ function Menu(){
     }// end active loop
     if(this.options != null){
       this.options.Update();
-<<<<<<< HEAD
-=======
       console.log('54')
 }
     if(this.cSelect != null){
       this.cSelect.Update();
 
->>>>>>> master
     }
   }//end update
 }//end menu
