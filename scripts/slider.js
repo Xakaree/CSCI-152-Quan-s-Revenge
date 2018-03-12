@@ -13,16 +13,16 @@ function Slider(x, y, cont){
       this.context.fillStyle = "green";
     }
     else {
-      this.context.fillText="grey";
+      this.context.fillStyle ="grey";
     }
 
     this.context.fillRect(this.xpos+this.toggleBar,this.ypos-10,10,45); //  horizontal toggle
     this.context.fillRect(this.xpos,this.ypos,this.toggleBar,25); // background bar
 
     //need to ask joey about this !!!!!!!!!!!!!!!
-    //  this.context.font = "30px Arial";
-    //  this.context.fillStyle = "grey";
-    //this.context.fillText(this.toggleBar/5,625,this.ypos+20);
+     this.context.font = "30px Arial";
+     this.context.fillStyle = "grey";
+     ctx1.fillText(this.toggleBar/5,this.xpos+550,this.ypos+20);
   }
 
   this.Update = function(){

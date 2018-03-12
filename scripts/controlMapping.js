@@ -28,42 +28,42 @@ function controlMapping(){
       ctx1.fillRect(290,290,150,50);//up
       ctx1.font = "30px Arial";
       var key = this.keyPressed(pcontrols[0].up);
-      //ctx1.fillText(key,365, 270);
+      ctx1.fillText(key,365, 270);
 
       if(this.controls["down"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(290,410,150,50);//down
       var key = this.keyPressed(pcontrols[0].down);
-      //ctx1.fillText(key,340, 480);
+      ctx1.fillText(key,340, 480);
 
       if(this.controls["left"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(205,350,150,50);//left
       var key = this.keyPressed(pcontrols[0].left);
-      //ctx1.fillText(key,205, 430);
+      ctx1.fillText(key,205, 430);
 
       if(this.controls["right"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(375,350,150,50);//right
       var key = this.keyPressed(pcontrols[0].right);
-      //ctx1.fillText(key,450, 430);
+      ctx1.fillText(key,450, 430);
 
       if(this.controls["jump"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(560,290,250,75); //jump
       var key = this.keyPressed(pcontrols[0].jump);
-      //ctx1.fillText(key,685,280);
+      ctx1.fillText(key,685,280);
 
       if(this.controls["attack"]){ctx1.fillStyle = "green";}
       else {ctx1.fillStyle = "grey";}
       ctx1.fillRect(560,385,250,75); //attack
       var key = this.keyPressed(pcontrols[0].attack);
-      //ctx1.fillText(key,685, 480);
+      ctx1.fillText(key,685, 480);
 
       if(this.requestingKey) {
         //test message
         ctx1.font = "30px Arial";
-        //ctx1.fillText("Press New Key", width/2 - 100, 200);
+        ctx1.fillText("Press New Key", width/2 - 100, 200);
       }
     }//end active
   }// end draw
