@@ -3,6 +3,7 @@ function Menu(){
   this.menuOption = 0;
   this.scene = null;
   this.options = null;
+  this.cSelect = null;
 
   this.Start = function(){
     this.active = true;
@@ -33,6 +34,9 @@ function Menu(){
     if(this.options != null){
       this.options.Draw();
     }
+    if(this.cSelect != null){
+      this.cSelect.Draw();
+    }
   }
 
   this.Update = function(){
@@ -46,7 +50,10 @@ function Menu(){
 
       if(this.menuOption == 0 && input.keyPress(pcontrols[0].attack))
       {
-        //character select
+        input.resetKeys();
+        this.cSelect = new CSelect();
+        this.active = false;
+        this.cSelect.Start();
       }
       else if (this.menuOption == 1 && input.keyPress(pcontrols[0].attack)){
         input.resetKeys();
@@ -59,6 +66,14 @@ function Menu(){
     }// end active loop
     if(this.options != null){
       this.options.Update();
+<<<<<<< HEAD
+=======
+      console.log('54')
+}
+    if(this.cSelect != null){
+      this.cSelect.Update();
+
+>>>>>>> master
     }
   }//end update
 }//end menu

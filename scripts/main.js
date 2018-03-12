@@ -9,17 +9,25 @@ var LC2 = document.getElementById("LC2"); // Version 2 of Luchador Castillo
 var ctx0 = background.getContext("2d"); //background context
 var ctx1 = canvas.getContext("2d"); //main canvas
 
+var dbrlR = document.getElementById("dbrlR");
+var dbrlL = document.getElementById("dbrlL");
+
 var fps = 60; //frame rate at which the game updates
 var interval = 1/fps; //interval time (see game loop)
 var oldTime, newTime, deltaTime = 0; //var for storing frame time difference
 
 //Note: width and height below do not change canvas size
-var width = 1024; //width of game level
-var height = 704; //height of game level
+var width = 1280; //width of game level
+var height = 720; //height of game level
 var tileSize = 32; //size of tiles in level
+var tileScale = tileSize/32;
+
+var scale = 1.0;
+
+var step = false;
 
 //Draw tile grid -- TEMPORARY
-ctx0.fillStyle = "grey";
+/*ctx0.fillStyle = "grey";
 ctx0.fillRect(0,0,width,height);
 ctx0.fillStyle = "black";
 for(var i = 0; i < width/tileSize; i++) {
@@ -27,9 +35,64 @@ for(var i = 0; i < width/tileSize; i++) {
         ctx0.rect(i*tileSize,j*tileSize,tileSize,tileSize);
     }
 }
-ctx0.stroke();
+ctx0.stroke();*/
 
 /*
+<<<<<<< HEAD
+=======
+control mapping
+  -set values equal to the keycode of the desired key
+  -pass as parameter when creating player
+
+*/
+
+var defaultcontrols = {  //player controls are set to this if no controls passed in
+    left: null,
+    right: null,
+    up: null,
+    down: null,
+    jump: null,
+    attack: null
+}
+
+var p1controls = {
+    left: 37,   //left arrow
+    right: 39,  //right arrow
+    up: 38,     //up arrow
+    down: 40,   //down arrow
+    jump: 38,   //up arrow
+    attack: 32  //spacebar
+}
+
+var p2controls = {
+    left: 65,   //a
+    right: 68,  //d
+    up: 87,     //w
+    down: 83,   //s
+    jump: 87,   //w
+    attack: 90
+}
+
+var p3controls = {  //player controls are set to this if no controls passed in
+    left: null,
+    right: null,
+    up: null,
+    down: null,
+    jump: null,
+    attack: null
+}
+
+var p4controls = {  //player controls are set to this if no controls passed in
+    left: null,
+    right: null,
+    up: null,
+    down: null,
+    jump: null,
+    attack: null
+}
+
+/*
+>>>>>>> master
 Main loop for the game
 	-runs the update function based on the interval set above (1/fps)
 */
@@ -46,7 +109,7 @@ function GameLoop() {
     while(deltaTime >= interval) {
         deltaTime -= interval;
         //scene.Update();
-          input.Update();
+        input.Update();
 		startScreen.Update();
     }
     //scene.Draw();
@@ -58,7 +121,7 @@ function GameLoop() {
 input = new InputHandler();
 startScreen = new startScreen();
 
-//scene = new Scene();
+scene = new Scene();
 //scene.Start();
 
 oldTime = performance.now(); //start time of scene (needed for delatime)

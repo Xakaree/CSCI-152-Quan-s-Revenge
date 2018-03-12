@@ -16,12 +16,12 @@ function InputHandler() {
 
     function doKeyDown(e) {
         var key = e.keyCode;
-        input[key].key = true;
+        if(key < input.length) input[key].key = true;
     }
 
     function doKeyRelease(e) {
         var key = e.keyCode;
-        input[key].key = false;
+        if(key < input.length) input[key].key = false;
     }
 
     this.updateKeys = function() {
@@ -38,10 +38,12 @@ function InputHandler() {
     }
 
     this.keyDown = function(key) {
+        if(key == null) return false;
         return input[key].keyDown;
     }
 
     this.keyPress = function(key) {
+        if(key == null) return false;
         return input[key].keyPress;
     }
 
