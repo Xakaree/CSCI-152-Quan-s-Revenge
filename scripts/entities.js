@@ -26,9 +26,10 @@ function deathTile(cx,cy,cw,ch) {
     }
 }
 
-function Projectile(parent,x,y,w,h, dir) {
+function Projectile(parent,x,y,w,h, vx,vy) {
     this.entity = new Entity(x,y,w,h,"projectile");
-    this.entity.vx = 800 * dir * tileScale;
+    this.entity.vx = 800 * vx * tileScale;
+    this.entity.vy = 800 * vy * tileScale;
     this.entity.grav = 0;
     this.dmg = 10;
     this.parent = parent;
@@ -58,94 +59,4 @@ function Projectile(parent,x,y,w,h, dir) {
         ctx1.fillStyle = "red";
         ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
     }
-}
-
-function TommyGun(cx, cy, w, h) {
-    this.parent = null;
-    this.entity = new Entity(cx*tileSize, cy*tileSize, w, h, "item");
-    this.img = TGR;
-    this.atkDelay = 5;
-    this.atkcnt = 0;
-    this.atkCool = false;
-    this.offset = 2;
-
-    this.pickUp = function(parent) {
-        this.parent = parent;
-        this.entity.active = false;
-    }
-
-    this.drop = function(facing) {
-        this.parent = null;
-        this.entity.active = true;
-        if(facing == 1) {
-            this.entity.vx = 300*tileScale;
-        }
-        else this.entity.vx = -300*tileScale;
-        
-        this.entity.vy = -600*tileScale;
-    }
-
-    this.attack = function() {
-        if(!this.atkCool) {
-            this.offset = -this.offset;
-            if(this.offset < 0) this.offset = -(Math.random(6) + 3);
-            this.atkCool  = true;
-            if(this.parent.facing == 1) {
-                scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing));
-            }
-            if(this.parent.facing == -1) {
-                scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing));
-            }
-        }
-        
-    }
-
-    this.onCollision = function(collider) {
-        if(this.parent == null && collider.entity.tag == "solid") {
-            this.entity.solidCollision(collider);
-        }
-    }
-
-    this.Update = function() {
-        if(this.atkCool) {
-            this.atkcnt++;
-            if(this.atkcnt == this.atkDelay) {
-                this.atkcnt = 0;
-                this.atkCool = false;   
-            }
-        }
-
-        if(this.parent == null) {
-            this.entity.updatePhysics();
-        }
-        else {
-            this.updatePosition();
-            
-        }
-    }
-    
-    this.updatePosition = function() {
-        if(this.parent.facing == 1) {
-            this.entity.x = this.parent.entity.x+12*tileScale*2;
-            this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
-            this.img = TGR;
-        }
-        if(this.parent.facing == -1) {
-            this.entity.x = this.parent.entity.getRight() - 32*tileScale*2;
-            this.entity.y = this.parent.entity.y + this.parent.entity.height/3;
-            this.img = TGL;
-        }
-    }
-
-    this.manualDraw = function() {
-        ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
-    }
-
-    this.Draw = function() {
-        ctx1.fillStyle = "white";
-        //ctx1.fillRect(this.entity.x, this.entity.y,this.entity.width,this.entity.height);
-        if(this.parent == null) ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
-    }
-
-    
 }

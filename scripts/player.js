@@ -93,8 +93,19 @@ function Player(x, y,w,h, controls, sprite) {
             this.dropCool = true;
         }
 
-        else if(input.keyDown(this.controls.attack)) {
-            if(this.item != null) this.item.attack();
+        else if(this.item != null) {
+            if(this.item.atkHold) {
+                if(input.keyDown(this.controls.attack)) {
+                    console.log("attack");
+                    this.item.attack();
+                }
+            }
+            else {
+                if(input.keyPress(this.controls.attack)) {
+                    console.log("attack");
+                    this.item.attack();
+                }
+            }
         }
 
         
