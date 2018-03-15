@@ -17,23 +17,23 @@ function TommyGun(cx, cy) {
     this.maxAmmo = 20;
     this.currAmmo = this.maxAmmo;
     this.reloadSpeed = 90;
+}
 
-    this.attack = function() {
-        if(!this.atkCool && !this.reloading) {
-            this.currAmmo--;
-            if(this.currAmmo <= 0) {
-                this.reloading = true;
-            }
-            else this.atkCool = true;
+TommyGun.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
 
-            this.offset = -this.offset;
-            if(this.offset < 0) this.offset = -(Math.random(6) + 3);
-            if(this.parent.facing == 1) {
-                scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
-            }
-            if(this.parent.facing == -1) {
-                scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
-            }
+        this.offset = -this.offset;
+        if(this.offset < 0) this.offset = -(Math.random(6) + 3);
+        if(this.parent.facing == 1) {
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+        }
+        if(this.parent.facing == -1) {
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
         }
     }
 }
@@ -54,25 +54,25 @@ function Shotgun(cx,cy) {
     this.maxAmmo = 2;
     this.currAmmo = this.maxAmmo;
     this.reloadSpeed = 60;
-    
-    this.attack = function() {
-        if(!this.atkCool && !this.reloading) {
-            this.currAmmo--;
-            if(this.currAmmo <= 0) {
-                this.reloading = true;
-            }
-            else this.atkCool = true;
-            
-            if(this.parent.facing == 1) {
-                scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y, 10,10,this.parent.facing, 0));
-                scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y, 10,10,this.parent.facing, 0.25));
-                scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y, 10,10,this.parent.facing, -0.25));
-            }
-            if(this.parent.facing == -1) {
-                scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y, 10,10,this.parent.facing, 0));
-                scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y, 10,10,this.parent.facing, -1));
-                scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y, 10,10,this.parent.facing, 1));
-            }
+}
+
+Shotgun.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+        
+        if(this.parent.facing == 1) {
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0));
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10));
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10));
+        }
+        if(this.parent.facing == -1) {
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0));
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10));
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10));
         }
     }
 }

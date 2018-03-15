@@ -33,30 +33,30 @@ function Projectile(parent,x,y,w,h, vx,vy) {
     this.entity.grav = 0;
     this.dmg = 10;
     this.parent = parent;
+}
 
-    this.onCollision = function(collider) {
-        if(collider.entity.tag == "projectile") {
+Projectile.prototype.onCollision = function(collider) {
+    if(collider.entity.tag == "projectile") {
 
-        }
-        if(collider.entity.tag == "player" && this.parent) {
-            this.entity.active = false;
-            this.entity.x = -2000;
-            this.entity.y = -2000;
-        }
-        if(collider.entity.tag == "solid") {
-            this.entity.active = false;
-            this.entity.x = -2000;
-            this.entity.y = -2000;
-           // scene.entities.pop();
-        }
     }
-
-    this.Update = function() {
-        this.entity.updatePhysics();
+    if(collider.entity.tag == "player" && this.parent) {
+        this.entity.active = false;
+        this.entity.x = -2000;
+        this.entity.y = -2000;
     }
-
-    this.Draw = function() {
-        ctx1.fillStyle = "red";
-        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+    if(collider.entity.tag == "solid") {
+        this.entity.active = false;
+        this.entity.x = -2000;
+        this.entity.y = -2000;
+       // scene.entities.pop();
     }
+}
+
+Projectile.prototype.Update = function() {
+    this.entity.updatePhysics();
+}
+
+Projectile.prototype.Draw = function() {
+    ctx1.fillStyle = "red";
+    ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
 }

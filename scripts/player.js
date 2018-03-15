@@ -13,7 +13,6 @@ function Player(x, y,w,h, controls, sprite) {
     this.jumping = false;
     this.idling = false;
 
-
     this.item = null;
     this.dropCool = false; //items cant be picked up during dropcool
     this.dropcnt = 0; //drop cooldown counter
@@ -25,201 +24,199 @@ function Player(x, y,w,h, controls, sprite) {
 
     this.health = 100;
     this.isAlive = true;
-    this.drawPlayer = true;
+    this.drawPlayer = true;   
+}
 
-    //handles cooldown between dropping item and being able to pickup another
-    this.updateCnts = function() {
-        if(this.dropCool) this.dropcnt++;
-        if(this.dropcnt == this.dropTime) {
-            this.dropCool = false;
-            this.dropcnt = 0;
-        }
-
-        if(this.knockback) this.knockcnt++;
-        if(this.knockcnt == this.knockTime) {
-            this.knockback = false;
-            this.animation.curSprite = this.animation.bseSprite;
-            this.knockcnt = 0;
-        }
+//handles cooldown between dropping item and being able to pickup another
+Player.prototype.updateCnts = function() {
+    if(this.dropCool) this.dropcnt++;
+    if(this.dropcnt == this.dropTime) {
+        this.dropCool = false;
+        this.dropcnt = 0;
     }
 
-    //handles all responses to input
-    this.movement = function() {
-        if(input.keyDown(this.controls.left)) {
-            if(!this.knockback) {
-                if(!this.jumping) {
-                    this.entity.vx = -this.speed;
-                }
-                else {
-                    this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
-                }
-            }
-            this.facing = -1;
-        } 
-        if(input.keyDown(this.controls.right)) {
-            if(!this.knockback) {
-                if(!this.jumping) {
-                    this.entity.vx = this.speed;
-                }
-                else {
-                    this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
-                }
-            }
-            this.facing = 1;
-        } 
-        if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
-            //if no input while on the ground player stops immediately
-            if(!this.jumping && !this.knockback) {
-                this.entity.vx = 0.0;
-            }
-            //if in the air player slows down over time
-            /*else {
-                if(this.entity.vx > 0) {
-                    this.entity.vx = Math.max(0.0, this.entity.vx - this.decel);
-                }
-                else if(this.entity.vx < 0) {
-                    this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
-                }
-            }*/
-        } 
-        if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
-            this.entity.vy = -1100.0 * tileScale;
-            this.jumping = true;
-        }
+    if(this.knockback) this.knockcnt++;
+    if(this.knockcnt == this.knockTime) {
+        this.knockback = false;
+        this.animation.curSprite = this.animation.bseSprite;
+        this.knockcnt = 0;
+    }
+}
 
-        if(this.item != null && input.keyPress(this.controls.attack) && input.keyDown(this.controls.down)) {
-            this.item.drop(this.facing);
-            this.item = null;
-            this.dropCool = true;
-        }
-
-        else if(this.item != null) {
-            if(this.item.atkHold) {
-                if(input.keyDown(this.controls.attack)) {
-                    console.log("attack");
-                    this.item.attack();
-                }
+//handles all responses to input
+Player.prototype.movement = function() {
+    if(input.keyDown(this.controls.left)) {
+        if(!this.knockback) {
+            if(!this.jumping) {
+                this.entity.vx = -this.speed;
             }
             else {
-                if(input.keyPress(this.controls.attack)) {
-                    console.log("attack");
-                    this.item.attack();
-                }
+                this.entity.vx = Math.min(-this.speed, this.entity.vx - this.accel);
             }
         }
-
-        
-    }
-    this.aniChange = function() {
-      if(!input.keyDown(this.controls.left) &&
-          !input.keyDown(this.controls.right) &&
-          !input.keyDown(this.controls.up)){
-            if(!this.idling) {
-              if(this.facing == 1) {
-                  this.animation.play(0,true);
-              }
-              else{
-                this.animation.play(1,true);
-              }
-              this.idling = true;
+        this.facing = -1;
+    } 
+    if(input.keyDown(this.controls.right)) {
+        if(!this.knockback) {
+            if(!this.jumping) {
+                this.entity.vx = this.speed;
             }
-      }
-      else {
-        this.idling = false;
-      }
-
-      if(input.keyPress(this.controls.up)){
-        if(this.facing == 1){
-          this.animation.play(2,false);
-        }
-        else{ this.animation.play(3,false);}
-      }
-
-      /*if(input.keyPress(this.controls.attack) && facing == 1){
-        this.animation.play(4,false);
-      }
-      if(input.keyPress(this.controls.attack) && facing == -1){
-        this.animation.play(5,false);
-      }*/
-      if(input.keyPress(this.controls.right)){
-        this.animation.play(6,true);
-      }
-      if(input.keyPress(this.controls.left)){
-        this.animation.play(7,true);
-      }
-    }
-
-    /*(REQUIRED)
-        Update function loops after every interval
-        -Use this function for all positional updates anything that needs constant checking/updating
-    */
-    this.Update = function() {
-
-        if(this.health <= 0) {
-            if(this.isAlive) {
-                if(this.item != null) this.item.drop(this.facing);
-                this.item = null;
-                this.isAlive = false;
-                this.entity.active = false;
-                this.drawPlayer = false;
+            else {
+                this.entity.vx = Math.max(this.speed, this.entity.vx + this.accel);
             }
         }
-        
-        this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
-        if(this.isAlive) this.movement(); //respond to input
-        this.aniChange();
-        this.entity.updatePhysics(); //apply acceleration, velocity to position
-
-        
-        this.animation.Update();
+        this.facing = 1;
+    } 
+    if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
+        //if no input while on the ground player stops immediately
+        if(!this.jumping && !this.knockback) {
+            this.entity.vx = 0.0;
+        }
+        //if in the air player slows down over time
+        /*else {
+            if(this.entity.vx > 0) {
+                this.entity.vx = Math.max(0.0, this.entity.vx - this.decel);
+            }
+            else if(this.entity.vx < 0) {
+                this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
+            }
+        }*/
+    } 
+    if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
+        this.entity.vy = -1100.0 * tileScale;
+        this.jumping = true;
     }
 
-    //runs whenever collision detected involving this object
-    //Use collider.entity.tag to determine colliders object type (player, solid object, etc)
-    this.onCollision = function(collider) {
-        if(collider.entity.tag == "player") {
+    if(this.item != null && input.keyPress(this.controls.attack) && input.keyDown(this.controls.down)) {
+        this.item.drop(this.facing);
+        this.item = null;
+        this.dropCool = true;
+    }
 
+    else if(this.item != null) {
+        if(this.item.atkHold) {
+            if(input.keyDown(this.controls.attack)) {
+                this.item.attack();
+            }
         }
-        if(collider.entity.tag == "projectile" && collider.parent != this) {
-            this.knockback = true;
-            this.animation.curSprite = this.animation.dmgSprite;
-            this.knockcnt = 0;
-            this.entity.vx = collider.entity.vx
-            this.health -= 10;
+        else {
+            if(input.keyPress(this.controls.attack)) {
+                this.item.attack();
+            }
+        }
+    }
 
+    
+}
+Player.prototype.aniChange = function() {
+  if(!input.keyDown(this.controls.left) &&
+      !input.keyDown(this.controls.right) &&
+      !input.keyDown(this.controls.up)){
+        if(!this.idling) {
+          if(this.facing == 1) {
+              this.animation.play(0,true);
+          }
+          else{
+            this.animation.play(1,true);
+          }
+          this.idling = true;
         }
-        if(collider.entity.tag == "dead") {
-            this.health = 0;
+  }
+  else {
+    this.idling = false;
+  }
+
+  if(input.keyPress(this.controls.up)){
+    if(this.facing == 1){
+      this.animation.play(2,false);
+    }
+    else{ this.animation.play(3,false);}
+  }
+
+  /*if(input.keyPress(this.controls.attack) && facing == 1){
+    this.animation.play(4,false);
+  }
+  if(input.keyPress(this.controls.attack) && facing == -1){
+    this.animation.play(5,false);
+  }*/
+  if(input.keyPress(this.controls.right)){
+    this.animation.play(6,true);
+  }
+  if(input.keyPress(this.controls.left)){
+    this.animation.play(7,true);
+  }
+}
+
+/*(REQUIRED)
+    Update function loops after every interval
+    -Use this function for all positional updates anything that needs constant checking/updating
+*/
+Player.prototype.Update = function() {
+
+    if(this.health <= 0) {
+        if(this.isAlive) {
+            if(this.item != null) this.item.drop(this.facing);
+            this.item = null;
+            this.isAlive = false;
             this.entity.active = false;
+            this.drawPlayer = false;
         }
-        if(collider.entity.tag == "item") {
-            if(input.keyDown(this.controls.down) && input.keyPress(this.controls.attack)) {
-                if(this.item == null && !this.dropCool) {
-                    collider.pickUp(this);
-                    this.item = collider;
-                }
-            }
-        }
-        if(collider.entity.tag == "solid") {
-            switch(this.entity.solidCollision(collider)) {
-                case 0: //bottom collision
-                    this.jumping = false;
-                    break;
-            }
-            if(this.item != null) this.item.updatePosition();
-        }
+    }
+    
+    this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
+    if(this.isAlive) this.movement(); //respond to input
+    this.aniChange();
+    this.entity.updatePhysics(); //apply acceleration, velocity to position
+
+    
+    this.animation.Update();
+}
+
+//runs whenever collision detected involving this object
+//Use collider.entity.tag to determine colliders object type (player, solid object, etc)
+Player.prototype.onCollision = function(collider) {
+    if(collider.entity.tag == "player") {
 
     }
+    if(collider.entity.tag == "projectile" && collider.parent != this) {
+        this.knockback = true;
+        this.animation.curSprite = this.animation.dmgSprite;
+        this.knockcnt = 0;
+        this.entity.vx = collider.entity.vx
+        this.health -= 10;
 
-    //All draw calls must be done in this function
-    this.Draw = function() {
-        if(this.drawPlayer) {
-            // ctx1.fillStyle = color;
-                //ctx1.fillRect(this.entity.x*scale,this.entity.y*scale,this.entity.width*scale,this.entity.height*scale);
-                //ctx1.drawImage(this.sprite,srcX*64,srcY*64,64,64,this.entity.x,this.entity.y,tileSize,tileSize)
-            this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
-            if(this.item != null) this.item.manualDraw(this.entity.x, this.entity.y);
-        }
-       
     }
+    if(collider.entity.tag == "dead") {
+        this.health = 0;
+        this.entity.active = false;
+    }
+    if(collider.entity.tag == "item") {
+        if(input.keyDown(this.controls.down) && input.keyPress(this.controls.attack)) {
+            if(this.item == null && !this.dropCool) {
+                collider.pickUp(this);
+                this.item = collider;
+            }
+        }
+    }
+    if(collider.entity.tag == "solid") {
+        switch(this.entity.solidCollision(collider)) {
+            case 0: //bottom collision
+                this.jumping = false;
+                break;
+        }
+        if(this.item != null) this.item.updatePosition();
+    }
+
+}
+
+//All draw calls must be done in this function
+Player.prototype.Draw = function() {
+    if(this.drawPlayer) {
+        // ctx1.fillStyle = color;
+            //ctx1.fillRect(this.entity.x*scale,this.entity.y*scale,this.entity.width*scale,this.entity.height*scale);
+            //ctx1.drawImage(this.sprite,srcX*64,srcY*64,64,64,this.entity.x,this.entity.y,tileSize,tileSize)
+        this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
+        if(this.item != null) this.item.manualDraw(this.entity.x, this.entity.y);
+    }
+   
 }
