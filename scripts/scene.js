@@ -11,7 +11,7 @@ var map = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -49,6 +49,7 @@ function Scene() {
     this.solidentities = [];
     this.players = [];
     this.collisions = []; //list of collision to resolve
+    this.items = [TommyGun, Shotgun];
     this.camera = new Camera();
 }
 
@@ -83,11 +84,9 @@ Scene.prototype.loadMap = function(map) {
                     this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, LCsprite));
                     break;
                 case 6:
-                    this.entities.push(new TommyGun(j, i));
+                    var k = Math.floor(Math.random() * this.items.length);
+                    this.entities.push(new this.items[k](j, i));
                     break;
-                case 7:
-                    this.entities.push(new Shotgun(j, i));
-
             }
         }
     }
