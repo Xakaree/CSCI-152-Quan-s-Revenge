@@ -2,11 +2,8 @@ TommyGun.prototype = Object.create(Gun.prototype); //Inherit item methods --REQU
 function TommyGun(cx, cy) {
     this.width = 36
     this.height = 13
-    Gun.call(this,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
-
-    this.imgR = TGR;
-    this.imgL = TGL;
-    this.img = this.imgR;
+    this.sprite = TMY;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
     this.offsetX = 27;
     this.offsetY = 22;
     this.atkDelay = 5;
@@ -42,11 +39,9 @@ Shotgun.prototype = Object.create(Gun.prototype)
 function Shotgun(cx,cy) {
     this.width = 26;
     this.height = 13;
-    Gun.call(this,cx,cy,this.width,this.height);
+    this.sprite = DBS;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height);
 
-    this.imgR = DBR;
-    this.imgL = DBL;
-    this.img = this.imgR;
     this.offsetX = 32;
     this.offsetY = 22;
     this.atkDelay = 0;

@@ -1,9 +1,8 @@
-function Item(cx,cy,w,h) {
+function Item(sprite,cx,cy,w,h) {
     this.parent = null;
     this.entity = new Entity(cx*tileSize, cy*tileSize, w, h, "item");
-    this.imgR = null;
-    this.imgL = null;
-    this.img = this.imgR;
+    //this.animation = new animation(sprite);
+    this.img = sprite;
     this.atkDelay = 0;
     this.atkcnt = 0;
     this.atkHold = false;
@@ -48,12 +47,12 @@ Item.prototype.updatePosition = function() {
     if(this.parent.facing == 1) {
         this.entity.x = this.parent.entity.x+this.offsetX;
         this.entity.y = this.parent.entity.y + this.offsetY;
-        this.img = this.imgR;
+        //this.img = this.imgR;
     }
     if(this.parent.facing == -1) {
         this.entity.x = this.parent.entity.getRight() - this.offsetX - this.entity.width;
         this.entity.y = this.parent.entity.y + this.offsetY;
-        this.img = this.imgL;
+        //this.img = this.imgL;
     }
 }
 
@@ -69,20 +68,26 @@ Item.prototype.Update = function() {
 }
 
 Item.prototype.manualDraw = function(x,y) {
-    ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+    if(this.parent.facing == 1) {
+        ctx1.drawImage(this.img, 0,0,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+    }
+    else if(this.parent.facing == -1) {
+        ctx1.drawImage(this.img, 0,this.entity.height,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+    } 
+    //ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
 }
 
 Item.prototype.Draw = function() {
     ctx1.fillStyle = "white";
     //ctx1.fillRect(this.entity.x, this.entity.y,this.entity.width,this.entity.height);
     if(this.parent == null) {
-        ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+        ctx1.drawImage(this.img, 0,0,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
     } 
 }
 
 Gun.prototype = Object.create(Item.prototype);
-function Gun(cx,cy,w,h) {
-    Item.call(this,cx,cy,w,h)
+function Gun(sprite,cx,cy,w,h) {
+    Item.call(this,sprite,cx,cy,w,h)
 
     this.reloading = false;
     this.reloadSpeed = 0;
@@ -104,7 +109,12 @@ Gun.prototype.reloadtimer = function() {
 
 Gun.prototype.manualDraw = function(x,y) {
     if(this.reloading) ctx1.fillRect((x + 20) * scale, y * scale-10,(this.reloadcnt/this.parent.entity.width) * 20 * scale, 5 * scale);
-    ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+    if(this.parent.facing == 1) {
+        ctx1.drawImage(this.img, 0,0,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+    }
+    else if(this.parent.facing == -1) {
+        ctx1.drawImage(this.img, 0,this.entity.height,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
+    }
 }
 
 Gun.prototype.Update = function() {
