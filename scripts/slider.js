@@ -35,6 +35,6 @@ function Slider(x, y, cont){
  }// end update
 
   this.Select = function(){this.selected = true; }
-  this.unSelect = function(){this.selected = false;}
+  this.Unselect = function(){this.selected = false;}
   this.isSelected = function(){ return this.selected;}
 }
