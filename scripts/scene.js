@@ -58,6 +58,12 @@ Scene.prototype.Start = function() {
     this.loadMap(map);
 }
 
+Scene.prototype.PassPlayers = function(selection){
+  for (var i = 0; i < selection.length; i++) {
+    this.playersPassed[i] = selection[i];
+  }
+}
+
 Scene.prototype.loadMap = function(map) {
     this.entities = [];
     this.solidentities = [];

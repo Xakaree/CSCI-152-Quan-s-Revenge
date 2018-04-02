@@ -93,8 +93,6 @@ function CSelect(){
       this.selection.push(this.characters[this.char4.character].v2Sprite);
     }
 
-    console.log(this.selection);
-
       this.scene = scene;
       this.scene.PassPlayers(this.selection);
       this.scene.Start();
