@@ -60,7 +60,7 @@ function Options() {
   //process command
      if(input.keyPress(pcontrols[0].attack) && this.option == 0){
        input.resetKeys();
-       this.controlMapping = new controlMapping();
+       this.controlMapping = new SelectPlayer();
        this.controlMapping.Start();
        this.active = false;
      }

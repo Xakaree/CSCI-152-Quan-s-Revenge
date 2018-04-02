@@ -28,7 +28,7 @@ var p2controls = { //Default Player 2 Controls
     up: 87,     //w
     down: 83,   //s
     jump: 87,   //w
-    attack: null
+    attack: 32
 }
 
 var p3controls = {  //Default Player 3 Controls

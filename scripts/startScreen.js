@@ -23,7 +23,7 @@ function startScreen(){
 
 	this.Update = function(){
 			if (this.active){
-			 if (input.keyPress(pcontrols[0].attack)){ //start game
+			 if (input.keyPress(32)){ //start game
 						input.resetKeys(); //  needed when
 						this.menu =  new Menu();
 						this.menu.Start();
