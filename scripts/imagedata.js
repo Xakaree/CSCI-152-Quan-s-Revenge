@@ -1,4 +1,42 @@
 var LCsprite={
+  image:LC1,
+  damage:LC1D,
+  portrait:LCP,
+  frameLimits:[4,4,2,2,3,3,11,11],
+  width:64,
+  height:64
+}
+
+var QSsprite={
+  image:QS1,
+  damage:QS1D,
+  portrait:QSP,
+  frameLimits:[4,4,2,2,3,3,11,11],
+  width:64,
+  height:64
+}
+
+var GZsprite={
+  image:GZ1,
+  damage:GZ1D,
+  portrait:GZP,
+  frameLimits:[4,4,2,2,3,3,11,11],
+  width:64,
+  height:64
+}
+
+var SHsprite={
+  image:SH1,
+  damage:SH1D,
+  portrait:SHP,
+  frameLimits:[4,4,2,2,3,3,11,11],
+  width:64,
+  height:64
+}
+
+
+
+/*var LCsprite={
   v1Sprite:LC1,
   v1dSprite:LC1D,
   v2Sprite:LC2,
@@ -42,4 +80,4 @@ var SHsprite={
   frameLimits:[4,4,2,2,3,3,11,11],
   width:64,
   height:64
-}
+}*/

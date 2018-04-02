@@ -38,7 +38,7 @@ Player.prototype.updateCnts = function() {
     if(this.knockback) this.knockcnt++;
     if(this.knockcnt == this.knockTime) {
         this.knockback = false;
-        this.animation.curSprite = this.animation.bseSprite;
+        this.animation.image = this.sprite.image;
         this.knockcnt = 0;
     }
 }
@@ -180,9 +180,9 @@ Player.prototype.onCollision = function(collider) {
     }
     if(collider.entity.tag == "projectile" && collider.parent != this) {
         this.knockback = true;
-        this.animation.curSprite = this.animation.dmgSprite;
+        this.animation.image = this.sprite.damage;
         this.knockcnt = 0;
-        this.entity.vx = collider.entity.vx
+        this.entity.vx = collider.entity.vx;
         this.health -= 10;
 
     }

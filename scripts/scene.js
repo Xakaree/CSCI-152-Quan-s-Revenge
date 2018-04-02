@@ -198,7 +198,7 @@ Scene.prototype.drawHealth = function() {
         
         ctx1.fillStyle  = "black";
         ctx1.font = "30px Arial";
-        if(this.players[i].isAlive) ctx1.drawImage(this.players[i].sprite.v1portrait, 0,0,32,32, canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 40 + this.camera.y, 64,64)
+        if(this.players[i].isAlive) ctx1.drawImage(this.players[i].sprite.portrait, 0,0,32,32, canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 40 + this.camera.y, 64,64)
         else ctx1.fillText("X", canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 15 + this.camera.y);
 
         
