@@ -9,6 +9,7 @@ var LCsprite={
   width:64,
   height:64
 }
+
 var QSsprite={
   v1Sprite:QS1,
   v1dSprite:QS1D,
