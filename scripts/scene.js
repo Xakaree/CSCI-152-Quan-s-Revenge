@@ -47,9 +47,16 @@ Handles all objects, updates and draw calls
 function Scene() {
     this.entities = []; //list of entities
     this.solidentities = [];
-    this.players = [];
+    this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
     this.camera = new Camera();
+
+    this.PassPlayers = function(selection){
+      for (var i = 0; i < selection.length; i++) {
+        this.playersPassed[i] = selection[i];
+      }
+      //console.log(this.playersPassed[0]);
+    }
 
     this.loadMap = function(map) {
         this.entities = [];
@@ -169,7 +176,7 @@ function Scene() {
             }
         }
 
-        
+
         /*for(var i = 0; i < this.entities.length; i++) {
             if(!this.entities[i].entity.active) continue;
             for(var j = i+1; j < this.entities.length; j++) {
@@ -193,15 +200,15 @@ function Scene() {
             //ctx1.fillStyle = "grey";
             //ctx1.fillRect(canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 40 + this.camera.y, 40,30);
 
-            
+
             ctx1.fillStyle  = "black";
             ctx1.font = "30px Arial";
             if(this.players[i].isAlive) ctx1.drawImage(this.players[i].sprite.v1portrait, 0,0,32,32, canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 40 + this.camera.y, 64,64)
             else ctx1.fillText("X", canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 15 + this.camera.y);
 
-            
 
-            
+
+
             //if(this.players[i].isAlive) ctx1.fillText("P" + (i+1).toString(), canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 15 + this.camera.y);
             //else ctx1.fillText("X", canvas.width/4 * i + 15 + this.camera.x, canvas.height*7/8 - 15 + this.camera.y);
 
@@ -221,7 +228,7 @@ function Scene() {
     this.Draw = function() {
         ctx1.clearRect(0,0,canvas.width,canvas.height);
 
-        
+
         ctx0.fillStyle = "#0f7dc6";
         ctx0.fillRect(0,0,width,height);
 
@@ -242,7 +249,7 @@ function Scene() {
         for(var i = 0; i < this.entities.length; i++) {
             this.entities[i].Draw();
         }
-        
+
 
         this.drawHealth();
 
