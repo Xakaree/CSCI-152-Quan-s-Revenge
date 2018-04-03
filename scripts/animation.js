@@ -12,6 +12,7 @@ function animation(sprite,controls){
   this.image = sprite.image;
 
   this.play = function(aniY, lp){
+    if(srcY == aniY) return;
     srcY = aniY;
     srcX = 0;
     frameLimit = sprite.frameLimits[srcY];
