@@ -71,3 +71,38 @@ Shotgun.prototype.attack = function() {
         }
     }
 }
+
+
+Flamethrower.prototype = Object.create(Gun.prototype);
+function Flamethrower() {
+    this.width = 46;
+    this.height = 18;
+    this.sprite = FLM;
+    Gun.call(this, this.sprite,cx,cy,this.width,this.height);
+
+    this.offsetX = 0;
+    this.offsetY = 0;
+    this.atkDelay = 0;
+    this.atkHold = true;
+
+    this.maxAmmo = 50;
+    this.currAmmo = this.maxAmmo;
+    this.reloadSpeed = 120;
+}
+
+Flamethrower.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+        
+        if(this.parent.facing == 1) {
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0));
+        }
+        if(this.parent.facing == -1) {
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0));
+        }
+    }
+}
