@@ -38,7 +38,7 @@ Player.prototype.updateCnts = function() {
     if(this.knockback) this.knockcnt++;
     if(this.knockcnt == this.knockTime) {
         this.knockback = false;
-        this.animation.curSprite = this.animation.bseSprite;
+        this.animation.image = this.sprite.image;
         this.knockcnt = 0;
     }
 }
@@ -126,7 +126,7 @@ Player.prototype.aniChange = function() {
     this.idling = false;
   }
 
-  if(input.keyPress(this.controls.up)){
+  if(input.keyPress(this.controls.jump)){
     if(this.facing == 1){
       this.animation.play(2,false);
     }
@@ -139,10 +139,10 @@ Player.prototype.aniChange = function() {
   if(input.keyPress(this.controls.attack) && facing == -1){
     this.animation.play(5,false);
   }*/
-  if(input.keyPress(this.controls.right)){
+  if(input.keyDown(this.controls.right) && this.jumping == false){
     this.animation.play(6,true);
   }
-  if(input.keyPress(this.controls.left)){
+  if(input.keyDown(this.controls.left) && this.jumping == false){
     this.animation.play(7,true);
   }
 }
@@ -180,9 +180,9 @@ Player.prototype.onCollision = function(collider) {
     }
     if(collider.entity.tag == "projectile" && collider.parent != this) {
         this.knockback = true;
-        this.animation.curSprite = this.animation.dmgSprite;
+        this.animation.image = this.sprite.damage;
         this.knockcnt = 0;
-        this.entity.vx = collider.entity.vx
+        this.entity.vx = collider.entity.vx;
         this.health -= 10;
 
     }

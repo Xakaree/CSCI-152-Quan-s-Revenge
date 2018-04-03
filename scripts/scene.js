@@ -78,16 +78,16 @@ Scene.prototype.loadMap = function(map) {
                     this.solidentities.push(new SolidTile(j,i, 1,1));
                     break;
                 case 2:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, QSsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, this.playersPassed[0]));
                     break;
                 case 3:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, GZsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, this.playersPassed[1]));
                     break;
                 case 4:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, SHsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, this.playersPassed[2]));
                     break;
                 case 5:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, LCsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, this.playersPassed[3]));
                     break;
                 case 6:
                     var k = Math.floor(Math.random() * this.items.length);
@@ -204,7 +204,7 @@ Scene.prototype.drawHealth = function() {
 
         ctx1.fillStyle  = "black";
         ctx1.font = "30px Arial";
-        if(this.players[i].isAlive) ctx1.drawImage(this.players[i].sprite.v1portrait, 0,0,32,32, canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 40 + this.camera.y, 64,64)
+        if(this.players[i].isAlive) ctx1.drawImage(this.players[i].sprite.portrait, 0,0,32,32, canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 40 + this.camera.y, 64,64)
         else ctx1.fillText("X", canvas.width/4 * i + 15 + this.camera.x, canvas.height*8/9 - 15 + this.camera.y);
 
 
