@@ -78,16 +78,16 @@ Scene.prototype.loadMap = function(map) {
                     this.solidentities.push(new SolidTile(j,i, 1,1));
                     break;
                 case 2:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, QSsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, this.playersPassed[0]));
                     break;
                 case 3:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, GZsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, this.playersPassed[1]));
                     break;
                 case 4:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, SHsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, this.playersPassed[2]));
                     break;
                 case 5:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, LCsprite));
+                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, this.playersPassed[3]));
                     break;
                 case 6:
                     var k = Math.floor(Math.random() * this.items.length);
