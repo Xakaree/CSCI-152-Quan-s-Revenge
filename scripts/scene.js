@@ -49,7 +49,7 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
-    this.items = [TommyGun, Shotgun];
+    this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
 }
 

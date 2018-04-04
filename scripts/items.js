@@ -60,32 +60,32 @@ Shotgun.prototype.attack = function() {
         else this.atkCool = true;
         
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0));
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10));
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10));
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0, 0));
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10, 0));
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10, 0));
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0));
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10));
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10));
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0, 0));
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10, 0));
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10, 0));
         }
     }
 }
 
 
 Flamethrower.prototype = Object.create(Gun.prototype);
-function Flamethrower() {
+function Flamethrower(cx,cy) {
     this.width = 46;
     this.height = 18;
     this.sprite = FLM;
     Gun.call(this, this.sprite,cx,cy,this.width,this.height);
 
-    this.offsetX = 0;
-    this.offsetY = 0;
+    this.offsetX = 32;
+    this.offsetY = 22;
     this.atkDelay = 0;
     this.atkHold = true;
 
-    this.maxAmmo = 50;
+    this.maxAmmo = 100;
     this.currAmmo = this.maxAmmo;
     this.reloadSpeed = 120;
 }
@@ -97,12 +97,19 @@ Flamethrower.prototype.attack = function() {
             this.reloading = true;
         }
         else this.atkCool = true;
+
+        var y = Math.random() * 0.3;
+        var d = Math.random() * 100;
+
+        if( d < 50) d = 1;
+        else if(d >= 50) d = -1;
+        
         
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0));
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20));
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0));
+            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20));
         }
     }
 }
