@@ -109,7 +109,6 @@ Scene.prototype.Update  = function() {
         this.loadMap(map);
     }
 
-    this.para.Update(); // beta
 
     for(var i = 0; i < this.players.length; i++) {
         this.players[i].Update();
