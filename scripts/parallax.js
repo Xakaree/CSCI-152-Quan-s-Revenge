@@ -14,7 +14,7 @@ function Parallax(camera, image = null){
         ctx1.save();
 
         ctx1.translate(-this.camera.x, -this.camera.y);
-        ctx1.drawImage(background, xdir, ydir,canvas.width + 250,canvas.height +250);
+        ctx1.drawImage(background, xdir, ydir,(canvas.width + 250) *scale,(canvas.height +250)*scale);
 
         ctx1.restore();
 
