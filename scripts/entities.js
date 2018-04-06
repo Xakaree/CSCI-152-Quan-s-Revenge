@@ -26,13 +26,15 @@ function deathTile(cx,cy,cw,ch) {
     }
 }
 
-function Projectile(parent,x,y,w,h, vx,vy) {
+function Projectile(parent,x,y,w,h, vx,vy, life) {
     this.entity = new Entity(x,y,w,h,"projectile");
     this.entity.vx = 800 * vx * tileScale;
     this.entity.vy = 800 * vy * tileScale;
     this.entity.grav = 0;
-    this.dmg = 10;
+    this.dmg = 5;
     this.parent = parent;
+    this.cnt = 0;
+    this.life = life;
 }
 
 Projectile.prototype.onCollision = function(collider) {
@@ -54,6 +56,15 @@ Projectile.prototype.onCollision = function(collider) {
 
 Projectile.prototype.Update = function() {
     this.entity.updatePhysics();
+    if(this.life > 0) {
+        if(this.cnt >= this.life) {
+            this.entity.active = false;
+            this.entity.x = -2000;
+            this.entity.y = -2000;
+        }
+        else this.cnt++;
+    }
+
 }
 
 Projectile.prototype.Draw = function() {

@@ -49,8 +49,9 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
-    this.items = [TommyGun, Shotgun];
+    this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
+    this.para =  new Parallax(this.camera, "background/parallax.jpg"); // beta features
 }
 
 //runs at start of scene
@@ -107,6 +108,7 @@ Scene.prototype.Update  = function() {
     if(input.keyPress(82)) {
         this.loadMap(map);
     }
+
 
     for(var i = 0; i < this.players.length; i++) {
         this.players[i].Update();
@@ -237,6 +239,7 @@ Scene.prototype.Draw = function() {
     ctx0.save();
 
     this.camera.Update(this.players);
+    this.para.Draw();
 
     ctx0.translate(-this.camera.x, -this.camera.y);
     ctx1.translate(-this.camera.x, -this.camera.y);
