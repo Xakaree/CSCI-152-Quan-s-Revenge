@@ -38,13 +38,21 @@ function InputHandler() {
     }
 
     this.keyDown = function(key) {
+<<<<<<< HEAD
         if(key != 'null' && key != null)
+=======
+        if(key != null)
+>>>>>>> bdb95f017458d0275fe6722678981a90d3a9ec41
           return input[key].keyDown;
         else return false;
     }
 
     this.keyPress = function(key) {
+<<<<<<< HEAD
         if(key != 'null' && key != null)
+=======
+        if(key != null)
+>>>>>>> bdb95f017458d0275fe6722678981a90d3a9ec41
           return input[key].keyPress;
         else
           return false;
