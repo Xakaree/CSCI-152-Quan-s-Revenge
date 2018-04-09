@@ -3,11 +3,30 @@ var battleList = [];
 var menuList = [];
 
 
+function setSoundtrackVolume(val, list){
+    var newVal = val/500;
+    for (var i = 0; i < list.length; i++){
+        list[i].changeVolume(newVal);
+    }
+
+}
+
+function pauseSoundtrack( list){
+    var i = 0;
+    if( i < list.length) {
+    list[i].stop();
+    }
+
+}
+
+
 function playSoundtrack(i, list){
+    if( i < list.length) {
     list[i].play();
     list[i].getSoundElem().onended = function() {
         i++;
         playSoundtrack(i, list);
+    }
     }
 
 }
@@ -100,12 +119,12 @@ battleList.push(bg_3);
 
 
 //menu music 
-var menu_1 = new sound("audioFiles/menu_1.mp3", false, 1);
+//var menu_1 = new sound("audioFiles/menu_1.mp3", false, 1);
 var menu_2 = new sound("audioFiles/menu_2.mp3", false, 1);
 
 
 // menu soundtrack list
-menuList.push(menu_1);
+//menuList.push(menu_1);
 menuList.push(menu_2);
 
 

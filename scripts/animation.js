@@ -9,20 +9,16 @@ function animation(sprite,controls){
   var counter=0;
   var aniSpd = 6; //Speed Cap on animation
   var loop = true;
-  this.bseSprite = sprite.v1Sprite;
-  this.dmgSprite = sprite.v1dSprite;
-  this.curSprite = this.bseSprite;
+  this.image = sprite.image;
 
-  this.swapSprite = function(){
-      if(this.curSprite == sprite.v1Sprite){ this.curSprite = sprite.v1damage;}
-      else{ this.curSprite = sprite.v1Sprite;}
-  }
   this.play = function(aniY, lp){
+    if(srcY == aniY) return;
     srcY = aniY;
     srcX = 0;
     frameLimit = sprite.frameLimits[srcY];
     loop = lp;
   }
+
   this.Update = function(){
     counter++;
 		if(counter == aniSpd){
@@ -37,6 +33,6 @@ function animation(sprite,controls){
     }
   }
   this.Draw = function(x,y,width,height){
-    ctx1.drawImage(this.curSprite,srcX*sprite.width,srcY*sprite.height,sprite.width,sprite.height,x*scale,y*scale,width*scale,height*scale)
+    ctx1.drawImage(this.image,srcX*sprite.width,srcY*sprite.height,sprite.width,sprite.height,x*scale,y*scale,width*scale,height*scale)
   }
 }
