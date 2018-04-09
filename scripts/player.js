@@ -5,7 +5,7 @@ function Player(x, y,w,h, controls, sprite) {
     this.accel = 2.0 * tileScale; //UNUSED FOR NOW
     this.decel = 2.0 * tileScale;
     this.controls = controls || defaultcontrols;
-
+    this.jumpsnd =  new sound("audioFiles/jump_3.wav", false, 1);
 	this.sprite = sprite;
 
     this.facing = 1; //direction of player, -1=left 1=right
@@ -55,7 +55,7 @@ function Player(x, y,w,h, controls, sprite) {
                 }
             }
             this.facing = -1;
-        } 
+        }
         if(input.keyDown(this.controls.right)) {
             if(!this.knockback) {
                 if(!this.jumping) {
@@ -66,7 +66,7 @@ function Player(x, y,w,h, controls, sprite) {
                 }
             }
             this.facing = 1;
-        } 
+        }
         if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
             //if no input while on the ground player stops immediately
             if(!this.jumping && !this.knockback) {
@@ -81,11 +81,34 @@ function Player(x, y,w,h, controls, sprite) {
                     this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
                 }
             }*/
-        } 
+        }
         if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
             this.entity.vy = -1100.0 * tileScale;
             this.jumping = true;
         }
+        this.facing = 1;
+    }
+    if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
+        //if no input while on the ground player stops immediately
+        if(!this.jumping && !this.knockback) {
+            this.entity.vx = 0.0;
+        }
+        //if in the air player slows down over time
+        /*else {
+            if(this.entity.vx > 0) {
+                this.entity.vx = Math.max(0.0, this.entity.vx - this.decel);
+            }
+            else if(this.entity.vx < 0) {
+                this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
+            }
+        }*/
+    }
+    if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
+        this.entity.vy = -1100.0 * tileScale;
+        this.jumping = true;
+
+        this.jumpsnd.play();
+    }
 
         if(this.item != null && input.keyPress(this.controls.attack) && input.keyDown(this.controls.down)) {
             this.item.drop(this.facing);
@@ -96,9 +119,6 @@ function Player(x, y,w,h, controls, sprite) {
         else if(input.keyDown(this.controls.attack)) {
             if(this.item != null) this.item.attack();
         }
-
-        
-    }
     this.aniChange = function() {
       if(!input.keyDown(this.controls.left) &&
           !input.keyDown(this.controls.right) &&
@@ -153,13 +173,13 @@ function Player(x, y,w,h, controls, sprite) {
                 this.drawPlayer = false;
             }
         }
-        
+
         this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
         if(this.isAlive) this.movement(); //respond to input
         this.aniChange();
         this.entity.updatePhysics(); //apply acceleration, velocity to position
 
-        
+
         this.animation.Update();
     }
 
@@ -209,6 +229,6 @@ function Player(x, y,w,h, controls, sprite) {
             this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
             if(this.item != null) this.item.manualDraw(this.entity.x, this.entity.y);
         }
-       
+
     }
 }
