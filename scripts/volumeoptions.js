@@ -1,9 +1,9 @@
 function VolumeOptions(){
   this.active = false;
-  this.musicslider = new Slider(150,100,ctx1);
-  this.sfxslider = new Slider(150, 200,ctx1);
-  this.menuslider = new Slider(150, 300,ctx1);
-  this.somethingslider = new Slider(150,400,ctx1); // forgot what this slider was for
+  this.musicslider = new Slider(150,100,ctx1, battleList);
+  this.sfxslider = new Slider(150, 200,ctx1, battleList);
+  this.menuslider = new Slider(150, 300,ctx1, menuList);
+  this.somethingslider = new Slider(150,400,ctx1, battleList); // forgot what this slider was for
   this.lastSelected = this.somethingslider;
   this.toggle = 0;
   this.back = null;

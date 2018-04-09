@@ -3,7 +3,7 @@ var battleList = [];
 var menuList = [];
 
 
-function setSountrackVolume(val, list){
+function setSoundtrackVolume(val, list){
     var newVal = val/500;
     for (var i = 0; i < list.length; i++){
         list[i].changeVolume(newVal);
