@@ -7,12 +7,12 @@ var map = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,2,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,3,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,0,0,0,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+    [1,0,0,0,0,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -51,7 +51,7 @@ function Scene() {
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/parallax.jpg"); // beta features
+    this.para =  new Parallax(this.camera, "background/Skyscrapers.png","background/MoreBuildings.png","background/Buildings.png"); // beta features
     this.active = true;
 
     this.win = false;
@@ -82,7 +82,7 @@ Scene.prototype.loadMap = function(map) {
                 case 0:
                     break;
                 case 1:
-                    this.solidentities.push(new SolidTile(j,i, 1,1));
+                    this.solidentities.push(new SolidTile(j,i, 1,1,MSCAFF));
                     break;
                 case 2:
                     this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, this.playersPassed[0]));
@@ -99,6 +99,9 @@ Scene.prototype.loadMap = function(map) {
                 case 6:
                     var k = Math.floor(Math.random() * this.items.length);
                     this.entities.push(new this.items[k](j, i));
+                    break;
+                case 7:
+                    this.solidentities.push(new SolidTile(j,i, 1,1,IRON));
                     break;
             }
         }
@@ -157,13 +160,13 @@ Scene.prototype.checkWin = function() {
         if(this.players[i].health > 0) {
             cnt++;
             ind = i;
-        } 
+        }
     }
     if(cnt <= 1) {
         this.winner = ind + 1;
         this.win = true;
 
-    } 
+    }
 }
 
 Scene.prototype.checkCollisions = function() {

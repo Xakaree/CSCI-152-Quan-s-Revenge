@@ -4,7 +4,7 @@ function Slider(x, y, cont, list){
   this.context = cont;
   this.toggleBar = 500;
   this.selected = false;
-  
+
   this.Draw = function() {
     this.context.fillStyle = "grey";
     this.context.fillRect(this.xpos,this.ypos,500,25);
@@ -37,6 +37,6 @@ function Slider(x, y, cont, list){
  }// end update
 
   this.Select = function(){this.selected = true; }
-  this.unSelect = function(){this.selected = false;}
+  this.Unselect = function(){this.selected = false;}
   this.isSelected = function(){ return this.selected;}
 }

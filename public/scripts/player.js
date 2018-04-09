@@ -5,7 +5,7 @@ function Player(x, y,w,h, controls, sprite) {
     this.accel = 2.0 * tileScale; //UNUSED FOR NOW
     this.decel = 2.0 * tileScale;
     this.controls = controls || defaultcontrols;
-
+    this.jumpsnd =  new sound("audioFiles/jump_3.wav", false, 1);
 	this.sprite = sprite;
 
     this.facing = 1; //direction of player, -1=left 1=right
@@ -85,6 +85,8 @@ Player.prototype.movement = function() {
     if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
         this.entity.vy = -1100.0 * tileScale;
         this.jumping = true;
+        
+        this.jumpsnd.play();
     }
 
     if(this.item != null && input.keyPress(this.controls.attack) && input.keyDown(this.controls.down)) {
