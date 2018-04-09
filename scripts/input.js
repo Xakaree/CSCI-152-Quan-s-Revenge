@@ -28,23 +28,26 @@ function InputHandler() {
         for(var i = 0; i < input.length; i++) {
             if(input[i].keyPress) {
                 input[i].keyPress = false;
-            } 
+            }
             if(!input[i].keyDown && input[i].key) {
                 input[i].keyPress = true;
-            } 
+            }
             input[i].keyDown = input[i].key;
         }
 
     }
 
     this.keyDown = function(key) {
-        if(key == null) return false;
-        return input[key].keyDown;
+        if(key != null)
+          return input[key].keyDown;
+        else return false;
     }
 
     this.keyPress = function(key) {
-        if(key == null) return false;
-        return input[key].keyPress;
+        if(key != null)
+          return input[key].keyPress;
+        else
+          return false;
     }
 
     this.resetKeys = function() {
@@ -52,7 +55,7 @@ function InputHandler() {
             input[i].key = false;
             input[i].keyDown = false;
             input[i].keyPress = false;
-        }   
+        }
     }
 
     this.getKeyPress = function() {

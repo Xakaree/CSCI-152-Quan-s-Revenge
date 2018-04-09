@@ -51,7 +51,7 @@ function Scene() {
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/parallax.jpg"); // beta features
+    this.para =  new Parallax(this.camera, "background/Skyscrapers.png","background/MoreBuildings.png","background/Buildings.png"); // beta features
     this.active = true;
 
     this.win = false;
@@ -160,13 +160,13 @@ Scene.prototype.checkWin = function() {
         if(this.players[i].health > 0) {
             cnt++;
             ind = i;
-        } 
+        }
     }
     if(cnt <= 1) {
         this.winner = ind + 1;
         this.win = true;
 
-    } 
+    }
 }
 
 Scene.prototype.checkCollisions = function() {
