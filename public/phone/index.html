@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Phone Control</title>
+</head>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
+
+<body>
+    <div id="d1">
+        <text id = "t1">Phone Control</text> 
+        <button id="b1">Click Me!</button>
+    
+        <form action ="">
+            <input id="m" autocomplete="off" />
+        </form>
+    </div>
+    
+</body>
+
+<script>
+
+b = document.getElementById("b1");
+t = document.getElementById("t1");
+
+
+b.addEventListener("click",function(){
+    document.body.requestFullscreen();
+}, false);
+
+
+</script>
+
+</html>
