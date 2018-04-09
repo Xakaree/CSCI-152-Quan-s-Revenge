@@ -120,6 +120,6 @@ startScreen = new startScreen();
 
 scene = new Scene();
 //scene.Start();
-
+playSoundtrack(0, menuList);
 oldTime = performance.now(); //start time of scene (needed for delatime)
 requestAnimationFrame(GameLoop); //starts game loop
