@@ -1,10 +1,10 @@
-function Slider(x, y, cont, list){
+function Slider(x, y, cont){
   this.xpos = x;
   this.ypos = y;
   this.context = cont;
-  this.toggleBar = 500;
+  this.toggleBar = 0;
   this.selected = false;
-  
+
   this.Draw = function() {
     this.context.fillStyle = "grey";
     this.context.fillRect(this.xpos,this.ypos,500,25);
@@ -28,11 +28,9 @@ function Slider(x, y, cont, list){
   this.Update = function(){
     if(this.selected){
         if (input.keyDown(pcontrols[0].right) && this.toggleBar < 500)
-          {this.toggleBar +=5;
-          setSoundtrackVolume(this.toggleBar, list);}
+          {this.toggleBar +=5;}
         else if (input.keyDown(pcontrols[0].left) && this.toggleBar > 0)
-          {this.toggleBar -=5;
-          setSoundtrackVolume(this.toggleBar, list);}
+          {this.toggleBar -=5;}
    } // end selected
  }// end update
 
