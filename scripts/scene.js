@@ -128,7 +128,7 @@ Scene.prototype.Update  = function() {
         this.checkCollisions();
         this.resolveCollisions();
 
-        this.checkWin();
+        if(!this.win) this.checkWin();
     }
 
     if(this.win) {
