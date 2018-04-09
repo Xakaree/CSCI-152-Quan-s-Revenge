@@ -51,7 +51,7 @@ function Scene() {
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/parallax.jpg"); // beta features
+    this.para =  new Parallax(this.camera, "background/Space.png","background/Planets.png" ,"background/Moon.png"); // beta features
 }
 
 //runs at start of scene
