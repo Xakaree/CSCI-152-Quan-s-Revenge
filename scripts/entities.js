@@ -1,14 +1,15 @@
 //tile that acts as a solid object (walls,platforms)
-function SolidTile(cx,cy,cw,ch) {
+function SolidTile(cx,cy,cw,ch, image) {
     this.entity = new Entity(cx*tileSize,cy*tileSize, cw*tileSize,ch*tileSize, "solid");
-
+    this.image = image;
     this.Update = function() {
 
     }
 
     this.Draw = function() {
         ctx1.fillStyle = "black";
-        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+        //ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+        ctx1.drawImage(this.image, this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
     }
 
 }
