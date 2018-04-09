@@ -28,9 +28,9 @@ b = document.getElementById("b1");
 t = document.getElementById("t1");
 
 
-b.addEventListener("click",function(){
-    document.body.requestFullscreen();
-}, false);
+b.onclick = function() {
+    socket.emit('input', 32);
+}
 
 
 </script>

@@ -22,6 +22,11 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
   console.log(socket.client.id + ' connected');
+  socket.join('room01');
+  socket.on('input', function(input) {
+    console.log(input);
+    io.emit('input', input);
+  });
 });
 
 var port = 7778;
