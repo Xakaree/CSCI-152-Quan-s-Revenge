@@ -38,13 +38,13 @@ function InputHandler() {
     }
 
     this.keyDown = function(key) {
-        if(key != null)
+        if(key != 'null' && key != null)
           return input[key].keyDown;
         else return false;
     }
 
     this.keyPress = function(key) {
-        if(key != null)
+        if(key != 'null' && key != null)
           return input[key].keyPress;
         else
           return false;
