@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 .DS_Store
+=======
+node_modules/
+>>>>>>> master

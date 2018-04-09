@@ -97,7 +97,8 @@ function CSelect(){
      else if(this.char4.color == 1){
       this.selection.push(this.characters[this.char4.character].v2Sprite);
     }*/
-
+      pauseSoundtrack(menuList);
+      playSoundtrack(0, battleList);
       this.scene = scene;
       this.scene.PassPlayers(this.selection);
       this.scene.Start();

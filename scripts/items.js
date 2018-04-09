@@ -98,7 +98,7 @@ Flamethrower.prototype.attack = function() {
         }
         else this.atkCool = true;
 
-        var y = Math.random() * 0.3;
+        var y = Math.random() * 0.2;
         var d = Math.random() * 100;
 
         if( d < 50) d = 1;
