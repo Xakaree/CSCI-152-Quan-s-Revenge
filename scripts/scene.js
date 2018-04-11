@@ -49,7 +49,7 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
-    this.items = [TommyGun, Shotgun, Flamethrower];
+    this.items = [TommyGun, Shotgun, Flamethrower, Lazer];
     this.camera = new Camera();
     this.para =  new Parallax(this.camera, "background/Space.png","background/Planets.png","background/Moon.png"); // beta features
     this.active = true;
