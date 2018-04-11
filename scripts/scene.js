@@ -7,12 +7,12 @@ var map = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,2,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,3,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,0,0,0,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+    [1,0,0,0,0,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -51,7 +51,13 @@ function Scene() {
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/parallax.jpg"); // beta features
+    this.para =  new Parallax(this.camera, "background/Space.png","background/Planets.png","background/Moon.png"); // beta features
+    this.active = true;
+
+    this.win = false;
+    this.wincnt = 0;
+    this.winTime = 240;
+    this.winner;
 }
 
 //runs at start of scene
@@ -76,7 +82,7 @@ Scene.prototype.loadMap = function(map) {
                 case 0:
                     break;
                 case 1:
-                    this.solidentities.push(new SolidTile(j,i, 1,1));
+                    this.solidentities.push(new SolidTile(j,i, 1,1,MSCAFF));
                     break;
                 case 2:
                     this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, this.playersPassed[0]));
@@ -94,6 +100,9 @@ Scene.prototype.loadMap = function(map) {
                     var k = Math.floor(Math.random() * this.items.length);
                     this.entities.push(new this.items[k](j, i));
                     break;
+                case 7:
+                    this.solidentities.push(new SolidTile(j,i, 1,1,IRON));
+                    break;
             }
         }
     }
@@ -109,18 +118,30 @@ Scene.prototype.Update  = function() {
         this.loadMap(map);
     }
 
+    if(this.active) {
+        for(var i = 0; i < this.players.length; i++) {
+            this.players[i].Update();
+        }
+        for(var i = 0; i < this.entities.length; i++) {
+            this.entities[i].Update();
+        }
+        for(var i = 0; i < this.solidentities.length; i++) {
+            this.solidentities[i].Update();
+        }
+        this.checkCollisions();
+        this.resolveCollisions();
 
-    for(var i = 0; i < this.players.length; i++) {
-        this.players[i].Update();
+        if(!this.win) this.checkWin();
     }
-    for(var i = 0; i < this.entities.length; i++) {
-        this.entities[i].Update();
+
+    if(this.win) {
+        this.wincnt++;
+        if(this.wincnt >= this.winTime) {
+            this.win = false;
+            this.wincnt = 0;
+            this.loadMap(map);
+        }
     }
-    for(var i = 0; i < this.solidentities.length; i++) {
-        this.solidentities[i].Update();
-    }
-    this.checkCollisions();
-    this.resolveCollisions();
 
 }
 
@@ -130,6 +151,22 @@ adds collisions to this.collisions for resolution
 */
 Scene.prototype.distTo = function(a, b) {
     return Math.sqrt(Math.pow((a.entity.getMidX() - b.entity.getMidX()),2) + Math.pow((a.entity.getMidY() - b.entity.getMidY()),2));
+}
+
+Scene.prototype.checkWin = function() {
+    var cnt = 0;
+    var ind;
+    for(var i = 0; i < this.players.length; i++) {
+        if(this.players[i].health > 0) {
+            cnt++;
+            ind = i;
+        }
+    }
+    if(cnt <= 1) {
+        this.winner = ind + 1;
+        this.win = true;
+
+    }
 }
 
 Scene.prototype.checkCollisions = function() {
@@ -225,6 +262,17 @@ Scene.prototype.drawHealth = function() {
     }
 }
 
+Scene.prototype.drawWin = function() {
+    ctx1.globalAlpha = 0.5;
+    ctx1.fillStyle = "black";
+    ctx1.fillRect(this.camera.x,this.camera.y,width,height);
+    ctx1.globalAlpha = 1.0;
+
+    ctx1.fillStyle = "white";
+    ctx1.font = "80px Arial";
+    ctx1.fillText("Player " + this.winner + " Wins!", this.camera.x + width/3, this.camera.y + height/2);
+}
+
 /*
 clears canvas and runs draw function for each object
 */
@@ -256,6 +304,10 @@ Scene.prototype.Draw = function() {
 
 
     this.drawHealth();
+
+    if(this.win) {
+        this.drawWin();
+    }
 
     ctx0.restore();
     ctx1.restore();
