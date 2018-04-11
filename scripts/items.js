@@ -27,10 +27,12 @@ TommyGun.prototype.attack = function() {
         this.offset = -this.offset;
         if(this.offset < 0) this.offset = -(Math.random(6) + 3);
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createProjectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0);
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createProjectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0);
         }
     }
 }
@@ -106,10 +108,12 @@ Flamethrower.prototype.attack = function() {
         
         
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20));
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20));
+            createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20);
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20));
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20));
+            createProjectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20);
         }
     }
 }

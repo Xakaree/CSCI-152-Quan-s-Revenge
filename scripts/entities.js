@@ -38,6 +38,22 @@ function Projectile(parent,x,y,w,h, vx,vy, life) {
     this.life = life;
 }
 
+Projectile.prototype.init = function(parent,x,y,w,h, vx,vy, life) {
+    //this.entity = new Entity(x,y,w,h,"projectile");
+    this.entity.x = x;
+    this.entity.y = y;
+    this.entity.width = w
+    this.entity.height = h;
+    this.entity.vx = 800 * vx * tileScale;
+    this.entity.vy = 800 * vy * tileScale;
+    this.entity.grav = 0;
+    this.dmg = 5;
+    this.parent = parent;
+    this.cnt = 0;
+    this.life = life;
+    this.entity.active = true;
+}
+
 Projectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "projectile") {
 
@@ -46,25 +62,30 @@ Projectile.prototype.onCollision = function(collider) {
         this.entity.active = false;
         this.entity.x = -2000;
         this.entity.y = -2000;
+        scene.plist.push(this);
     }
     if(collider.entity.tag == "solid") {
         this.entity.active = false;
         this.entity.x = -2000;
         this.entity.y = -2000;
-       // scene.entities.pop();
+        scene.plist.push(this);
     }
 }
 
 Projectile.prototype.Update = function() {
     this.entity.updatePhysics();
-    if(this.life > 0) {
-        if(this.cnt >= this.life) {
-            this.entity.active = false;
-            this.entity.x = -2000;
-            this.entity.y = -2000;
+    if(this.entity.active) {
+        if(this.life > 0) {
+            if(this.cnt >= this.life) {
+                this.entity.active = false;
+                this.entity.x = -2000;
+                this.entity.y = -2000;
+                scene.plist.push(this);
+            }
+            else this.cnt++;
         }
-        else this.cnt++;
     }
+    
 
 }
 

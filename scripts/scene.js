@@ -49,6 +49,7 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
+    this.plist = new LLQueue(); //list of free projectiles
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
     this.para =  new Parallax(this.camera, "background/Skyscrapers.png","background/MoreBuildings.png","background/Buildings.png"); // beta features
@@ -75,6 +76,7 @@ Scene.prototype.loadMap = function(map) {
     this.entities = [];
     this.solidentities = [];
     this.players = [];
+    this.plist = new LLQueue();
 
     for(var i = 0; i < map.length; i++) {
         for(var j = 0; j < map[i].length; j++) {
