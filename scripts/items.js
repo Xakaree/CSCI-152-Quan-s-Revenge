@@ -146,10 +146,10 @@ Lazer.prototype.attack = function()
       var colors = ["green","red", "blue", "purple"];
       var index = Math.floor(Math.random()*colors.length);
       if(this.parent.facing == 1) {
-          scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 25,5,this.parent.facing, 0, 0, colors[index]));
+          scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,7,19, 0, 0, colors[index]));
     }
       if(this.parent.facing == -1) {
-          scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0, 0,colors[index]));
+          scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,7,19, 0, 0,colors[index]));
       }
   }
 }
