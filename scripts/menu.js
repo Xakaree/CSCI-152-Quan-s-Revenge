@@ -13,7 +13,6 @@ function Menu(){
     ctx1.clearRect(0,0,width,height);
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height);
-
     if(this.menuOption == 0){
       ctx1.fillStyle = "green";
     }else {ctx1.fillStyle = "grey";}
