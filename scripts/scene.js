@@ -51,7 +51,7 @@ function Scene() {
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/Skyscrapers.png","background/MoreBuildings.png","background/Buildings.png"); // beta features
+    this.para =  new Parallax(this.camera, "background/Space.png","background/Planets.png","background/Moon.png",[new UFObgi(), new Spaceship()]); // beta features
     this.active = true;
 
     this.win = false;
@@ -114,9 +114,11 @@ Scene.prototype.loadMap = function(map) {
 runs update functions of each entity and then checks and resolve collisions
 */
 Scene.prototype.Update  = function() {
+
     if(input.keyPress(82)) {
         this.loadMap(map);
     }
+    this.para.Update();
 
     if(this.active) {
         for(var i = 0; i < this.players.length; i++) {
@@ -279,13 +281,11 @@ clears canvas and runs draw function for each object
 Scene.prototype.Draw = function() {
     ctx1.clearRect(0,0,canvas.width,canvas.height);
 
-
     ctx0.fillStyle = "#0f7dc6";
     ctx0.fillRect(0,0,width,height);
 
     ctx1.save();
     ctx0.save();
-
     this.camera.Update(this.players);
     this.para.Draw();
 
