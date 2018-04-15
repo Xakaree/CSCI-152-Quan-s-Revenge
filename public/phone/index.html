@@ -11,28 +11,78 @@
 </script>
 
 <body>
-    <div id="d1">
-        <text id = "t1">Phone Control</text> 
-        <button id="b1">Click Me!</button>
-    
-        <form action ="">
-            <input id="m" autocomplete="off" />
-        </form>
-    </div>
+        <canvas id="canvas" width="1280" height="720" style="position:absolute; left:0px; top:0px; z-index: 1;"></canvas>
     
 </body>
 
 <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
 
-b = document.getElementById("b1");
-t = document.getElementById("t1");
+    function toggleFullScreen() {
+    var doc = window.document;
+    var docEl = doc.documentElement;
+
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        requestFullScreen.call(docEl);
+    }
+    else {
+        //cancelFullScreen.call(doc);
+    }
+    }
+
+    canvas.addEventListener("click", function() {
+        toggleFullScreen();
+    }, false);
+
+    canvas.addEventListener("touchmove", function(e) {
+        e.preventDefault();
+    }, false);
+
+    canvas.addEventListener("touchstart", function(e) {
+        socket.emit("input", 99);
+        var ts = e.changedTouches;
+        for(let i = 0; i < ts.length; i++) {
+            socket.emit("input", touches[i].pageX);
+        }
+
+    }, false);
+
+    canvas.addEventListener("touch", function(e) {
+
+    }, false);
+
+    var touches = [];
+
+    function checkInput(e) {
+
+    }
+
+    var width = screen.width;
+    var height =  screen.height;
 
 
-b.onclick = function() {
-    socket.emit('input', 32);
-}
+    //canvas.requestFullscreen();
 
+    function main() {
 
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0,0,width,height);
+
+        ctx.fillStyle ="black";
+        ctx.fillRect(width*0.2, height*0.4, 60,60);
+        ctx.fillRect(width*0.2, height*0.8, 60,60);
+        ctx.fillRect(width*0.08, height*0.6, 60,60);
+        ctx.fillRect(width*0.33, height*0.6, 60,60);
+
+        requestAnimationFrame(main);
+    }
+
+    main();
+    
 </script>
 
 </html>
