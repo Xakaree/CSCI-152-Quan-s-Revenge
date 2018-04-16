@@ -1,4 +1,3 @@
-
 var map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -41,6 +40,7 @@ var map2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
+
 /*
 Handles all objects, updates and draw calls
 */
@@ -51,7 +51,9 @@ function Scene() {
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/Space.png","background/Planets.png","background/Moon.png",[new UFObgi(), new Spaceship()]); // beta features
+    this.currStage = stage;
+
+    this.para =  null;
     this.active = true;
 
     this.win = false;
@@ -63,6 +65,8 @@ function Scene() {
 //runs at start of scene
 Scene.prototype.Start = function() {
     this.loadMap(map);
+    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground ); // beta features
+
 }
 
 Scene.prototype.PassPlayers = function(selection){

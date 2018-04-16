@@ -1,7 +1,6 @@
 function Menu(){
   this.active = false;
   this.menuOption = 0;
-  this.scene = null;
   this.options = null;
   this.cSelect = null;
   this.map = {};
