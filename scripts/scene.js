@@ -44,7 +44,7 @@ var map2 = [
 /*
 Handles all objects, updates and draw calls
 */
-function Scene() {
+function Scene(stage) {
     this.entities = []; //list of entities
     this.solidentities = [];
     this.playersPassed = [];
