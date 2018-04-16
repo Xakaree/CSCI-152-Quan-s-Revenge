@@ -1,6 +1,6 @@
 function CSelect(){
   this.active = false;
-  this.scene = null;
+  this.stageselect = null;
   this.selection = []; // array used for the player's character selections
   this.versions = 2; // current available versions of characters
   //var inputNum = null;
@@ -77,9 +77,9 @@ function CSelect(){
 
       pauseSoundtrack(menuList);
       playSoundtrack(0, battleList);
-      this.scene = scene;
-      this.scene.PassPlayers(this.selection);
-      this.scene.Start();
+      input.resetKeys();
+      this.stageselect = new StageSelect(this.selection); //save characters
+      this.stageselect.Start();
   }
 
   this.checkInput = function(char) {
@@ -163,8 +163,8 @@ function CSelect(){
     this.checkInput(this.char3);
     this.checkInput(this.char4);
   }
-  if(this.scene != null){
-    this.scene.Update();
+  if(this.stageselect != null){
+    this.stageselect.Update();
   }
 }
 
@@ -299,8 +299,8 @@ function CSelect(){
     ctx1.fillText("Session Code", width*0.8, height*0.05);
     ctx1.fillText(sessionCode, width*0.8, height*0.1);
   }
-  if(this.scene != null){
-    this.scene.Draw();
+  if(this.stageselect != null){
+    this.stageselect.Draw();
   }
 }
   this.characters = [[LCsprite,LCsprite2],[QSsprite,QSsprite2],[GZsprite,GZsprite2],[SHsprite,SHsprite2]];

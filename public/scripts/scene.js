@@ -1,4 +1,3 @@
-
 var map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -41,6 +40,7 @@ var map2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
+
 /*
 Handles all objects, updates and draw calls
 */
@@ -49,9 +49,10 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
-    this.items = [TommyGun, Shotgun, Flamethrower];
+    this.items = [TommyGun, Shotgun, Flamethrower, Lazer];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/Skyscrapers.png","background/MoreBuildings.png","background/Buildings.png"); // beta features
+    this.currStage  = 0;
+    this.para =  null;
     this.active = true;
 
     this.win = false;
@@ -63,6 +64,8 @@ function Scene() {
 //runs at start of scene
 Scene.prototype.Start = function() {
     this.loadMap(map);
+    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].objs ); // beta features
+
 }
 
 Scene.prototype.PassPlayers = function(selection){
@@ -114,9 +117,11 @@ Scene.prototype.loadMap = function(map) {
 runs update functions of each entity and then checks and resolve collisions
 */
 Scene.prototype.Update  = function() {
+
     if(input.keyPress(82)) {
         this.loadMap(map);
     }
+    this.para.Update();
 
     if(this.active) {
         for(var i = 0; i < this.players.length; i++) {
@@ -279,13 +284,11 @@ clears canvas and runs draw function for each object
 Scene.prototype.Draw = function() {
     ctx1.clearRect(0,0,canvas.width,canvas.height);
 
-
     ctx0.fillStyle = "#0f7dc6";
     ctx0.fillRect(0,0,width,height);
 
     ctx1.save();
     ctx0.save();
-
     this.camera.Update(this.players);
     this.para.Draw();
 
