@@ -44,14 +44,14 @@ var map2 = [
 /*
 Handles all objects, updates and draw calls
 */
-function Scene(stage) {
+function Scene() {
     this.entities = []; //list of entities
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower];
     this.camera = new Camera();
-    this.currStage = stage;
+    this.currStage  = 0;
 
     this.para =  null;
     this.active = true;

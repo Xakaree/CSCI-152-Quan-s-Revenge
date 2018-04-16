@@ -62,7 +62,8 @@ function StageSelect(characters)
          {
            pauseSoundtrack(menuList);
            playSoundtrack(0, battleList);
-           this.scene = new Scene(this.toggle);
+           this.scene = scene;
+           scene.currStage = this.toggle;
            this.scene.PassPlayers(this.selection);
            this.active = false;
            this.scene.Start();
