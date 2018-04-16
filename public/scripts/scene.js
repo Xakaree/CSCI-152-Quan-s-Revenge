@@ -75,7 +75,6 @@ Scene.prototype.loadMap = function(map) {
     this.entities = [];
     this.solidentities = [];
     this.players = [];
-    console.log(this.playersPassed);
 
     for(var i = 0; i < map.length; i++) {
         for(var j = 0; j < map[i].length; j++) {

@@ -23,6 +23,7 @@ function Menu(){
   }
 
   this.Draw = function() {
+    
     ctx1.clearRect(0,0,width,height);
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height);
@@ -37,6 +38,14 @@ function Menu(){
     if(this.cSelect != null){
       this.cSelect.Draw();
     }
+
+    if(this.active) {
+      ctx1.fillStyle = "grey";
+      ctx1.font = "40px Arial";
+      ctx1.fillText("Session Code", width*0.8, height*0.05);
+      ctx1.fillText(sessionCode, width*0.8, height*0.1);
+    }
+    
   }
 
   this.Update = function(){

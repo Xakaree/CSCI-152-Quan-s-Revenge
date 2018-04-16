@@ -25,6 +25,7 @@ var tileScale = tileSize/32;
 var scale = 1.0;
 
 var step = false;
+var sessionCode = "";
 
 //Draw tile grid -- TEMPORARY
 /*ctx0.fillStyle = "grey";

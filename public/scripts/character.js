@@ -294,6 +294,10 @@ function CSelect(){
 
 
 //-End of character select and color select
+    ctx1.fillStyle = "grey";
+    ctx1.font = "40px Arial";
+    ctx1.fillText("Session Code", width*0.8, height*0.05);
+    ctx1.fillText(sessionCode, width*0.8, height*0.1);
   }
   if(this.scene != null){
     this.scene.Draw();

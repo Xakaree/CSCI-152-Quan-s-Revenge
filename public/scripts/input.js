@@ -15,12 +15,7 @@ function InputHandler() {
     document.addEventListener('keyup',doKeyRelease,false);
 
     this.serverDown = function(id, e) {
-        if(einput[id]) {
-            if(einput[id][e]) {
-                einput[id][e].key = true;
-            }
-        }
-        else {
+        if(!einput[id]) {
             console.log("making new input");
             einput[id] = {
                 0: {
@@ -55,6 +50,9 @@ function InputHandler() {
                 }
 
             }
+        }
+        if(einput[id][e]) {
+            einput[id][e].key = true;
         }
     }
 
@@ -160,6 +158,13 @@ function InputHandler() {
 
 if(typeof io != 'undefined') {
     var socket = io();
+
+    socket.emit('coderequest');
+
+    socket.on('code', function(code) {
+        console.log("code recieved");
+        sessionCode = code;
+    });
 
     socket.on('hosttdown', function(id, inp) {
         if(!econtrols[id]) {
