@@ -75,6 +75,7 @@ Scene.prototype.loadMap = function(map) {
     this.entities = [];
     this.solidentities = [];
     this.players = [];
+    console.log(this.playersPassed);
 
     for(var i = 0; i < map.length; i++) {
         for(var j = 0; j < map[i].length; j++) {
@@ -85,16 +86,16 @@ Scene.prototype.loadMap = function(map) {
                     this.solidentities.push(new SolidTile(j,i, 1,1,MSCAFF));
                     break;
                 case 2:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, this.playersPassed[0]));
+                    if(this.playersPassed[0]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[0][1], this.playersPassed[0][0]));
                     break;
                 case 3:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, this.playersPassed[1]));
+                    if(this.playersPassed[1]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[1][1], this.playersPassed[1][0]));
                     break;
                 case 4:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, this.playersPassed[2]));
+                    if(this.playersPassed[2]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[2][1], this.playersPassed[2][0]));
                     break;
                 case 5:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, this.playersPassed[3]));
+                    if(this.playersPassed[3]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[3][1], this.playersPassed[3][0]));
                     break;
                 case 6:
                     var k = Math.floor(Math.random() * this.items.length);

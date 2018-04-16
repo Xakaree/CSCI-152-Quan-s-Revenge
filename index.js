@@ -23,9 +23,11 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   console.log(socket.client.id + ' connected');
   socket.join('room01');
-  socket.on('input', function(input) {
-    console.log(input);
-    io.emit('input', input);
+  socket.on('tdown', function(input) {
+    io.emit('hosttdown', socket.id, input);
+  });
+  socket.on('tup', function(input) {
+    io.emit('hosttup', socket.id, input);
   });
 });
 
