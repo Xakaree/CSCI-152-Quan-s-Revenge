@@ -43,7 +43,7 @@ Projectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "projectile") {
 
     }
-    if(collider.entity.tag == "player" && this.parent) {
+    if(collider.entity.tag == "player" && collider != this.parent) {
         this.entity.active = false;
         this.entity.x = -2000;
         this.entity.y = -2000;
