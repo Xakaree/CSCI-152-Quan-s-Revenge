@@ -3,11 +3,15 @@
 
 <head>
     <title>Fighting Game</title>
-
+    <img src ="sprites/redCar.png" id="RC" style="width:0; height:0;"></img>
     <img id="DBS" src="sprites/DBS.png" style="width:0; height:0;"></img>
     <img id="TMY" src="sprites/TMY.png" style="width:0; height:0;"></img>
     <img id="FLM" src="sprites/FLM.png" style="width:0; height:0;"></img>
+    <img	src="sprites/ufoTest.png" id="UFO" style ="width:0px; height:0px;"></img>
+    <img src="sprites/ssTest.png" id="SS" style="width:0px; height:0px;"></img>
+    <img id="LZG" src="sprites/LZG.png" style="width:0; height:0;"></img>
     <img	src="sprites/QS1.png" id="QS1" style ="width:0px; height:0px;"></img>
+    <img src="sprites/vpodTest.png" id="VPOD" style="width=:0px; height:0px;">
 	<img	src="sprites/QS2.png" id="QS2" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/LC1.png" id="LC1" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/LC2.png" id="LC2" style ="width:0px; height:0px;"></img>
@@ -77,20 +81,26 @@
     </style>
 </head>
 
+<script src="/socket.io/socket.io.js"></script>
+
 <body>
     <div style="text-align:center">
 	<canvas id="layer1" width="1280" height="720" style="position:absolute; left:0px; top:0px; z-index: 2;"></canvas>
     <canvas id="layer0" width="1280" height="720" style="position:absolute; left:0px; top:0px; z-index: 1;"></canvas>
     </div>
 </body>
+<script src="scripts/spaceship.js"></script>
 <script src="scripts/item.js"></script>
-<script src ="scripts/parallax.js"></script>
+<script src="scripts/parallax.js"></script>
 <script src="scripts/items.js"></script>
 <script src="scripts/selectplayer.js"></script>
 <script src="scripts/button.js"></script>
 <script src="scripts/audio.js"></script>
+<script src="scripts/stageselect.js"></script>
 <script src="scripts/character.js"></script>
 <script src="scripts/imagedata.js"></script>
+<script src="scripts/ufo.js"></script>
+<script src="scripts/car.js"></script>
 <script src="scripts/controls.js"></script>
 <script src="scripts/animation.js"></script>
 <script src="scripts/input.js"></script>
@@ -99,6 +109,7 @@
 <script src="scripts/entities.js"></script>
 <script src="scripts/objectpool.js"></script>
 <script src="scripts/camera.js"></script>
+<script src="scripts/stageData.js"></script>
 <script src="scripts/scene.js"></script>
 <script src="scripts/slider.js"></script>
 <script src="scripts/controlMapping.js"></script>

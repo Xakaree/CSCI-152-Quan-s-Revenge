@@ -34,13 +34,13 @@ LLQueue.prototype.pop = function() {
     }
 }
 
-function createProjectile(parent,x,y,w,h, vx,vy, life) {
+function createProjectile(parent,x,y,w,h, vx,vy, life, color) {
     //console.log(plist.isEmpty());
     if(scene.plist.isEmpty()) {
-        scene.entities.push(new Projectile(parent,x,y,w,h, vx,vy, life));
+        scene.entities.push(new Projectile(parent,x,y,w,h, vx,vy, life, color));
         //console.log("creating projectile");
     }
     else {
-        scene.plist.pop().init(parent,x,y,w,h, vx,vy, life);
+        scene.plist.pop().init(parent,x,y,w,h, vx,vy, life, color);
     }
 }

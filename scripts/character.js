@@ -1,6 +1,6 @@
 function CSelect(){
   this.active = false;
-  this.scene = null;
+  this.stageselect = null;
   this.selection = []; // array used for the player's character selections
   this.versions = 2; // current available versions of characters
   //var inputNum = null;
@@ -73,6 +73,9 @@ function CSelect(){
       this.selection.push(this.characters[this.char3.character][this.char3.color]);
       this.selection.push(this.characters[this.char4.character][this.char4.color]);
 
+      input.resetKeys();
+      this.stageselect = new StageSelect(this.selection); //save characters
+      this.stageselect.Start();
       /*if (this.char1.color == 0) {
         this.selection.push(this.characters[this.char1.character],this.characters[this.char1.character].image);
       }
@@ -97,15 +100,10 @@ function CSelect(){
      else if(this.char4.color == 1){
       this.selection.push(this.characters[this.char4.character].v2Sprite);
     }*/
-      pauseSoundtrack(menuList);
-      playSoundtrack(0, battleList);
-      this.scene = scene;
-      this.scene.PassPlayers(this.selection);
-      this.scene.Start();
 }
   }
-  if(this.scene != null){
-    this.scene.Update();
+  if(this.stageselect != null){
+    this.stageselect.Update();
   }
 }
 
@@ -122,7 +120,7 @@ function CSelect(){
     ctx1.fillRect(150,height/5,150,150);
     ctx1.drawImage(this.characters[this.char1.character][this.char1.color].portrait,0, 0, 64, 64,200,height/4,150,150);
     ctx1.fillStyle = "navy";
-    
+
     ctx1.drawImage(this.characters[this.char1.character][this.char1.color].image,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
 
     /*if (this.char1.color == 0) {
@@ -193,8 +191,8 @@ function CSelect(){
 
 //-End of character select and color select
   }
-  if(this.scene != null){
-    this.scene.Draw();
+  if(this.stageselect != null){
+    this.stageselect.Draw();
   }
 }
   this.characters = [[LCsprite,LCsprite2],[QSsprite,QSsprite2],[GZsprite,GZsprite2],[SHsprite,SHsprite2]];

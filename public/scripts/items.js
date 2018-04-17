@@ -60,16 +60,16 @@ Shotgun.prototype.attack = function() {
             this.reloading = true;
         }
         else this.atkCool = true;
-        
+
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0, 0));
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10, 0));
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10, 0));
+            createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0, 0);
+            createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10, 0);
+            createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10, 0);
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0, 0));
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10, 0));
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10, 0));
+            createProjectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0, 0);
+            createProjectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10, 0);
+            createProjectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10, 0);
         }
     }
 }
@@ -105,15 +105,56 @@ Flamethrower.prototype.attack = function() {
 
         if( d < 50) d = 1;
         else if(d >= 50) d = -1;
-        
-        
+
+        var colors = ["red", "orange"];
+        var index = Math.floor(Math.random()*colors.length);
+
         if(this.parent.facing == 1) {
             //scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20));
-            createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20);
+            createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20, colors[index]);
         }
+        
         if(this.parent.facing == -1) {
             //scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20));
-            createProjectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20);
+            createProjectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20, colors[index]);
         }
     }
+}
+
+Lazer.prototype = Object.create(Gun.prototype);
+function Lazer(cx,cy)
+{
+  this.width = 26;
+  this.height = 13;
+  this.sprite = LZG;
+  Gun.call(this,this.sprite,cx,cy,this.width,this.height);
+
+  this.offsetX = 26;
+  this.offsetY = 28;
+  this.atkDelay = 0;
+  this.atkHold = false;
+
+  this.maxAmmo = 10;
+  this.currAmmo = this.maxAmmo;
+  this.reloadSpeed = 85;
+}
+
+Lazer.prototype.attack = function()
+{
+  if(!this.atkCool && !this.reloading) {
+      this.currAmmo--;
+      if(this.currAmmo <= 0) {
+          this.reloading = true;
+      }
+      else this.atkCool = true;
+
+      var colors = ["green","red", "blue", "purple"];
+      var index = Math.floor(Math.random()*colors.length);
+      if(this.parent.facing == 1) {
+          createProjectile(this.parent,this.entity.getRight(), this.entity.y, 10,3,this.parent.facing, 0, 0, colors[index]);
+    }
+      if(this.parent.facing == -1) {
+          createProjectile(this.parent, this.entity.x - 10 , this.entity.y, 10,3,this.parent.facing, 0, 0,colors[index]);
+      }
+  }
 }

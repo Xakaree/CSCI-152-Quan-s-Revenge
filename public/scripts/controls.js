@@ -13,7 +13,17 @@ var defaultcontrols = {  //player controls are set to this if no controls passed
     attack: null
 }
 
+function mobile(id) {
+    this.left = [id, 3];
+    this.right = [id, 1];
+    this.up = [id, 0];
+    this.down = [id, 2];
+    this.attack = [id, 4];
+    this.jump = [id, 5];
+}
+
 var p1controls = { //Default Player 1 Controls
+    id: 0,
     left: 37,   //left arrow
     right: 39,  //right arrow
     up: 38,     //up arrow
@@ -23,6 +33,7 @@ var p1controls = { //Default Player 1 Controls
 }
 
 var p2controls = { //Default Player 2 Controls
+    id: 0,
     left: 65,   //a
     right: 68,  //d
     up: 87,     //w
@@ -32,6 +43,7 @@ var p2controls = { //Default Player 2 Controls
 }
 
 var p3controls = {  //Default Player 3 Controls
+    id: 0,
     left: null,
     right: null,
     up: null,
@@ -41,6 +53,7 @@ var p3controls = {  //Default Player 3 Controls
 }
 
 var p4controls = {  //Default Player 4 Controls
+    id: 0,
     left: null,
     right: null,
     up: null,
@@ -49,6 +62,7 @@ var p4controls = {  //Default Player 4 Controls
     attack: null
 }
 
+var econtrols = []; //external controls (phone)
 var pcontrols = [];
 pcontrols.push(p1controls);
 pcontrols.push(p2controls);

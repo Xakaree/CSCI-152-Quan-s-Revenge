@@ -1,4 +1,3 @@
-
 var map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -41,6 +40,8 @@ var map2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
+
+
 /*
 Handles all objects, updates and draw calls
 */
@@ -50,9 +51,10 @@ function Scene() {
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
     this.plist = new LLQueue(); //list of free projectiles
-    this.items = [TommyGun, Shotgun, Flamethrower];
+    this.items = [TommyGun, Shotgun, Flamethrower, Lazer];
     this.camera = new Camera();
-    this.para =  new Parallax(this.camera, "background/Skyscrapers.png","background/MoreBuildings.png","background/Buildings.png"); // beta features
+    this.currStage  = 0;
+    this.para =  null;
     this.active = true;
 
     this.win = false;
@@ -64,6 +66,8 @@ function Scene() {
 //runs at start of scene
 Scene.prototype.Start = function() {
     this.loadMap(map);
+    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].objs ); // beta features
+
 }
 
 Scene.prototype.PassPlayers = function(selection){
@@ -87,16 +91,16 @@ Scene.prototype.loadMap = function(map) {
                     this.solidentities.push(new SolidTile(j,i, 1,1,MSCAFF));
                     break;
                 case 2:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p1controls, this.playersPassed[0]));
+                    if(this.playersPassed[0]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[0][1], this.playersPassed[0][0]));
                     break;
                 case 3:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p2controls, this.playersPassed[1]));
+                    if(this.playersPassed[1]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[1][1], this.playersPassed[1][0]));
                     break;
                 case 4:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p3controls, this.playersPassed[2]));
+                    if(this.playersPassed[2]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[2][1], this.playersPassed[2][0]));
                     break;
                 case 5:
-                    this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,p4controls, this.playersPassed[3]));
+                    if(this.playersPassed[3]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[3][1], this.playersPassed[3][0]));
                     break;
                 case 6:
                     var k = Math.floor(Math.random() * this.items.length);
@@ -116,9 +120,11 @@ Scene.prototype.loadMap = function(map) {
 runs update functions of each entity and then checks and resolve collisions
 */
 Scene.prototype.Update  = function() {
+
     if(input.keyPress(82)) {
         this.loadMap(map);
     }
+    this.para.Update();
 
     if(this.active) {
         for(var i = 0; i < this.players.length; i++) {
@@ -127,9 +133,9 @@ Scene.prototype.Update  = function() {
         for(var i = 0; i < this.entities.length; i++) {
             this.entities[i].Update();
         }
-        for(var i = 0; i < this.solidentities.length; i++) {
+        /*for(var i = 0; i < this.solidentities.length; i++) {
             this.solidentities[i].Update();
-        }
+        }*/
         this.checkCollisions();
         this.resolveCollisions();
 
@@ -281,13 +287,11 @@ clears canvas and runs draw function for each object
 Scene.prototype.Draw = function() {
     ctx1.clearRect(0,0,canvas.width,canvas.height);
 
-
     ctx0.fillStyle = "#0f7dc6";
     ctx0.fillRect(0,0,width,height);
 
     ctx1.save();
     ctx0.save();
-
     this.camera.Update(this.players);
     this.para.Draw();
 
