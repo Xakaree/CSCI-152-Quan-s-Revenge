@@ -1,9 +1,10 @@
-function Entity(x,y,w,h,tag) {
+function Entity(x,y,w,h,tag, dmg = 5) {
     this.active = true; //toggle phyics/collision (NEEDS WORKS)
 
     //this.grav = 3000.0;
     this.grav = 3000 * tileScale;
 
+    this.dmg = dmg;
     //positions
     this.x = x;
     this.y = y;
@@ -40,7 +41,7 @@ function Entity(x,y,w,h,tag) {
                 keep them framerate independent (See below)
             */
 
-            //apply velocity changes        
+            //apply velocity changes
             this.vx += this.ax * interval;
             if(this.vx > 0 && this.vy != 0) {
                 this.vx = Math.max(0.0, this.vx - (this.airfriction * interval));
@@ -54,7 +55,7 @@ function Entity(x,y,w,h,tag) {
             else this.x += Math.max(-20*tileScale, this.vx * interval);
             if(this.vy > 0) this.y += Math.min(20*tileScale, this.vy * interval);
             else this.y += Math.max(-20*tileScale, this.vy * interval);
-            
+
         }
     }
 
@@ -75,7 +76,7 @@ function Entity(x,y,w,h,tag) {
 
         /* collision return codes (numbers are this entity's position relative to collidee)
           4 0 4
-          3| |1            
+          3| |1
           4 2 4
         */
 
@@ -156,7 +157,7 @@ function collisionCheck(collider, collidee) {
         var b2 = collidee.entity.getBot();
         var t2 = collidee.entity.getTop();
     }
-    
+
 
 
     //checks if any edges of the box colliders are intersecting

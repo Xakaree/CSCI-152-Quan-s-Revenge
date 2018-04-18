@@ -27,20 +27,20 @@ function deathTile(cx,cy,cw,ch) {
     }
 }
 
-function Projectile(parent,x,y,w,h, vx,vy, life, color ="red") {
-    this.entity = new Entity(x,y,w,h,"projectile");
+function Projectile(parent,x,y,w,h, vx,vy, life, color ="red",dmg = 5) {
+    this.entity = new Entity(x,y,w,h,"projectile", dmg);
     this.entity.vx = 800 * vx * tileScale;
     this.entity.vy = 800 * vy * tileScale;
     this.color = color;
     this.entity.grav = 0;
-    this.dmg = 5;
+    this.dmg = dmg; //  what is this for ?
     this.parent = parent;
     this.cnt = 0;
     this.life = life;
 }
 
 Projectile.prototype.onCollision = function(collider) {
-    if(collider.entity.tag == "projectile") {
+    if(collider.entity.tag == "projectile" || collider.entity.tag == "fp") {
 
     }
     if(collider.entity.tag == "player" && collider != this.parent) {

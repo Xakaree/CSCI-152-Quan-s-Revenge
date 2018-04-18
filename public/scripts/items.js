@@ -153,3 +153,50 @@ Lazer.prototype.attack = function()
       }
   }
 }
+
+Freeze.prototype = Object.create(Gun.prototype);
+function Freeze(cx,cy)
+{
+  this.width = 46;
+  this.height = 10;
+  this.sprite = FZG;
+  Gun.call(this, this.sprite,cx,cy,this.width,this.height);
+
+  this.offsetX = 32;
+  this.offsetY = 22;
+  this.atkDelay = 0;
+  this.atkHold = true;
+
+  this.maxAmmo = 50;
+  this.currAmmo = this.maxAmmo;
+  this.reloadSpeed = 150;
+}
+Freeze.prototype.attack = function()
+{
+  if(!this.atkCool && !this.reloading) {
+      this.currAmmo--;
+      if(this.currAmmo <= 0) {
+          this.reloading = true;
+      }
+      else this.atkCool = true;
+
+      var y = Math.random() * 0.2;
+      var d = Math.random() * 50;
+
+      if( d < 50) d = 1;
+      else if(d >= 100) d = -1;
+
+      var colors = ["cyan", "white"];
+      var index = Math.floor(Math.random()*colors.length);
+      if(this.parent.facing == 1) {
+        let fp = new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10, 0.6, d * y, 0,colors[index],0.25);
+        fp.entity.tag = "fp";
+        scene.entities.push(fp);
+      }
+      if(this.parent.facing == -1) {
+        let fp = new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10, -0.6, d * y, 0,colors[index],0.25);
+        fp.entity.tag = "fp";
+        scene.entities.push(fp);
+      }
+  }
+}

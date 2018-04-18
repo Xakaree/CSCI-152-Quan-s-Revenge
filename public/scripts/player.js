@@ -6,7 +6,8 @@ function Player(x, y,w,h, controls, sprite) {
     this.decel = 2.0 * tileScale;
     this.controls = controls || defaultcontrols;
     this.jumpsnd =  new sound("audioFiles/jump_3.wav", false, 1);
-	this.sprite = sprite;
+	  this.sprite = sprite;
+    this.freezeTimer = 0;
 
     this.facing = 1; //direction of player, -1=left 1=right
     this.attacking = false;
@@ -24,7 +25,7 @@ function Player(x, y,w,h, controls, sprite) {
 
     this.health = 100;
     this.isAlive = true;
-    this.drawPlayer = true;   
+    this.drawPlayer = true;
 }
 
 //handles cooldown between dropping item and being able to pickup another
@@ -45,7 +46,8 @@ Player.prototype.updateCnts = function() {
 
 //handles all responses to input
 Player.prototype.movement = function() {
-    if(input.keyDown(this.controls.left)) {
+
+    if(input.keyDown(this.controls.left) ) {
         if(!this.knockback) {
             if(!this.jumping) {
                 this.entity.vx = -this.speed;
@@ -55,7 +57,7 @@ Player.prototype.movement = function() {
             }
         }
         this.facing = -1;
-    } 
+    }
      else if(input.keyDown(this.controls.right)) {
         if(!this.knockback) {
             if(!this.jumping) {
@@ -66,7 +68,7 @@ Player.prototype.movement = function() {
             }
         }
         this.facing = 1;
-    } 
+    }
     if(!input.keyDown(this.controls.right) && !input.keyDown(this.controls.left)) {
         //if no input while on the ground player stops immediately
         if(!this.jumping && !this.knockback) {
@@ -81,11 +83,11 @@ Player.prototype.movement = function() {
                 this.entity.vx = Math.min(0.0, this.entity.vx + this.decel);
             }
         }*/
-    } 
+    }
     if(input.keyPress(this.controls.jump) && !this.jumping && !this.knockback) {
         this.entity.vy = -1100.0 * tileScale;
         this.jumping = true;
-        
+
         this.jumpsnd.play();
     }
 
@@ -106,9 +108,8 @@ Player.prototype.movement = function() {
                 this.item.attack();
             }
         }
-    }
 
-    
+    }
 }
 Player.prototype.aniChange = function() {
   if(!input.keyDown(this.controls.left) &&
@@ -148,7 +149,6 @@ Player.prototype.aniChange = function() {
   else if(input.keyDown(this.controls.right) && this.jumping == false){
     this.animation.play(6,true);
   }
-  
 }
 
 /*(REQUIRED)
@@ -157,6 +157,9 @@ Player.prototype.aniChange = function() {
 */
 Player.prototype.Update = function() {
 
+if(this.freezeTimer > 0){this.freezeTimer = this.freezeTimer - 1;} // decrement every freezetimer on every update
+if(this.freezeTimer < 1)
+{
     if(this.health <= 0) {
         if(this.isAlive) {
             if(this.item != null) this.item.drop(this.facing);
@@ -166,14 +169,13 @@ Player.prototype.Update = function() {
             this.drawPlayer = false;
         }
     }
-    
+
     this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
     if(this.isAlive) this.movement(); //respond to input
     this.aniChange();
     this.entity.updatePhysics(); //apply acceleration, velocity to position
-
-    
     this.animation.Update();
+}// freezeTimer
 }
 
 //runs whenever collision detected involving this object
@@ -183,12 +185,23 @@ Player.prototype.onCollision = function(collider) {
 
     }
     if(collider.entity.tag == "projectile" && collider.parent != this) {
+      console.log("Projectile");
         this.knockback = true;
         this.animation.image = this.sprite.damage;
         this.knockcnt = 0;
         this.entity.vx = collider.entity.vx;
-        this.health -= 10;
+        this.health -= collider.entity.dmg; //  test
 
+    }
+    if(collider.entity.tag == "fp" && collider.parent != this) // freeze projectile
+    {
+      console.log("Freeze Projectile");
+      this.knockback = true;
+      this.animation.image = this.sprite.damage;
+      this.knockcnt = 0;
+      this.entity.vx = collider.entity.vx;
+      this.health -= collider.entity.dmg; //  test
+      this.freezeTimer += 3; // increment freezeTimer by amount of damge taken
     }
     if(collider.entity.tag == "dead") {
         this.health = 0;
@@ -222,5 +235,5 @@ Player.prototype.Draw = function() {
         this.animation.Draw(this.entity.x,this.entity.y,this.entity.width,this.entity.height);
         if(this.item != null) this.item.manualDraw(this.entity.x, this.entity.y);
     }
-   
+
 }
