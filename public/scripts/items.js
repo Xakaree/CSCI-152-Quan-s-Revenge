@@ -108,8 +108,9 @@ Flamethrower.prototype.attack = function() {
         var index = Math.floor(Math.random()*colors.length);
 
         if(this.parent.facing == 1) {
+            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20,colors[index]));
         }
-        scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20,colors[index]));
+        
         if(this.parent.facing == -1) {
             scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20,colors[index]));
         }

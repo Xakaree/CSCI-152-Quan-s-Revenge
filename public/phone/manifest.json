@@ -1,0 +1,14 @@
+{
+  "short_name": "Phone Control",
+  "name": "Phone Control",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "10.0.0.137:7778",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}

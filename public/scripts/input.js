@@ -151,6 +151,90 @@ function InputHandler() {
         return null;
     }
 
+    this.getLeft = function() {
+        for(let i = 0; i < pcontrols.length; i++) {
+            if(this.keyPress(pcontrols[i].left)) {
+                return true;
+            }
+        }
+        for(let k in econtrols) {
+            if(this.keyPress(econtrols[k].left)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.getDown = function() {
+        for(let i = 0; i < pcontrols.length; i++) {
+            if(this.keyPress(pcontrols[i].down)) {
+                return true;
+            }
+        }
+        for(let k in econtrols) {
+            if(this.keyPress(econtrols[k].down)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.getUp = function() {
+        for(let i = 0; i < pcontrols.length; i++) {
+            if(this.keyPress(pcontrols[i].up)) {
+                return true;
+            }
+        }
+        for(let k in econtrols) {
+            if(this.keyPress(econtrols[k].up)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.getRight = function() {
+        for(let i = 0; i < pcontrols.length; i++) {
+            if(this.keyPress(pcontrols[i].right)) {
+                return true;
+            }
+        }
+        for(let k in econtrols) {
+            if(this.keyPress(econtrols[k].right)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.getAttack = function() {
+        for(let i = 0; i < pcontrols.length; i++) {
+            if(this.keyPress(pcontrols[i].attack)) {
+                return true;
+            }
+        }
+        for(let k in econtrols) {
+            if(this.keyPress(econtrols[k].attack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.getJump = function() {
+        for(let i = 0; i < pcontrols.length; i++) {
+            if(this.keyPress(pcontrols[i].jump)) {
+                return true;
+            }
+        }
+        for(let k in econtrols) {
+            if(this.keyPress(econtrols[k].jump)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     this.Update = function() {
         this.updateKeys();
     }

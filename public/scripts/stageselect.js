@@ -49,16 +49,16 @@ function StageSelect(characters)
      {
        if(this.active)
        {
-         if(this.toggle > 0 && input.keyPress(pcontrols[0].left))
+         if(this.toggle > 0 && input.getLeft())
          {
           this.toggle-= 1;
          }
-         else if(this.toggle < this.numstages-1 && input.keyPress(pcontrols[0].right))
+         else if(this.toggle < this.numstages-1 && input.getRight())
          {
            this.toggle +=1;
          }
 
-         if(input.keyPress(pcontrols[0].attack))
+         if(input.getAttack())
          {
            pauseSoundtrack(menuList);
            playSoundtrack(0, battleList);

@@ -3,13 +3,32 @@
 
 <head>
     <title>Phone Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> 
 </head>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="controller.js"></script>
+<link rel="manifest" href="/manifest.json">
+
+<style type="text/css">
+    body {
+        width: 100%;
+        height: 50%;
+        max-width: 100%;
+        max-height: 50%;
+        position:absolute; left:0px; top:0px; z-index: -1;
+        overflow: hidden;
+        margin:0;
+        padding:0;
+    }
+    input {
+        width: 50%;
+    }
+
+</style>
 
 
-<body>
+<body >
         <canvas id="canvas" width="1280px" height="720px" style="position:absolute; left:0px; top:0px; z-index: -1;"></canvas>
         <form id="form1" action="/controller.js">
             Enter Session Code:<br>
@@ -26,18 +45,25 @@
     var f =document.getElementById("form1");
     
     //canvas.setAttribute("disabled", "disabled");
+
+    document.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+    }, false);
+    document.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+    }, false);
     
     var t1 = document.getElementById("text1");
 
     b.addEventListener("click", function() {
         socket.emit("join", t1.value);
+    }, false);
+
+    socket.on('accept', function() {
         document.body.removeChild(f);
         document.body.removeChild(b);
         start();
-        
-       
-        
-    }, false);
+    });
     
 </script>
 

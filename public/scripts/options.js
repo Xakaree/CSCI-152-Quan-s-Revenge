@@ -48,30 +48,30 @@ function Options() {
   this.Update = function(){
     this.map[this.option].Unselect();
     if(this.active){
-          if (input.keyPress(pcontrols[0].up) && this.option > 0){
+          if (input.getUp() && this.option > 0){
                 this.option -= 1;
           }
-          else if (input.keyPress(pcontrols[0].down) && this.option < 2){
+          else if (input.getDown() && this.option < 2){
                 this.option += 1;
           }
 
     this.map[this.option].Select();
 
   //process command
-     if(input.keyPress(pcontrols[0].attack) && this.option == 0){
+     if(input.getAttack() && this.option == 0){
        input.resetKeys();
        this.controlMapping = new SelectPlayer();
        this.controlMapping.Start();
        this.active = false;
      }
-     else if(input.keyPress(pcontrols[0].attack) && this.option == 1){
+     else if(input.getAttack() && this.option == 1){
        input.resetKeys();
        this.VolumeOptions = new VolumeOptions();
        this.VolumeOptions.Start();
        this.active = false;
      }
 
-     if (this.option == 2 && input.keyPress(pcontrols[0].attack)) {
+     if (this.option == 2 && input.getAttack()) {
        input.resetKeys();
        this.back = new Menu();
        this.back.Start();
