@@ -99,12 +99,13 @@ Player.prototype.movement = function() {
 
     else if(this.item != null) {
         if(this.item.atkHold) {
+          this.item.controls = this.controls;
             if(input.keyDown(this.controls.attack)) {
                 this.item.attack();
             }
         }
         else {
-            if(input.keyPress(this.controls.attack)) {
+             if(input.keyPress(this.controls.attack)) {
                 this.item.attack();
             }
         }
@@ -191,6 +192,7 @@ Player.prototype.onCollision = function(collider) {
         this.knockcnt = 0;
         this.entity.vx = collider.entity.vx;
         this.health -= collider.entity.dmg; //  test
+        console.log(collider.entity.dmg); 
 
     }
     if(collider.entity.tag == "fp" && collider.parent != this) // freeze projectile

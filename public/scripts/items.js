@@ -200,3 +200,36 @@ Freeze.prototype.attack = function()
       }
   }
 }
+
+Bazooka.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
+function Bazooka(cx, cy) {
+    this.width = 64
+    this.height = 16
+    this.sprite = BZK;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
+    this.offsetX = 12;
+    this.offsetY = 15;
+    this.atkDelay = 0;
+    this.atkHold = false;
+
+    this.maxAmmo = 1;
+    this.currAmmo = this.maxAmmo;
+    this.reloadSpeed = 150;
+}
+
+Bazooka.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+
+        if(this.parent.facing == 1) {
+          scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 30,15,this.parent.facing*30, 0, 0, "red", 25));
+        }
+        if(this.parent.facing == -1) {
+          scene.entities.push(new Projectile(this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 25));
+        }
+    }
+}

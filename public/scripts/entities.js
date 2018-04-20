@@ -27,13 +27,13 @@ function deathTile(cx,cy,cw,ch) {
     }
 }
 
-function Projectile(parent,x,y,w,h, vx,vy, life, color ="red",dmg = 5) {
-    this.entity = new Entity(x,y,w,h,"projectile", dmg);
+function Projectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
+    this.dmg = dmg;
+    this.entity = new Entity(x,y,w,h,"projectile", this.dmg);
     this.entity.vx = 800 * vx * tileScale;
     this.entity.vy = 800 * vy * tileScale;
     this.color = color;
     this.entity.grav = 0;
-    this.dmg = dmg; //  what is this for ?
     this.parent = parent;
     this.cnt = 0;
     this.life = life;
