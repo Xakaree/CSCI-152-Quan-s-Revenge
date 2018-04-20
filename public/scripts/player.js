@@ -41,6 +41,7 @@ Player.prototype.updateCnts = function() {
         this.knockback = false;
         this.animation.image = this.sprite.image;
         this.knockcnt = 0;
+        this.knockTime = 5; // reset knockback to default
     }
 }
 
@@ -186,14 +187,19 @@ Player.prototype.onCollision = function(collider) {
 
     }
     if(collider.entity.tag == "projectile" && collider.parent != this) {
-      console.log("Projectile");
         this.knockback = true;
         this.animation.image = this.sprite.damage;
         this.knockcnt = 0;
         this.entity.vx = collider.entity.vx;
         this.health -= collider.entity.dmg; //  test
-        console.log(collider.entity.dmg); 
-
+    }
+    if(collider.entity.tag == "Exprojectile" && collider.parent != this) {
+        this.knockback = true;
+        this.animation.image = this.sprite.damage;
+        this.knockcnt = 0;
+        this.entity.vx = collider.entity.vx;
+        this.health -= collider.entity.dmg; //  test
+        this.knockTime = 15; //  increase knockback
     }
     if(collider.entity.tag == "fp" && collider.parent != this) // freeze projectile
     {
