@@ -214,7 +214,7 @@ function Bazooka(cx, cy) {
 
     this.maxAmmo = 1;
     this.currAmmo = this.maxAmmo;
-    this.reloadSpeed = 150;
+    this.reloadSpeed = 170;
 }
 
 Bazooka.prototype.attack = function() {
@@ -226,10 +226,10 @@ Bazooka.prototype.attack = function() {
         else this.atkCool = true;
 
         if(this.parent.facing == 1) {
-          scene.entities.push(new ExplosiveProjectile(this.parent,this.entity.getRight(), this.entity.y, 30,15,this.parent.facing*30, 0, 0, "red", 25));
+          scene.entities.push(new ExplosiveProjectile(this.parent,this.entity.getRight(), this.entity.y, 30,15,this.parent.facing*30, 0, 0, "red", 15));
         }
         if(this.parent.facing == -1) {
-          scene.entities.push(new ExplosiveProjectile(this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 25));
+          scene.entities.push(new ExplosiveProjectile(this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 15));
         }
     }
 }

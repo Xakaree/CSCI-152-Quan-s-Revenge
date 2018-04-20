@@ -85,6 +85,7 @@ function ExplosiveProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5)
     this.parent = parent;
     this.cnt = 0;
     this.life = life;
+    this.explosivedmg = 0.5;
 }
 
 ExplosiveProjectile.prototype.onCollision = function(collider) {
@@ -95,29 +96,30 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "player" && collider != this.parent) {
         this.entity.active = false;
 
-        for(var i =0.1 ; i < 1;  i+= 0.1)
+        for(var i =0.1 ; i < 2;  i+= 0.1)
         {
           let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20, color[index], 1));
+          scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], this.explosivedmg));
+        }
+        for(var i =0.1 ; i < 2;  i+= 0.1) // up left
+        {
+          let index  = Math.floor(Math.random() *color.length);
+          scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index], this.explosivedmg));
         }
 
-        for(var i =0.1 ; i < 1;  i+= 0.1)
+        for(var i =0.1 ; i < 2;  i+= 0.1)
         {
           let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], 1));
+          scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20, color[index], this.explosivedmg));
         }
 
-        for(var i =0.1 ; i < 0.6;  i+= 0.1) // up right
+
+        for(var i =0.1 ; i < 2;  i+= 0.1) // up right
         {
           let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index], 1));
+          scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index],this.explosivedmg));
         }
 
-        for(var i =0.1 ; i < 0.6;  i+= 0.1) // up left
-        {
-          let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index], 1));
-        }
 
         this.entity.x = -2000;
         this.entity.y = -2000;
@@ -125,30 +127,29 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "solid") {
         this.entity.active = false;
 
-        for(var i =0.1 ; i < 1;  i+= 0.1) // right
-        {
-          let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20,  color[index], 1));
-        }
+          for(var i =0.1 ; i < 2;  i+= 0.1)
+          {
+            let index  = Math.floor(Math.random() *color.length);
+            scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], this.explosivedmg));
+          }
+          for(var i =0.1 ; i < 2;  i+= 0.1) // up left
+          {
+            let index  = Math.floor(Math.random() *color.length);
+            scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index], this.explosivedmg));
+          }
 
-        for(var i =0.1 ; i < 1;  i+= 0.1) //left
-        {
-          let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], 1));
-        }
+          for(var i =0.1 ; i < 2;  i+= 0.1)
+          {
+            let index  = Math.floor(Math.random() *color.length);
+            scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20, color[index], this.explosivedmg));
+          }
 
-        for(var i =0.1 ; i < 0.6;  i+= 0.1) // up right
-        {
-          let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index], 1));
-        }
 
-        for(var i =0.1 ; i < 0.6;  i+= 0.1) // up left
-        {
-          let index  = Math.floor(Math.random() *color.length);
-          scene.entities.push(new Projectile(this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index], 1));
-        }
-
+          for(var i =0.1 ; i < 2;  i+= 0.1) // up right
+          {
+            let index  = Math.floor(Math.random() *color.length);
+            scene.entities.push(new Projectile(this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , (Math.floor(Math.random() * 5) + 5 )/10, 20,  color[index],this.explosivedmg));
+          }
 
         this.entity.x = -2000;
         this.entity.y = -2000;
