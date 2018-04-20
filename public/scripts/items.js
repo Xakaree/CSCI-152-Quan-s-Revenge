@@ -166,10 +166,12 @@ function Freeze(cx,cy)
   this.offsetY = 22;
   this.atkDelay = 0;
   this.atkHold = true;
+  this.dmg = 0.05
+
 
   this.maxAmmo = 50;
   this.currAmmo = this.maxAmmo;
-  this.reloadSpeed = 150;
+  this.reloadSpeed = 129;
 }
 Freeze.prototype.attack = function()
 {
@@ -189,12 +191,12 @@ Freeze.prototype.attack = function()
       var colors = ["cyan", "white"];
       var index = Math.floor(Math.random()*colors.length);
       if(this.parent.facing == 1) {
-        let fp = new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10, 0.6, d * y, 0,colors[index],0.25);
+        let fp = new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10, 0.6, d * y, 20,colors[index],0.25);
         fp.entity.tag = "fp";
         scene.entities.push(fp);
       }
       if(this.parent.facing == -1) {
-        let fp = new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10, -0.6, d * y, 0,colors[index],0.25);
+        let fp = new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10, -0.6, d * y,20,colors[index],0.25);
         fp.entity.tag = "fp";
         scene.entities.push(fp);
       }

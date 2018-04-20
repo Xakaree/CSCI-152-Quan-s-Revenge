@@ -26,7 +26,7 @@ Item.prototype.drop = function(facing) {
         this.entity.vx = 300*tileScale;
     }
     else this.entity.vx = -300*tileScale;
-    
+
     this.entity.vy = -600*tileScale;
 }
 
@@ -35,7 +35,7 @@ Item.prototype.atkTimer = function() {
         this.atkcnt++;
         if(this.atkcnt >= this.atkDelay) {
             this.atkcnt = 0;
-            this.atkCool = false;   
+            this.atkCool = false;
         }
     }
 }
@@ -76,7 +76,7 @@ Item.prototype.manualDraw = function(x,y) {
     }
     else if(this.parent.facing == -1) {
         ctx1.drawImage(this.img, 0,this.entity.height,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
-    } 
+    }
     //ctx1.drawImage(this.img, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
 }
 
@@ -85,7 +85,7 @@ Item.prototype.Draw = function() {
     //ctx1.fillRect(this.entity.x, this.entity.y,this.entity.width,this.entity.height);
     if(this.parent == null) {
         ctx1.drawImage(this.img, 0,0,this.entity.width, this.entity.height, this.entity.x * scale, this.entity.y * scale, this.entity.width * scale, this.entity.height * scale);
-    } 
+    }
 }
 
 Gun.prototype = Object.create(Item.prototype);
@@ -105,7 +105,7 @@ Gun.prototype.reloadtimer = function() {
         if(this.reloadcnt >= this.reloadSpeed) {
             this.reloadcnt = 0;
             this.currAmmo = this.maxAmmo;
-            this.reloading = false;   
+            this.reloading = false;
         }
     }
 }

@@ -99,6 +99,7 @@ Player.prototype.movement = function() {
 
     else if(this.item != null) {
         if(this.item.atkHold) {
+          this.item.controls = this.controls;
             if(input.keyDown(this.controls.attack)) {
                 this.item.attack();
             }
