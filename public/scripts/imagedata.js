@@ -69,7 +69,14 @@ var SHsprite2={
   width:64,
   height:64
 }
-
+var UFOsprite={
+  image:UFO,
+  damage: null,
+  portrait: null,
+  frameLimits:[4,4,2,2,3,3,11,11],
+  width:100,
+  height:80
+}
 
 
 

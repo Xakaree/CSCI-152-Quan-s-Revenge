@@ -5,8 +5,21 @@ function Options() {
   this.VolumeOptions = null;
   this.back = null;
 
+  this.map = {}
+
+  this.Mapping = function(){
+      this.map = {
+        0 : new Button(100,100,ctx1,CACT,CNULL),
+        1 : new Button(120,210,ctx1,SACT, SNULL),
+        2 : new Button(1000,600,ctx1,BACT,BNULL)
+      };
+
+      this.map[0].Select(); // first options should be selected
+  }
+
   this.Start = function(){
     this.active = true;
+    this.Mapping();
   }
 
   this.Draw = function(){
@@ -15,24 +28,9 @@ function Options() {
       ctx1.fillStyle = "white";
       ctx1.fillRect(0,0,width,height);
 
-      if(this.option == 0){ctx1.fillStyle = "green";}
-      else {ctx1.fillStyle = "grey";}
-      ctx1.fillRect(100,100,250,100);
-      ctx1.font = "30px Comic Sans";
-      ctx1.fillStyle = "white"
-      ctx1.fillText("Controls",130,165);
-
-      if(this.option == 1){ctx1.fillStyle = "green";}
-      else {ctx1.fillStyle = "grey";}
-      ctx1.fillRect(120,210,250,100);
-      ctx1.font = "30px Comic Sans";
-      ctx1.fillStyle = "white"
-      ctx1.fillText("Sounds",170 ,275);
-
-      if(this.option == 2){
-        ctx1.fillStyle = "green";
-      }else {ctx1.fillStyle = "grey";}
-      ctx1.fillRect(750,600,250,100);
+      for(let key in this.map){ // call draw on all components
+        this.map[key].Draw();
+      }
 
     } // end active
 
@@ -48,29 +46,32 @@ function Options() {
   } // end draw
 
   this.Update = function(){
+    this.map[this.option].Unselect();
     if(this.active){
-          if (input.keyPress(pcontrols[0].up) && this.option > 0){
+          if (input.getUp() && this.option > 0){
                 this.option -= 1;
-                console.log("arrow key up");
           }
-          else if (input.keyPress(pcontrols[0].down) && this.option < 2){
+          else if (input.getDown() && this.option < 2){
                 this.option += 1;
-                console.log("arrow key down");
           }
-     if(input.keyPress(pcontrols[0].attack) && this.option == 0){
+
+    this.map[this.option].Select();
+
+  //process command
+     if(input.getAttack() && this.option == 0){
        input.resetKeys();
-       this.controlMapping = new controlMapping();
+       this.controlMapping = new SelectPlayer();
        this.controlMapping.Start();
        this.active = false;
      }
-     else if(input.keyPress(pcontrols[0].attack) && this.option == 1){
+     else if(input.getAttack() && this.option == 1){
        input.resetKeys();
        this.VolumeOptions = new VolumeOptions();
        this.VolumeOptions.Start();
        this.active = false;
      }
 
-     if (this.option == 2 && input.keyPress(pcontrols[0].attack)) {
+     if (this.option == 2 && input.getAttack()) {
        input.resetKeys();
        this.back = new Menu();
        this.back.Start();

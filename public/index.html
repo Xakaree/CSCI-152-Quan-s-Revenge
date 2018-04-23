@@ -3,11 +3,15 @@
 
 <head>
     <title>Fighting Game</title>
-
+    <img src ="sprites/redCar.png" id="RC" style="width:0; height:0;"></img>
     <img id="DBS" src="sprites/DBS.png" style="width:0; height:0;"></img>
     <img id="TMY" src="sprites/TMY.png" style="width:0; height:0;"></img>
     <img id="FLM" src="sprites/FLM.png" style="width:0; height:0;"></img>
+    <img	src="sprites/ufoTest.png" id="UFO" style ="width:0px; height:0px;"></img>
+    <img src="sprites/ssTest.png" id="SS" style="width:0px; height:0px;"></img>
+    <img id="LZG" src="sprites/LZG.png" style="width:0; height:0;"></img>
     <img	src="sprites/QS1.png" id="QS1" style ="width:0px; height:0px;"></img>
+    <img src="sprites/vpodTest.png" id="VPOD" style="width:0px; height:0px;">
 	<img	src="sprites/QS2.png" id="QS2" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/LC1.png" id="LC1" style ="width:0px; height:0px;"></img>
 	<img	src="sprites/LC2.png" id="LC2" style ="width:0px; height:0px;"></img>
@@ -36,6 +40,24 @@
   <img	src="portraits/SHP.png" id="SHP" style ="width:0px; height:0px;"></img>
   <img	src="sprites/SH1D.png" id="SHPD" style ="width:0px; height:0px;"></img>
   <img	src="portraits/SHP2.png" id="SHP2" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/PlayerACT.png" id="PLYRACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/PlayerNULL.png" id="PLYRNULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/optACT.png" id="OPTACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/optNULL.png" id="OPTNULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/controlACT.png" id="CACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/controlNULL.png" id="CNULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/backNULL.png" id="BNULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/backACT.png" id="BACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/soundACT.png" id="SACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/soundNULL.png" id="SNULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/pfourACT.png" id="P4ACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/pfourNULL.png" id="P4NULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/pthreeACT.png" id="P3ACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/pthreeNULL.png" id="P3NULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/ptwoACT.png" id="P2ACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/ptwoNULL.png" id="P2NULL" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/poneACT.png" id="P1ACT" style ="width:0px; height:0px;"></img>
+  <img  src="buttons/poneNULL.png" id="P1NULL" style ="width:0px; height:0px;"></img>
   <img	src="maps/Middle Scaff.png" id="MSCAFF" style ="width:0px; height:0px;"></img>
   <img	src="maps/Iron.png" id="IRON" style ="width:0px; height:0px;"></img>
 	<style type="text/css">
@@ -59,18 +81,26 @@
     </style>
 </head>
 
+<script src="/socket.io/socket.io.js"></script>
+
 <body>
     <div style="text-align:center">
 	<canvas id="layer1" width="1280" height="720" style="position:absolute; left:0px; top:0px; z-index: 2;"></canvas>
     <canvas id="layer0" width="1280" height="720" style="position:absolute; left:0px; top:0px; z-index: 1;"></canvas>
     </div>
 </body>
+<script src="scripts/spaceship.js"></script>
 <script src="scripts/item.js"></script>
-<script src ="scripts/parallax.js"></script>
+<script src="scripts/parallax.js"></script>
 <script src="scripts/items.js"></script>
+<script src="scripts/selectplayer.js"></script>
+<script src="scripts/button.js"></script>
 <script src="scripts/audio.js"></script>
+<script src="scripts/stageselect.js"></script>
 <script src="scripts/character.js"></script>
 <script src="scripts/imagedata.js"></script>
+<script src="scripts/ufo.js"></script>
+<script src="scripts/car.js"></script>
 <script src="scripts/controls.js"></script>
 <script src="scripts/animation.js"></script>
 <script src="scripts/input.js"></script>
@@ -78,6 +108,7 @@
 <script src="scripts/player.js"></script>
 <script src="scripts/entities.js"></script>
 <script src="scripts/camera.js"></script>
+<script src="scripts/stageData.js"></script>
 <script src="scripts/scene.js"></script>
 <script src="scripts/slider.js"></script>
 <script src="scripts/controlMapping.js"></script>

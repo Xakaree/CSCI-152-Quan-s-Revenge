@@ -6,11 +6,19 @@ this.option = 0;
 this.map = {}
 
 this.Mapping = function (){
+  var P1ACT = document.getElementById("P1ACT");
+  var P1NULL = document.getElementById("P1NULL");
+  var P2ACT = document.getElementById("P2ACT");
+  var P2NULL = document.getElementById("P2NULL");
+  var P3ACT = document.getElementById("P3ACT");
+  var P3NULL = document.getElementById("P3NULL");
+  var P4ACT = document.getElementById("P4ACT");
+  var P4NULL = document.getElementById("P4NULL");
   this.map = {
-    0: new Button(50,500,ctx1,"Player 1"),
-    1: new Button(350,500,ctx1,"Player 2"),
-    2: new Button(650,500,ctx1,"Player 3"),
-    3: new Button(950,500,ctx1,"Player 4")
+    0: new Button(50,500,ctx1, P1ACT, P1NULL),
+    1: new Button(350,500,ctx1,P2ACT, P2NULL),
+    2: new Button(650,500,ctx1,P3ACT, P3NULL),
+    3: new Button(950,500,ctx1,P4ACT, P4NULL)
   }
 
   this.map[0].Select();

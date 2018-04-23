@@ -27,10 +27,11 @@ function deathTile(cx,cy,cw,ch) {
     }
 }
 
-function Projectile(parent,x,y,w,h, vx,vy, life) {
+function Projectile(parent,x,y,w,h, vx,vy, life, color ="red") {
     this.entity = new Entity(x,y,w,h,"projectile");
     this.entity.vx = 800 * vx * tileScale;
     this.entity.vy = 800 * vy * tileScale;
+    this.color = color;
     this.entity.grav = 0;
     this.dmg = 5;
     this.parent = parent;
@@ -42,7 +43,7 @@ Projectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "projectile") {
 
     }
-    if(collider.entity.tag == "player" && this.parent) {
+    if(collider.entity.tag == "player" && collider != this.parent) {
         this.entity.active = false;
         this.entity.x = -2000;
         this.entity.y = -2000;
@@ -69,6 +70,6 @@ Projectile.prototype.Update = function() {
 }
 
 Projectile.prototype.Draw = function() {
-    ctx1.fillStyle = "red";
+    ctx1.fillStyle = this.color;
     ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
 }
