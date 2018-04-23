@@ -4,43 +4,49 @@ function Node(object) {
 }
 
 function LLQueue() {
-    this.head = null;
-    this.tail = this.head;
+    this.head = [];
+    this.tail = [];
     this.last;
+    this.name;
 }
 
-LLQueue.prototype.isEmpty = function() {
-    if(this.head == null) return true;
+LLQueue.prototype.isEmpty = function(name) {
+    if(this.head[name] == undefined || this.head[name] == null) return true;
     else return false;
 }
 
 LLQueue.prototype.push = function(object) {
-    if(this.isEmpty()) {
-        this.head = new Node(object);
-        this.tail = this.head;
+    this.name = object.constructor.name;
+    if(this.isEmpty(this.name)) {
+        this.head[this.name] = new Node(object);
+        this.tail[this.name] = this.head[this.name];
     }
     else {
-        this.tail.next = new Node(object);
-        this.tail = this.tail.next;
+        this.tail[this.name].next = new Node(object);
+        this.tail[this.name] = this.tail[this.name].next;
     }
 }
 
-LLQueue.prototype.pop = function() {
-    if(this.isEmpty()) return null;
+LLQueue.prototype.pop = function(name) {
+    if(this.isEmpty(name)) return null;
     else {
-        this.last = this.head.object;
-        this.head = this.head.next;
+        this.last = this.head[name].object;
+        this.head[name] = this.head[name].next;
         return this.last;
     }
 }
 
-function createProjectile(parent,x,y,w,h, vx,vy, life, color) {
-    //console.log(plist.isEmpty());
-    if(scene.plist.isEmpty()) {
-        scene.entities.push(new Projectile(parent,x,y,w,h, vx,vy, life, color));
+function createObject(className, args) {
+    //console.log(scene.plist.isEmpty(className));
+    let name = className.name;
+    if(scene.plist.isEmpty(name)) {
+        scene.entities.push(new className(...[].slice.call(arguments, 1)));
         //console.log("creating projectile");
     }
     else {
-        scene.plist.pop().init(parent,x,y,w,h, vx,vy, life, color);
+        scene.plist.pop(name).init(...[].slice.call(arguments, 1));
     }
+
+    //console.log(scene.entities.length);
+
 }

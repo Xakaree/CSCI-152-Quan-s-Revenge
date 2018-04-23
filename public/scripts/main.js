@@ -108,10 +108,11 @@ function GameLoop() {
         deltaTime -= interval;
         //scene.Update();
         input.Update();
-		startScreen.Update();
+        startScreen.Update();
+        startScreen.Draw();
     }
     //scene.Draw();
-	startScreen.Draw();
+	
 
     requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
 }
