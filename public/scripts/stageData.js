@@ -10,5 +10,10 @@ var stageData = {
     midground  : "background/MoreBuildings.png",
     foreground  :"background/Buildings.png",
     objs : [new Car()]
+  },
+  2:{
+    background :  "background/Rocks.png",
+    midground  : "background/Reef.png",
+    foreground  :"background/waterDome.png",
   }
 };
