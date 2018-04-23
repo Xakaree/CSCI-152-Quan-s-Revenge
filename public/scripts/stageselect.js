@@ -21,7 +21,7 @@ function StageSelect(characters)
 
           ctx1.drawImage(MPSPC,100,150, 300,150);
           ctx1.drawImage(MPCTY,500,150,300,150);
-          ctx1.drawImage(MPCTY,100,400, 300,150);
+          ctx1.drawImage(MPWTR,100,400, 300,150);
 
           ctx1.font = "40px Arial";
           ctx1.fillStyle = "grey";
