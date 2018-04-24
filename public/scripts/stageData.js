@@ -15,5 +15,10 @@ var stageData = {
     background :  "background/Rocks.png",
     midground  : "background/Reef.png",
     foreground  :"background/waterDome.png",
+  },
+  3:{
+    background : "background/Clouds.png",
+    midground  : "background/Mountains.png",
+    foreground  :"background/Ship.png",
   }
 };

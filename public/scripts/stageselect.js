@@ -3,7 +3,7 @@ function StageSelect(characters)
      this.active = false;
      this.scene = null;
      this.selection = characters;
-     this.numstages = 3;
+     this.numstages = 4;
      this.toggle = 0;
 
      this.Start = function()
@@ -22,6 +22,7 @@ function StageSelect(characters)
           ctx1.drawImage(MPSPC,100,150, 300,150);
           ctx1.drawImage(MPCTY,500,150,300,150);
           ctx1.drawImage(MPWTR,100,400, 300,150);
+          ctx1.drawImage(MPSKY,500, 400, 300,150 );
 
           ctx1.font = "40px Arial";
           ctx1.fillStyle = "grey";
@@ -41,6 +42,11 @@ function StageSelect(characters)
           else {ctx1.fillStyle = "grey";}
 
           ctx1.fillText("Seaworld",125, 600);
+
+          if(this.toggle == 3){ ctx1.fillStyle = "green";}
+          else {ctx1.fillStyle = "grey";}
+
+          ctx1.fillText("Mile High Club",525, 600);
        }
 
 ///

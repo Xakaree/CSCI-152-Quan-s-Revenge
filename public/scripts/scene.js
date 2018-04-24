@@ -50,7 +50,7 @@ function Scene() {
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
     this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka];
-    this.maps= [map,map,map];
+    this.maps= [map,map,map,map];
     this.camera = new Camera();
     this.currStage  = 0;
     this.para =  null;
