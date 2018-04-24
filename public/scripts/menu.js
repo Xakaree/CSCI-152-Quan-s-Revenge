@@ -51,24 +51,24 @@ function Menu(){
     this.map[this.menuOption].Unselect(); // Unselect last selected
 
     if (this.active){
-        if (input.keyPress(pcontrols[0].up) && this.menuOption > 0){
+        if (input.getUp() && this.menuOption > 0){
               this.menuOption -= 1;
         }
-        else if (input.keyPress(pcontrols[0].down) && this.menuOption < 1){
+        else if (input.getDown() && this.menuOption < 1){
               this.menuOption +=1;
         }
 
     this.map[this.menuOption].Select();// select current
 
 
-      if(this.menuOption == 0 && input.keyPress(pcontrols[0].attack))
+      if(this.menuOption == 0 && input.getAttack())
       {
         input.resetKeys();
         this.cSelect = new CSelect();
         this.active = false;
         this.cSelect.Start();
       }
-      else if (this.menuOption == 1 && input.keyPress(pcontrols[0].attack)){
+      else if (this.menuOption == 1 && input.getAttack()){
         input.resetKeys();
         this.options = new Options();
         this.active = false;

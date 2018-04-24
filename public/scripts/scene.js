@@ -50,8 +50,12 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.collisions = []; //list of collision to resolve
-    this.plist = new LLQueue(); //list of free projectiles
-    this.items = [TommyGun, Shotgun, Flamethrower, Lazer];
+
+    this.freelist = new LLQueue(); //list of free projectiles
+    //this.activelist = new LLQueue(); //list of active projectiles
+    this.curr;
+
+    this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka];
     this.camera = new Camera();
     this.currStage  = 0;
     this.para =  null;
@@ -80,7 +84,7 @@ Scene.prototype.loadMap = function(map) {
     this.entities = [];
     this.solidentities = [];
     this.players = [];
-    this.plist = new LLQueue();
+    this.freelist = new LLQueue();
 
     for(var i = 0; i < map.length; i++) {
         for(var j = 0; j < map[i].length; j++) {
@@ -158,7 +162,9 @@ checks for collision between entities
 adds collisions to this.collisions for resolution
 */
 Scene.prototype.distTo = function(a, b) {
-    return Math.sqrt(Math.pow((a.entity.getMidX() - b.entity.getMidX()),2) + Math.pow((a.entity.getMidY() - b.entity.getMidY()),2));
+    //return Math.sqrt(Math.pow((a.entity.getMidX() - b.entity.getMidX()),2) + Math.pow((a.entity.getMidY() - b.entity.getMidY()),2));
+    //return Math.hypot(a.entity.getMidX() - b.entity.getMidX(), a.entity.getMidY() - b.entity.getMidY());
+    return Math.abs(a.entity.getMidX() - b.entity.getMidX()) + Math.abs(a.entity.getMidY() - b.entity.getMidY())
 }
 
 Scene.prototype.checkWin = function() {
@@ -299,7 +305,9 @@ Scene.prototype.Draw = function() {
     ctx1.translate(-this.camera.x, -this.camera.y);
 
     for(var i = 0; i < this.solidentities.length; i++) {
+        if(this.solidentities[i].entity.x > this.camera.x - tileSize && this.solidentities[i].entity.x * scale < this.camera.x + width + tileSize && this.solidentities[i].entity.y * scale > this.camera.y - tileSize && this.solidentities[i].entity.y * scale < this.camera.y + height + tileSize) {
         this.solidentities[i].Draw();
+        }
     }
     for(var i = 0; i < this.players.length; i++) {
         this.players[i].Draw();

@@ -35,22 +35,22 @@
         }
 
         for(let i = 0; i < ts.length; i++) {
-            if(ts[i].pageX > width*0.2 && ts[i].pageX < width*0.2+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
+            if(ts[i].pageX > width*0.2 && ts[i].pageX < width*0.2+90 && ts[i].pageY > height*0.2 && ts[i].pageY < height*0.2+90) {
                 inp.up = true;
             }
-            if(ts[i].pageX > width*0.2 && ts[i].pageX < width*0.2+90 && ts[i].pageY > height*0.8 && ts[i].pageY < height*0.8+90) {
+            if(ts[i].pageX > width*0.2 && ts[i].pageX < width*0.2+90 && ts[i].pageY > height*0.6 && ts[i].pageY < height*0.6+90) {
                 inp.down = true;
             }
-            if(ts[i].pageX > width*0.08 && ts[i].pageX < width*0.08+90 && ts[i].pageY > height*0.6 && ts[i].pageY < height*0.6+90) {
+            if(ts[i].pageX > width*0.08 && ts[i].pageX < width*0.08+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
                 inp.left = true;
             }
-            if(ts[i].pageX > width*0.33 && ts[i].pageX < width*0.33+90 && ts[i].pageY > height*0.6 && ts[i].pageY < height*0.6+90) {
+            if(ts[i].pageX > width*0.33 && ts[i].pageX < width*0.33+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
                 inp.right = true;
             }
-            if(ts[i].pageX > width*0.6 && ts[i].pageX < width*0.6+90 && ts[i].pageY > height*0.6 && ts[i].pageY < height*0.6+90) {
+            if(ts[i].pageX > width*0.6 && ts[i].pageX < width*0.6+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
                 inp.attack = true;
             }
-            if(ts[i].pageX > width*0.75 && ts[i].pageX < width*0.75+90 && ts[i].pageY > height*0.6 && ts[i].pageY < height*0.6+90) {
+            if(ts[i].pageX > width*0.75 && ts[i].pageX < width*0.75+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
                 inp.jump = true;
             }
         }
@@ -109,11 +109,12 @@
         ctx = canvas.getContext("2d");
 
         canvas.addEventListener("click", function() {
-            toggleFullScreen();
+            //toggleFullScreen();
+            e.preventDefault();
         }, false);
     
         canvas.addEventListener("touchmove", function(e) {
-            //e.preventDefault();
+            e.preventDefault();
             var ts = e.touches;
             checkInput(ts);
             send();
@@ -151,22 +152,22 @@
         ctx.fillRect(0,0,width,height);
 
         ctx.fillStyle ="black";
-        ctx.fillRect(width*0.2, height*0.4, 90,90); //up
-        ctx.fillRect(width*0.2, height*0.8, 90,90); //down
-        ctx.fillRect(width*0.08, height*0.6, 90,90); //left
-        ctx.fillRect(width*0.33, height*0.6, 90,90); //right
+        ctx.fillRect(width*0.2, height*0.2, 90,90); //up
+        ctx.fillRect(width*0.2, height*0.6, 90,90); //down
+        ctx.fillRect(width*0.08, height*0.4, 90,90); //left
+        ctx.fillRect(width*0.33, height*0.4, 90,90); //right
 
         ctx.fillStyle = "red";
-        ctx.fillRect(width*0.6, height*0.6, 90,90); //attack
+        ctx.fillRect(width*0.6, height*0.4, 90,90); //attack
         ctx.fillStyle ="white";
         ctx.font = "40px Arial";
-        ctx.fillText("atk", width*0.6 + 15, height*0.6 + 55);
+        ctx.fillText("atk", width*0.6 + 15, height*0.4 + 55);
 
         ctx.fillStyle = "blue";
-        ctx.fillRect(width*0.75, height*0.6, 90,90); //jump
+        ctx.fillRect(width*0.75, height*0.4, 90,90); //jump
         ctx.fillStyle ="white";
         ctx.font = "30px Arial";
-        ctx.fillText("jump", width*0.75 + 10, height*0.6 + 55);
+        ctx.fillText("jump", width*0.75 + 10, height*0.4 + 55);
 
         //ctx.fillText(width.toString(), 10,10);
         //ctx.fillText(height.toString(), 10,20);

@@ -18,11 +18,15 @@ LLQueue.prototype.isEmpty = function(name) {
 LLQueue.prototype.push = function(object) {
     this.name = object.constructor.name;
     if(this.isEmpty(this.name)) {
-        this.head[this.name] = new Node(object);
+        this.head[this.name] = object;
+        object.next = null;
+        object.prev = null;
         this.tail[this.name] = this.head[this.name];
     }
     else {
-        this.tail[this.name].next = new Node(object);
+        this.tail[this.name].next = object;
+        object.next = null;
+        object.prev = this.tail[this.name];
         this.tail[this.name] = this.tail[this.name].next;
     }
 }
@@ -30,23 +34,29 @@ LLQueue.prototype.push = function(object) {
 LLQueue.prototype.pop = function(name) {
     if(this.isEmpty(name)) return null;
     else {
-        this.last = this.head[name].object;
+        this.last = this.head[name];
         this.head[name] = this.head[name].next;
         return this.last;
     }
 }
 
 function createObject(className, args) {
-    //console.log(scene.plist.isEmpty(className));
+    //console.log(scene.freelist.isEmpty(className));
     let name = className.name;
-    if(scene.plist.isEmpty(name)) {
-        scene.entities.push(new className(...[].slice.call(arguments, 1)));
+    let c = className;
+
+    for(let i = 0; i <  arguments.length-1; i++) {
+        arguments[i] = arguments[i+1];
+    }
+    arguments.length--;
+
+    if(scene.freelist.isEmpty(name)) {
+        scene.entities.push(new c(...arguments));
         //console.log("creating projectile");
     }
     else {
-        scene.plist.pop(name).init(...[].slice.call(arguments, 1));
+        scene.freelist.pop(name).init(...arguments);
     }
-
     //console.log(scene.entities.length);
 
 }

@@ -52,8 +52,13 @@ io.on('connection', function(socket){
   socket.on('join', function(code) {
     if(host[code])  {
       console.log("client joining " + code);
+      io.to(socket.id).emit('accept');
       socket.join(code);
       room[socket.id] = code;
+    }
+    else {
+      console.log("room doesn't exist");
+      io.to(socket.id).emit('reject');
     }
   });
 });

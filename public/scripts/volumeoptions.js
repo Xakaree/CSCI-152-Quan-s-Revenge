@@ -47,18 +47,18 @@ function VolumeOptions(){
       }
 
         ///switch between sliders
-        if(input.keyPress(pcontrols[0].down) && this.toggle < 4){
+        if(input.getDown() && this.toggle < 4){
           this.map[this.toggle].Unselect();
           this.toggle += 1;
           this.map[this.toggle].Select();
         }
-        else if (input.keyPress(pcontrols[0].up)  && this.toggle > 0){
+        else if (input.getUp()  && this.toggle > 0){
           this.map[this.toggle].Unselect();
           this.toggle -= 1;
           this.map[this.toggle].Select();
         }
 
-        if (this.toggle == 4 && input.keyPress(pcontrols[0].attack)) {
+        if (this.toggle == 4 && input.getAttack()) {
           input.resetKeys();
           this.back = new Options();
           this.back.Start();

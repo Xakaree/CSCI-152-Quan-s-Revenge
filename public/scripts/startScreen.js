@@ -25,7 +25,7 @@ function startScreen(){
 
 	this.Update = function(){
 			if (this.active){
-			 if (input.keyPress(32)){ //start game
+			 if (input.getAttack()){ //start game
 						input.resetKeys(); //  needed when
 						this.menu =  new Menu();
 						this.menu.Start();

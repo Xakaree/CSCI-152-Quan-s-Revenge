@@ -26,9 +26,13 @@ this.Update = function()
         ctx1.clearRect(0,0,canvas.width,canvas.height);
         ctx0.clearRect(0,0,canvas.width,canvas.height);
 
+        ctx1.fillStyle = "#00163a";
+        ctx1.fillRect(-200 * scale,-200 * scale,width + 200,height + 200);
+
         ctx1.save();
 
         ctx1.translate(-this.camera.x, -this.camera.y);
+        
         ctx1.drawImage(background, (xdir*3) + (-this.camera.x*0.25), (ydir*3) + (-this.camera.y*0.25),(canvas.width +1500) *scale,(canvas.height + 1500)*scale);
         if(this.backgroundObjects != null)
         {
