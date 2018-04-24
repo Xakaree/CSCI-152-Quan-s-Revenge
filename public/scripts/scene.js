@@ -49,6 +49,7 @@ function Scene() {
     this.entities = []; //list of entities
     this.solidentities = [];
     this.playersPassed = [];
+    this.players = [];
     this.collisions = []; //list of collision to resolve
 
     this.freelist = new LLQueue(); //list of free projectiles
@@ -81,9 +82,9 @@ Scene.prototype.PassPlayers = function(selection){
 }
 
 Scene.prototype.loadMap = function(map) {
-    this.entities = [];
-    this.solidentities = [];
-    this.players = [];
+    this.entities.length = 0;
+    this.solidentities.length = 0;
+    this.players.length = 0;
     this.freelist = new LLQueue();
 
     for(var i = 0; i < map.length; i++) {

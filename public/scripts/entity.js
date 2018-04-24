@@ -133,37 +133,28 @@ function Entity(x,y,w,h,tag, dmg = 5) {
 }
 
 function collisionCheck(collider, collidee) {
-    if(collider instanceof Entity && collidee instanceof Entity) {
-        //console.log("Entity check");
-        var l1 = collider.getLeft();
-        var r1 = collider.getRight();
-        var b1 = collider.getBot();
-        var t1 = collider.getTop();
+    
+    /*var l1 = collider.entity.getLeft();
+    var r1 = collider.entity.getRight();
+    var b1 = collider.entity.getBot();
+    var t1 = collider.entity.getTop();
 
-        var l2 = collidee.getLeft();
-        var r2 = collidee.getRight();
-        var b2 = collidee.getBot();
-        var t2 = collidee.getTop();
-    }
-    else {
-//console.log("Object check");
-        var l1 = collider.entity.getLeft();
-        var r1 = collider.entity.getRight();
-        var b1 = collider.entity.getBot();
-        var t1 = collider.entity.getTop();
+    var l2 = collidee.entity.getLeft();
+    var r2 = collidee.entity.getRight();
+    var b2 = collidee.entity.getBot();
+    var t2 = collidee.entity.getTop();*/
 
-        var l2 = collidee.entity.getLeft();
-        var r2 = collidee.entity.getRight();
-        var b2 = collidee.entity.getBot();
-        var t2 = collidee.entity.getTop();
-    }
-
-
+    if(collider.entity.y+collider.entity.height < collidee.entity.y
+        || collider.entity.y > collidee.entity.y+collidee.entity.height
+        || collider.entity.x+collider.entity.width < collidee.entity.x
+        || collider.entity.x > collidee.entity.x+collidee.entity.width) {
+            return false;
+        }
 
     //checks if any edges of the box colliders are intersecting
-    if(b1 < t2 || t1 > b2 || r1 < l2 || l1 > r2) {
+    /*if(b1 < t2 || t1 > b2 || r1 < l2 || l1 > r2) {
         return false;
-    }
+    }*/
     else return true;
 }
 
