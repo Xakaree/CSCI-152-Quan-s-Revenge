@@ -32,10 +32,11 @@ function GradientForCity(){
   this.Draw =  function()
   {
     var my_gradient=ctx1.createLinearGradient(0,0,0,720);
-    my_gradient.addColorStop(0,"#191970");
-    my_gradient.addColorStop(0.35,"#4B0082");
+    my_gradient.addColorStop(0,"Black");
+    my_gradient.addColorStop(0.15,"#191970");
+    my_gradient.addColorStop(0.55,"#4B0082");
     my_gradient.addColorStop(1,"#ffffe0");
     ctx1.fillStyle=my_gradient;
-    ctx1.fillRect(-250,-250,width+250,height+250);
+    ctx1.fillRect(-250,-250,width+800,height+800);
   }
 }
