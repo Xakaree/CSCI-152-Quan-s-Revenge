@@ -1,34 +1,5 @@
-var stageData = {
-  0:{
-   background :  "background/Space.png",
-   midground  : "background/Planets.png",
-   foreground  :"background/Moon.png",
-    objs : [new UFObgi(), new Spaceship()]
-  },
-  1:{
-    background : "background/Skyscrapers.png",
-    midground  : "background/MoreBuildings.png",
-    foreground  :"background/Buildings.png",
-    objs : [new Car(), new GradientForCity()]
-  },
-  2:{
-    background :  "background/Rocks.png",
-    midground  : "background/Reef.png",
-    foreground  :"background/waterDome.png",
-  },
-  3:{
-    background : "background/Clouds.png",
-    midground  : "background/Mountains.png",
-    foreground  :"background/Ship.png",
-  }
-};
 
 function GradientForCity(){
-  this.Update = function()
-  {
-
-  }
-
   this.Draw =  function()
   {
     var my_gradient=ctx1.createLinearGradient(0,0,0,720);
@@ -40,3 +11,86 @@ function GradientForCity(){
     ctx1.fillRect(-250,-250,width+800,height+800);
   }
 }
+
+function GradientForSpace(){
+this.timer = 0 ;
+  this.Draw =  function()
+  {
+    var grd=ctx1.createLinearGradient(0,0,0,720);
+    grd.addColorStop(0,"Black");
+    grd.addColorStop(0.10,"#191970");
+    grd.addColorStop(0.45,"#4B0082");
+    grd.addColorStop(0.55,"#191970");
+    grd.addColorStop(0.9,"Black");
+
+    // Fill with gradient
+    ctx1.fillStyle=grd;
+    ctx1.fillRect(-600,-250,width+1250,height+800);
+  }
+}
+
+function GradientForSeaWorld(){
+  this.Draw = function()
+  {
+    var grd=ctx1.createLinearGradient(0,0,0,720);
+    grd.addColorStop(0,"#7FB3D5");
+    grd.addColorStop(0.05,"#2E86C1");
+    grd.addColorStop(0.25,"#2980B9")
+    grd.addColorStop(0.45,"#154360");
+    //grd.addColorStop(0.10,"#191970");
+    grd.addColorStop(0.65,"Black");
+
+    // Fill with gradient
+    ctx1.fillStyle=grd;
+    ctx1.fillRect(-600,-250,width+1250,height+800);
+  }
+}
+
+function GradientForMileHigh(){
+  this.Draw = function()
+  {
+    var grd=ctx1.createLinearGradient(0,0,0,720);
+    grd.addColorStop(0.75,"#7FB3D5");
+    grd.addColorStop(0.5,"#2E86C1");
+    grd.addColorStop(0.25,"#2980B9")
+    grd.addColorStop(0.0,"#154360");
+    //grd.addColorStop(0.10,"#191970");
+
+    // Fill with gradient
+    ctx1.fillStyle=grd;
+    ctx1.fillRect(-600,-250,width+1250,height+800);
+
+  }
+}
+
+
+var stageData = {
+  0:{
+   background :  "background/Space.png",
+   midground  : "background/Planets.png",
+   foreground  :"background/Moon.png",
+   objs : [new UFObgi(), new Spaceship()],
+   gradient : new GradientForSpace()
+  },
+  1:{
+    background : "background/Skyscrapers.png",
+    midground  : "background/MoreBuildings.png",
+    foreground  :"background/Buildings.png",
+    objs : [new Car()],
+    gradient : new GradientForCity()
+  },
+  2:{
+    background :  "background/Rocks.png",
+    midground  : "background/Reef.png",
+    foreground  :"background/waterDome.png",
+    objs : [],
+    gradient : new GradientForSeaWorld()
+
+  },
+  3:{
+    background : "background/Clouds.png",
+    midground  : "background/Mountains.png",
+    foreground  :"background/Ship.png",
+    gradient : new GradientForMileHigh()
+  }
+};

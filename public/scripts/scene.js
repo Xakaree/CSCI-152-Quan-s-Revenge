@@ -65,7 +65,7 @@ function Scene() {
 //runs at start of scene
 Scene.prototype.Start = function() {
     this.loadMap(this.maps[this.currStage]);
-    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].objs ); // beta features
+    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].gradient,stageData[this.currStage].objs ); // beta features
 
 }
 

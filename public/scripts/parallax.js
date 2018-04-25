@@ -1,4 +1,4 @@
-function Parallax(camera, image1, image2, image3, bgObjects = null){
+function Parallax(camera, image1, image2, image3, imgGradient, bgObjects = null){
 
     this.camera = camera;
     let background =  new Image(canvas.width,canvas.height);
@@ -10,6 +10,8 @@ function Parallax(camera, image1, image2, image3, bgObjects = null){
     background.src = image1;  // 3rd
     midground.src = image2; // 2nd
     foreground.src = image3; //fastest
+
+    this.imgGradient = imgGradient;
 
 this.Update = function()
 {
@@ -33,7 +35,10 @@ this.Update = function()
 
         ctx1.translate(-this.camera.x, -this.camera.y);
 
+                this.imgGradient.Draw();
         ctx1.drawImage(background, (xdir*3) + (-this.camera.x*0.25), (ydir*3) + (-this.camera.y*0.25),(canvas.width +1500) *scale,(canvas.height + 1500)*scale);
+
+
         if(this.backgroundObjects != null)
         {
           for(let i =0; i < this.backgroundObjects.length; i++)
