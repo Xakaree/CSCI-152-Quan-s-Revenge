@@ -264,6 +264,7 @@ if(typeof io != 'undefined') {
     });
 
     socket.on('input', function(id, inp) {
+        if(!oldinp) oldinp = Object.assign({}, inp);
         //console.log(inp);
         for(let key in inp) {
             if(inp[key]) {
