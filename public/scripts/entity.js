@@ -33,6 +33,13 @@ function Entity(x,y,w,h,tag, dmg = 5) {
     this.getMidX = function() {return this.x + (this.width/2);}
     this.getMidY = function() {return this.y + (this.height/2);}
 
+    this.dx;
+    this.dy;
+    this.absDx;
+    this.absDy;
+    this.tx;
+    this.ty;
+
     this.updatePhysics = function() {
         if(this.active) {
             /*
@@ -60,19 +67,17 @@ function Entity(x,y,w,h,tag, dmg = 5) {
     }
 
     this.solidCollision = function(collider) {
-        var tx, ty;
-        if(this.vx > 0) tx = this.getMidX() - Math.min(10*tileScale, (this.vx * interval)/2);
-        else tx = this.getMidX() - Math.max(-10*tileScale, (this.vx * interval)/2);
-        if(this.vy > 0) ty = this.getMidY() - Math.min(10*tileScale, (this.vy * interval)/2);
-        else ty = this.getMidY() - Math.max(-10*tileScale, (this.vy * interval)/2);
+        if(this.vx > 0) this.tx = this.getMidX() - Math.min(10*tileScale, (this.vx * interval)/2);
+        else this.tx = this.getMidX() - Math.max(-10*tileScale, (this.vx * interval)/2);
+        if(this.vy > 0) this.ty = this.getMidY() - Math.min(10*tileScale, (this.vy * interval)/2);
+        else this.ty = this.getMidY() - Math.max(-10*tileScale, (this.vy * interval)/2);
 
         //calculate a normalized distance between entity and colliding entity
-        var dx = (collider.entity.getMidX() - tx) / (collider.entity.width/2.0);
-        var dy = (collider.entity.getMidY() - ty) / (collider.entity.height/2.0);
+        this.dx = (collider.entity.getMidX() - this.tx) / (collider.entity.width/2.0);
+        this.dy = (collider.entity.getMidY() - this.ty) / (collider.entity.height/2.0);
         //absolute values of the above variables
-        var absDx, absDy;
-        absDx = Math.abs(dx);
-        absDy = Math.abs(dy);
+        this.absDx = Math.abs(this.dx);
+        this.absDy = Math.abs(this.dy);
 
         /* collision return codes (numbers are this entity's position relative to collidee)
           4 0 4
@@ -81,14 +86,14 @@ function Entity(x,y,w,h,tag, dmg = 5) {
         */
 
         //if x and y absolutes are close to each other then entity is on a corner
-        if(Math.abs(absDx - absDy) < 0.01) {
-            if(dx < 0) { //approaching from right
+        if(Math.abs(this.absDx - this.absDy) < 0.01) {
+            if(this.dx < 0) { //approaching from right
                 this.x = collider.entity.getRight()+1;
             }
             else { //appraoching from left
                 this.x = collider.entity.getLeft() - this.width-1;
             }
-            if(dy < 0) { //approaching from bottom
+            if(this.dy < 0) { //approaching from bottom
                 this.y = collider.entity.getBot()+1;
             }
             else { //approaching from top
@@ -96,8 +101,8 @@ function Entity(x,y,w,h,tag, dmg = 5) {
             }
             return 4;
         }
-        else if(absDx > absDy) { //appraoching from the side
-            if(dx < 0) { //approaching from the right
+        else if(this.absDx > this.absDy) { //appraoching from the side
+            if(this.dx < 0) { //approaching from the right
                 this.x = collider.entity.getRight()+1;
                 this.vx = 0;
                 return 1;
@@ -109,7 +114,7 @@ function Entity(x,y,w,h,tag, dmg = 5) {
             }
         }
         else { //approaching from the top/bottom
-            if(dy < 0) { //approaching from bottom
+            if(this.dy < 0) { //approaching from bottom
                 this.y = collider.entity.getBot()+1;
                 //console.log("top)")
                 this.vy = 0;

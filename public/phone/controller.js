@@ -18,46 +18,50 @@
 
     
     var inp = {
-        left: false,
-        right: false,
-        up: false,
-        down: false,
-        jump: false,
-        attack: false
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        5: false,
+        4: false
     }
 
     var oldinp = oldinp = Object.assign({}, inp);
 
 
     function checkInput(ts) {
+        oldinp = Object.assign({}, inp);
+
         for(let i in inp) {
             inp[i] = false;
         }
 
         for(let i = 0; i < ts.length; i++) {
             if(ts[i].pageX > width*0.2 && ts[i].pageX < width*0.2+90 && ts[i].pageY > height*0.2 && ts[i].pageY < height*0.2+90) {
-                inp.up = true;
+                inp[0] = true;
             }
             if(ts[i].pageX > width*0.2 && ts[i].pageX < width*0.2+90 && ts[i].pageY > height*0.6 && ts[i].pageY < height*0.6+90) {
-                inp.down = true;
+                inp[2] = true;
             }
             if(ts[i].pageX > width*0.08 && ts[i].pageX < width*0.08+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
-                inp.left = true;
+                inp[3] = true;
             }
             if(ts[i].pageX > width*0.33 && ts[i].pageX < width*0.33+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
-                inp.right = true;
+                inp[1] = true;
             }
             if(ts[i].pageX > width*0.6 && ts[i].pageX < width*0.6+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
-                inp.attack = true;
+                inp[4] = true;
             }
             if(ts[i].pageX > width*0.75 && ts[i].pageX < width*0.75+90 && ts[i].pageY > height*0.4 && ts[i].pageY < height*0.4+90) {
-                inp.jump = true;
+                inp[5] = true;
             }
         }
     }
 
+    interval = 1/60;
+
     function send() {
-        if(inp.left != oldinp.left) {
+        /*if(inp.left != oldinp.left) {
         if(inp.left) socket.emit("tdown", 3);
         else socket.emit("tup", 3);
         }
@@ -87,7 +91,11 @@
         else socket.emit("tup", 4);
         }
 
-        oldinp = Object.assign({}, inp);
+        oldinp = Object.assign({}, inp);*/ 
+        
+        if(oldinp != inp) socket.emit('input', inp);
+        requestAnimationFrame(send); //loops while allowing rest of browser to run
+        
     }
 
     
@@ -109,7 +117,7 @@
         ctx = canvas.getContext("2d");
 
         canvas.addEventListener("click", function() {
-            //toggleFullScreen();
+            toggleFullScreen();
             e.preventDefault();
         }, false);
     
@@ -117,19 +125,19 @@
             e.preventDefault();
             var ts = e.touches;
             checkInput(ts);
-            send();
+            //send();
         }, false);
     
         canvas.addEventListener("touchstart", function(e) {
             var ts = e.touches;
             checkInput(ts);
-            send();
+            //send();
     
         }, false);
         canvas.addEventListener("touchend", function(e) {
             var ts = e.touches;
             checkInput(ts);
-            send();
+            //send();
     
         }, false);
 
@@ -172,7 +180,7 @@
         //ctx.fillText(width.toString(), 10,10);
         //ctx.fillText(height.toString(), 10,20);
 
-        requestAnimationFrame(main);
+        requestAnimationFrame(send);
     }
 
     //main();
