@@ -65,28 +65,19 @@ Projectile.prototype.onCollision = function(collider) {
 
     }
     if(collider.entity.tag == "player" && collider != this.parent) {
-        this.entity.active = false;
-        this.entity.x = -2000;
-        this.entity.y = -2000;
-        scene.freelist.push(this);
+        this.deactivate();
     }
     if(collider.entity.tag == "solid") {
-        this.entity.active = false;
-        this.entity.x = -2000;
-        this.entity.y = -2000;
-        scene.freelist.push(this);
+        this.deactivate();
     }
 }
 
 Projectile.prototype.Update = function() {
-    this.entity.updatePhysics();
+    this.entity.updatePhysics(this);
     if(this.entity.active) {
         if(this.life > 0) {
             if(this.cnt >= this.life) {
-                this.entity.active = false;
-                this.entity.x = -2000;
-                this.entity.y = -2000;
-                scene.freelist.push(this);
+                this.deactivate();
             }
             else this.cnt++;
         }
@@ -98,6 +89,15 @@ Projectile.prototype.Update = function() {
 Projectile.prototype.Draw = function() {
     ctx1.fillStyle = this.color;
     ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+}
+
+Projectile.prototype.deactivate = function() {
+    if(this.entity.active) {
+        this.entity.active = false;
+        this.entity.x = -2000;
+        this.entity.y = -2000;
+        scene.freelist.push(this);
+    }
 }
 
 FreezeProjectile.prototype = Object.create(Projectile.prototype);
@@ -147,7 +147,7 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
 
     }
     if(collider.entity.tag == "player" && collider != this.parent) {
-        this.entity.active = false;
+        
 
         for(var i =0.1 ; i < 2;  i+= 0.1)
         {
@@ -169,15 +169,10 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
           let index  = Math.floor(Math.random() *color.length);
           createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , -Math.random() , 20,  color[index],this.explosivedmg);
         }
-
-
-        this.entity.x = -2000;
-        this.entity.y = -2000;
-
-        scene.freelist.push(this);
+        this.deactivate();
     }
     if(collider.entity.tag == "solid") {
-        this.entity.active = false;
+        
 
           for(var i =0.1 ; i < 2;  i+= 0.1)
           {
@@ -199,23 +194,16 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
             let index  = Math.floor(Math.random() *color.length);
             createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , -Math.random() , 20,  color[index],this.explosivedmg);
           }
-
-        this.entity.x = -2000;
-        this.entity.y = -2000;
-
-        scene.freelist.push(this);
        // scene.entities.pop();
+       this.deactivate();
     }
 }
 
 ExplosiveProjectile.prototype.Update = function() {
-    this.entity.updatePhysics();
+    this.entity.updatePhysics(this);
     if(this.life > 0) {
         if(this.cnt >= this.life) {
-            this.entity.active = false;
-            this.entity.x = -2000;
-            this.entity.y = -2000;
-            scene.freelist.push(this);
+            this.deactivate();
         }
         else this.cnt++;
     }
@@ -225,4 +213,14 @@ ExplosiveProjectile.prototype.Update = function() {
 ExplosiveProjectile.prototype.Draw = function() {
     ctx1.fillStyle = this.color;
     ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+}
+
+ExplosiveProjectile.prototype.deactivate = function() {
+    if(this.entity.active) {
+        this.entity.active = false;
+        this.entity.x = -2000;
+        this.entity.y = -2000;
+        scene.freelist.push(this);
+    }
+    
 }

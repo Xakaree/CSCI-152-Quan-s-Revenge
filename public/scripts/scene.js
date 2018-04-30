@@ -50,11 +50,10 @@ function Scene() {
     this.solidentities = [];
     this.playersPassed = [];
     this.players = [];
+    this.projectiles = [];
     this.collisions = []; //list of collision to resolve
 
     this.freelist = new LLQueue(); //list of free projectiles
-    //this.activelist = new LLQueue(); //list of active projectiles
-    this.curr;
 
     this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka];
     this.camera = new Camera();
@@ -66,6 +65,11 @@ function Scene() {
     this.wincnt = 0;
     this.winTime = 240;
     this.winner;
+
+    this.tilemap = [];
+
+    this._x;
+    this._y;
 }
 
 //runs at start of scene
@@ -82,18 +86,26 @@ Scene.prototype.PassPlayers = function(selection){
 }
 
 Scene.prototype.loadMap = function(map) {
+    this.tilemap.length = 0;
     this.entities.length = 0;
     this.solidentities.length = 0;
     this.players.length = 0;
     this.freelist = new LLQueue();
 
+    for(let i = 0; i < this.projectiles.length; i++) {
+        this.projectiles[i].deactivate();
+    }
+
     for(var i = 0; i < map.length; i++) {
         for(var j = 0; j < map[i].length; j++) {
+            this.tilemap.push([]);
             switch(map[i][j]) {
                 case 0:
+                    this.tilemap[i].push(null);
                     break;
                 case 1:
                     this.solidentities.push(new SolidTile(j,i, 1,1,MSCAFF));
+                    this.tilemap[i].push(this.solidentities[this.solidentities.length-1]);
                     break;
                 case 2:
                     if(this.playersPassed[0]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[0][1], this.playersPassed[0][0]));
@@ -113,6 +125,7 @@ Scene.prototype.loadMap = function(map) {
                     break;
                 case 7:
                     this.solidentities.push(new SolidTile(j,i, 1,1,IRON));
+                    this.tilemap[i].push(this.solidentities[this.solidentities.length-1]);
                     break;
             }
         }
@@ -137,6 +150,9 @@ Scene.prototype.Update  = function() {
         }
         for(var i = 0; i < this.entities.length; i++) {
             this.entities[i].Update();
+        }
+        for(var i = 0; i < this.projectiles.length; i++) {
+            this.projectiles[i].Update();
         }
         /*for(var i = 0; i < this.solidentities.length; i++) {
             this.solidentities[i].Update();
@@ -184,10 +200,50 @@ Scene.prototype.checkWin = function() {
     }
 }
 
+Scene.prototype.checkSolidCollision = function(object, sobject) {
+    if(object != null && sobject != null) {
+        if(collisionCheck(object, sobject)) {
+            collision(object, sobject);
+        }
+    }
+}
+
+Scene.prototype.tileCollision = function(object) {
+    if(!object.entity.active) {
+        return;
+    }
+
+
+
+    this._x = Math.floor(object.entity.x / tileSize);
+    this._y = Math.floor(object.entity.y / tileSize);
+    this._w = Math.ceil(object.entity.width / tileSize);
+    this._h = Math.ceil(object.entity.height / tileSize);
+
+    for(let i = 0; i <= this._w; i++) {
+        for(let j = 0; j <= this._h; j++) {
+            if(this.tilemap[this._y+j][this._x+i]) this.checkSolidCollision(object, this.tilemap[this._y+j][this._x+i]);
+        }
+    }
+
+    /*if(this.tilemap[this._y][this._x]) this.checkSolidCollision(object, this.tilemap[this._y][this._x]);
+    if(this.tilemap[this._y][this._x+1]) this.checkSolidCollision(object, this.tilemap[this._y][this._x+1]);
+    if(this.tilemap[this._y][this._x+2]) this.checkSolidCollision(object, this.tilemap[this._y][this._x+2]);
+
+    if(this.tilemap[this._y+1][this._x]) this.checkSolidCollision(object, this.tilemap[this._y+1][this._x]);
+    if(this.tilemap[this._y+1][this._x+1]) this.checkSolidCollision(object, this.tilemap[this._y+1][this._x+1]);
+    if(this.tilemap[this._y+1][this._x+2]) this.checkSolidCollision(object, this.tilemap[this._y+1][this._x+2]);
+
+    if(this.tilemap[this._y+2][this._x]) this.checkSolidCollision(object, this.tilemap[this._y+2][this._x]);
+    if(this.tilemap[this._y+2][this._x+1]) this.checkSolidCollision(object, this.tilemap[this._y+2][this._x+1]);
+    if(this.tilemap[this._y+2][this._x+2]) this.checkSolidCollision(object, this.tilemap[this._y+2][this._x+2]);*/
+
+}
+
 Scene.prototype.checkCollisions = function() {
     this.collisions = []; //reset collision list
 
-    for(var i = 0; i < this.players.length; i++) {
+    /*for(var i = 0; i < this.players.length; i++) {
         if(!this.players[i].entity.active) {
             continue;
         }
@@ -202,9 +258,18 @@ Scene.prototype.checkCollisions = function() {
             collision(this.players[i], this.solidentities[c[0]]);
             i--;
         }
+    }*/
+
+    for(var i = 0; i < this.players.length; i++) {
+        if(!this.players[i].entity.active) {
+            continue;
+        }
+        
+        this.tileCollision(this.players[i]);
+        
     }
 
-    for(var i = 0; i < this.entities.length; i++) {
+    /*for(var i = 0; i < this.entities.length; i++) {
         if(!this.entities[i].entity.active) {
             continue;
         }
@@ -217,9 +282,9 @@ Scene.prototype.checkCollisions = function() {
         if(collisionCheck(this.entities[i], this.solidentities[c[0]])) {
             //this.collisions.push([this.entities[i], this.solidentities[c[0]]]);
             collision(this.entities[i], this.solidentities[c[0]]);
-            i--;
+            //i--;
         }
-    }
+    }*/
 
     for(var i = 0; i < this.players.length; i++) {
         if(!this.players[i].entity.active) continue;
