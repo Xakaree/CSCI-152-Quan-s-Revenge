@@ -41,6 +41,7 @@ var map2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
 
+
 /*
 Handles all objects, updates and draw calls
 */
@@ -48,7 +49,14 @@ function Scene() {
     this.entities = []; //list of entities
     this.solidentities = [];
     this.playersPassed = [];
+    this.players = [];
+    this.projectiles = [];
     this.collisions = []; //list of collision to resolve
+
+    this.freelist = new LLQueue(); //list of free projectiles
+
+    this.score = [];
+
     this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka];
     this.maps= [map,map,map,map];
     this.camera = new Camera();
@@ -60,6 +68,11 @@ function Scene() {
     this.wincnt = 0;
     this.winTime = 240;
     this.winner;
+
+    this.tilemap = [];
+
+    this._x;
+    this._y;
 }
 
 //runs at start of scene
@@ -67,6 +80,9 @@ Scene.prototype.Start = function() {
     this.loadMap(this.maps[this.currStage]);
     this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].gradient,stageData[this.currStage].objs ); // beta features
 
+    for(let i = 0; i < this.players.length; i++) {
+        this.score[i] = 0;
+    }
 }
 
 Scene.prototype.PassPlayers = function(selection){
@@ -76,17 +92,26 @@ Scene.prototype.PassPlayers = function(selection){
 }
 
 Scene.prototype.loadMap = function(map) {
-    this.entities = [];
-    this.solidentities = [];
-    this.players = [];
+    this.tilemap.length = 0;
+    this.entities.length = 0;
+    this.solidentities.length = 0;
+    this.players.length = 0;
+    this.freelist = new LLQueue();
+
+    for(let i = 0; i < this.projectiles.length; i++) {
+        this.projectiles[i].deactivate();
+    }
 
     for(var i = 0; i < map.length; i++) {
         for(var j = 0; j < map[i].length; j++) {
+            this.tilemap.push([]);
             switch(map[i][j]) {
                 case 0:
+                    this.tilemap[i].push(null);
                     break;
                 case 1:
                     this.solidentities.push(new SolidTile(j,i, 1,1,MSCAFF));
+                    this.tilemap[i].push(this.solidentities[this.solidentities.length-1]);
                     break;
                 case 2:
                     if(this.playersPassed[0]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[0][1], this.playersPassed[0][0]));
@@ -106,6 +131,7 @@ Scene.prototype.loadMap = function(map) {
                     break;
                 case 7:
                     this.solidentities.push(new SolidTile(j,i, 1,1,IRON));
+                    this.tilemap[i].push(this.solidentities[this.solidentities.length-1]);
                     break;
             }
         }
@@ -131,9 +157,12 @@ Scene.prototype.Update  = function() {
         for(var i = 0; i < this.entities.length; i++) {
             this.entities[i].Update();
         }
-        for(var i = 0; i < this.solidentities.length; i++) {
-            this.solidentities[i].Update();
+        for(var i = 0; i < this.projectiles.length; i++) {
+            this.projectiles[i].Update();
         }
+        /*for(var i = 0; i < this.solidentities.length; i++) {
+            this.solidentities[i].Update();
+        }*/
         this.checkCollisions();
         this.resolveCollisions();
 
@@ -156,7 +185,9 @@ checks for collision between entities
 adds collisions to this.collisions for resolution
 */
 Scene.prototype.distTo = function(a, b) {
-    return Math.sqrt(Math.pow((a.entity.getMidX() - b.entity.getMidX()),2) + Math.pow((a.entity.getMidY() - b.entity.getMidY()),2));
+    //return Math.sqrt(Math.pow((a.entity.getMidX() - b.entity.getMidX()),2) + Math.pow((a.entity.getMidY() - b.entity.getMidY()),2));
+    //return Math.hypot(a.entity.getMidX() - b.entity.getMidX(), a.entity.getMidY() - b.entity.getMidY());
+    return Math.abs(a.entity.getMidX() - b.entity.getMidX()) + Math.abs(a.entity.getMidY() - b.entity.getMidY())
 }
 
 Scene.prototype.checkWin = function() {
@@ -170,15 +201,56 @@ Scene.prototype.checkWin = function() {
     }
     if(cnt <= 1) {
         this.winner = ind + 1;
+        this.score[ind]++;
         this.win = true;
 
     }
 }
 
+Scene.prototype.checkSolidCollision = function(object, sobject) {
+    if(object != null && sobject != null) {
+        if(collisionCheck(object, sobject)) {
+            collision(object, sobject);
+        }
+    }
+}
+
+Scene.prototype.tileCollision = function(object) {
+    if(!object.entity.active) {
+        return;
+    }
+
+
+
+    this._x = Math.floor(object.entity.x / tileSize);
+    this._y = Math.floor(object.entity.y / tileSize);
+    this._w = Math.ceil(object.entity.width / tileSize);
+    this._h = Math.ceil(object.entity.height / tileSize);
+
+    for(let i = 0; i <= this._w; i++) {
+        for(let j = 0; j <= this._h; j++) {
+            if(this.tilemap[this._y+j]) this.checkSolidCollision(object, this.tilemap[this._y+j][this._x+i]);
+        }
+    }
+
+    /*if(this.tilemap[this._y][this._x]) this.checkSolidCollision(object, this.tilemap[this._y][this._x]);
+    if(this.tilemap[this._y][this._x+1]) this.checkSolidCollision(object, this.tilemap[this._y][this._x+1]);
+    if(this.tilemap[this._y][this._x+2]) this.checkSolidCollision(object, this.tilemap[this._y][this._x+2]);
+
+    if(this.tilemap[this._y+1][this._x]) this.checkSolidCollision(object, this.tilemap[this._y+1][this._x]);
+    if(this.tilemap[this._y+1][this._x+1]) this.checkSolidCollision(object, this.tilemap[this._y+1][this._x+1]);
+    if(this.tilemap[this._y+1][this._x+2]) this.checkSolidCollision(object, this.tilemap[this._y+1][this._x+2]);
+
+    if(this.tilemap[this._y+2][this._x]) this.checkSolidCollision(object, this.tilemap[this._y+2][this._x]);
+    if(this.tilemap[this._y+2][this._x+1]) this.checkSolidCollision(object, this.tilemap[this._y+2][this._x+1]);
+    if(this.tilemap[this._y+2][this._x+2]) this.checkSolidCollision(object, this.tilemap[this._y+2][this._x+2]);*/
+
+}
+
 Scene.prototype.checkCollisions = function() {
     this.collisions = []; //reset collision list
 
-    for(var i = 0; i < this.players.length; i++) {
+    /*for(var i = 0; i < this.players.length; i++) {
         if(!this.players[i].entity.active) {
             continue;
         }
@@ -193,9 +265,18 @@ Scene.prototype.checkCollisions = function() {
             collision(this.players[i], this.solidentities[c[0]]);
             i--;
         }
+    }*/
+
+    for(var i = 0; i < this.players.length; i++) {
+        if(!this.players[i].entity.active) {
+            continue;
+        }
+        
+        this.tileCollision(this.players[i]);
+        
     }
 
-    for(var i = 0; i < this.entities.length; i++) {
+    /*for(var i = 0; i < this.entities.length; i++) {
         if(!this.entities[i].entity.active) {
             continue;
         }
@@ -208,9 +289,9 @@ Scene.prototype.checkCollisions = function() {
         if(collisionCheck(this.entities[i], this.solidentities[c[0]])) {
             //this.collisions.push([this.entities[i], this.solidentities[c[0]]]);
             collision(this.entities[i], this.solidentities[c[0]]);
-            i--;
+            //i--;
         }
-    }
+    }*/
 
     for(var i = 0; i < this.players.length; i++) {
         if(!this.players[i].entity.active) continue;
@@ -276,7 +357,22 @@ Scene.prototype.drawWin = function() {
 
     ctx1.fillStyle = "white";
     ctx1.font = "80px Arial";
-    ctx1.fillText("Player " + this.winner + " Wins!", this.camera.x + width/3, this.camera.y + height/2);
+    ctx1.fillText("Player " + this.winner + " Wins!", this.camera.x + width/3, this.camera.y + height*0.1);
+
+    ctx1.font = "60px Arial";
+    for(let i = 0; i < this.players.length; i++) {
+        if(this.winner == i+1)  {
+            ctx1.fillStyle = "green";
+            ctx1.fillRect(this.camera.x + width*0.01,this.camera.y + height*0.22+(i*100), width*0.98, 80);
+            ctx1.fillStyle = "white";
+        } 
+        else ctx1.fillStyle = "white";
+        ctx1.fillText("Player " + (i+1) + ": ", this.camera.x + width*0.05, this.camera.y + height*0.3+(i*100));
+        ctx1.fillStyle = "gold";
+        for(let j = 0; j < this.score[i]; j++) {
+            ctx1.fillRect(this.camera.x + width*0.25 + (j*100), this.camera.y + height*0.23+(i*100), 60, 60);
+        }
+    }
 }
 
 /*
@@ -285,19 +381,21 @@ clears canvas and runs draw function for each object
 Scene.prototype.Draw = function() {
     ctx1.clearRect(0,0,canvas.width,canvas.height);
 
-    ctx0.fillStyle = "#0f7dc6";
-    ctx0.fillRect(0,0,width,height);
+    //ctx0.fillStyle = "#0f7dc6";
+    //ctx0.fillRect(0,0,width,height);
 
     ctx1.save();
-    ctx0.save();
+    //ctx0.save();
     this.camera.Update(this.players);
     this.para.Draw();
 
-    ctx0.translate(-this.camera.x, -this.camera.y);
+    //ctx0.translate(-this.camera.x, -this.camera.y);
     ctx1.translate(-this.camera.x, -this.camera.y);
 
     for(var i = 0; i < this.solidentities.length; i++) {
+        if(this.solidentities[i].entity.x > this.camera.x - tileSize && this.solidentities[i].entity.x * scale < this.camera.x + width + tileSize && this.solidentities[i].entity.y * scale > this.camera.y - tileSize && this.solidentities[i].entity.y * scale < this.camera.y + height + tileSize) {
         this.solidentities[i].Draw();
+        }
     }
     for(var i = 0; i < this.players.length; i++) {
         this.players[i].Draw();
@@ -313,6 +411,6 @@ Scene.prototype.Draw = function() {
         this.drawWin();
     }
 
-    ctx0.restore();
+    //ctx0.restore();
     ctx1.restore();
 }

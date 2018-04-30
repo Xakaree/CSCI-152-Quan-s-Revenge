@@ -242,6 +242,7 @@ function InputHandler() {
 
 if(typeof io != 'undefined') {
     var socket = io();
+    var oldinp;
 
     socket.emit('coderequest');
 
@@ -260,6 +261,24 @@ if(typeof io != 'undefined') {
 
     socket.on('hosttup', function(id, inp) {
         input.serverUp(id, inp);
+    });
+
+    socket.on('input', function(id, inp) {
+        if(!oldinp) oldinp = Object.assign({}, inp);
+        //console.log(inp);
+        for(let key in inp) {
+            if(inp[key]) {
+                if(!econtrols[id]) {
+                    console.log("making new controller");
+                    econtrols[id] = new mobile(id);
+                }
+                if(inp[key] != oldinp[key]) input.serverDown(id,key);
+            }
+            else {
+                if(inp[key] != oldinp[key]) input.serverUp(id, key)
+            }
+        }
+        oldinp = Object.assign({}, inp);
     });
 }
 

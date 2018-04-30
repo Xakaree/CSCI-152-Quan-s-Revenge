@@ -49,6 +49,10 @@ io.on('connection', function(socket){
     io.to(room[socket.id]).emit('hosttup', socket.id, input);
   });
 
+  socket.on('input', function(inp) {
+    io.to(room[socket.id]).emit('input', socket.id, inp);
+  })
+
   socket.on('join', function(code) {
     if(host[code])  {
       console.log("client joining " + code);

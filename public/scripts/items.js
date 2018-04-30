@@ -27,10 +27,12 @@ TommyGun.prototype.attack = function() {
         this.offset = -this.offset;
         if(this.offset < 0) this.offset = -(Math.random(6) + 3);
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(Projectile, this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0);
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(Projectile, this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0);
         }
     }
 }
@@ -60,14 +62,14 @@ Shotgun.prototype.attack = function() {
         else this.atkCool = true;
 
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0, 0));
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10, 0));
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10, 0));
+            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0, 0);
+            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, 0.10, 0);
+            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, -0.10, 0);
         }
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0, 0));
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10, 0));
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10, 0));
+            createObject(Projectile, this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, 0, 0);
+            createObject(Projectile, this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, -0.10, 0);
+            createObject(Projectile, this.parent, this.entity.x - 10, this.entity.y, 10,10,this.parent.facing, 0.10, 0);
         }
     }
 }
@@ -108,11 +110,13 @@ Flamethrower.prototype.attack = function() {
         var index = Math.floor(Math.random()*colors.length);
 
         if(this.parent.facing == 1) {
-            scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20,colors[index]));
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20));
+            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20, colors[index]);
         }
         
         if(this.parent.facing == -1) {
-            scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20,colors[index]));
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20));
+            createObject(Projectile, this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20, colors[index]);
         }
     }
 }
@@ -147,10 +151,10 @@ Lazer.prototype.attack = function()
       var colors = ["green","red", "blue", "purple"];
       var index = Math.floor(Math.random()*colors.length);
       if(this.parent.facing == 1) {
-          scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 13,5,this.parent.facing, 0, 0, colors[index]));
+          createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 13,5,this.parent.facing, 0, 0, colors[index]);
     }
       if(this.parent.facing == -1) {
-          scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,3,this.parent.facing, 0, 0,colors[index]));
+          createObject(Projectile, this.parent, this.entity.x - 10 , this.entity.y, 10,3,this.parent.facing, 0, 0,colors[index]);
       }
   }
 }
@@ -190,14 +194,16 @@ Freeze.prototype.attack = function()
       var colors = ["cyan", "white"];
       var index = Math.floor(Math.random()*colors.length);
       if(this.parent.facing == 1) {
-        let fp = new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10, 0.6, d * y, 0,colors[index],0.25);
+        createObject(FreezeProjectile, this.parent,this.entity.getRight(), this.entity.y, 10,10, 0.6, d * y, 0,colors[index],0.25);
+        /*let fp = new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10, 0.6, d * y, 0,colors[index],0.25);
         fp.entity.tag = "fp";
-        scene.entities.push(fp);
+        scene.entities.push(fp);*/
       }
       if(this.parent.facing == -1) {
-        let fp = new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10, -0.6, d * y, 0,colors[index],0.25);
+        createObject(FreezeProjectile, this.parent, this.entity.x - 10 , this.entity.y, 10,10, -0.6, d * y, 0,colors[index],0.25);
+        /*let fp = new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10, -0.6, d * y, 0,colors[index],0.25);
         fp.entity.tag = "fp";
-        scene.entities.push(fp);
+        scene.entities.push(fp);*/
       }
   }
 }
@@ -227,10 +233,12 @@ Bazooka.prototype.attack = function() {
         else this.atkCool = true;
 
         if(this.parent.facing == 1) {
-          scene.entities.push(new ExplosiveProjectile(this.parent,this.entity.getRight(), this.entity.y, 30,15,this.parent.facing*30, 0, 0, "red", 15));
+          //scene.entities.push(new ExplosiveProjectile,this.parent,this.entity.getRight(), this.entity.y, 30,15,this.parent.facing*30, 0, 0, "red", 15));
+          createObject(ExplosiveProjectile,this.parent,this.entity.getRight(), this.entity.y, 30,15,this.parent.facing*30, 0, 0, "red", 15);
         }
         if(this.parent.facing == -1) {
-          scene.entities.push(new ExplosiveProjectile(this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 15));
+          //scene.entities.push(new ExplosiveProjectile(this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 15));
+          createObject(ExplosiveProjectile, this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 15);
         }
     }
 }

@@ -175,7 +175,7 @@ if(this.freezeTimer < 1)
     this.updateCnts(); //handles cooldown between dropping item and being able to pickup another
     if(this.isAlive) this.movement(); //respond to input
     this.aniChange();
-    this.entity.updatePhysics(); //apply acceleration, velocity to position
+    this.entity.updatePhysics(this); //apply acceleration, velocity to position
     this.animation.Update();
 }// freezeTimer
 }
@@ -203,7 +203,6 @@ Player.prototype.onCollision = function(collider) {
     }
     if(collider.entity.tag == "fp" && collider.parent != this) // freeze projectile
     {
-      console.log("Freeze Projectile");
       this.knockback = true;
       this.animation.image = this.sprite.damage;
       this.knockcnt = 0;
@@ -229,6 +228,7 @@ Player.prototype.onCollision = function(collider) {
                 this.jumping = false;
                 break;
         }
+        
         if(this.item != null) this.item.updatePosition();
     }
 

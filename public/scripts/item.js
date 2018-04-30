@@ -63,7 +63,7 @@ Item.prototype.Update = function() {
     this.atkTimer();
 
     if(this.parent == null) {
-        this.entity.updatePhysics();
+        this.entity.updatePhysics(this);
     }
     else {
         this.updatePosition();
@@ -125,7 +125,7 @@ Gun.prototype.Update = function() {
     this.reloadtimer();
 
     if(this.parent == null) {
-        this.entity.updatePhysics();
+        this.entity.updatePhysics(this);
     }
     else {
         this.updatePosition();

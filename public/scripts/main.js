@@ -108,12 +108,20 @@ function GameLoop() {
         deltaTime -= interval;
         //scene.Update();
         input.Update();
-		startScreen.Update();
+        startScreen.Update();
     }
     //scene.Draw();
-	startScreen.Draw();
+    
+    setTimeout(GameLoop, 0);
+	
 
-    requestAnimationFrame(GameLoop); //loops while allowing rest of browser to run
+    
+}
+
+function Draw() {
+    startScreen.Draw();
+    requestAnimationFrame(Draw);
+
 }
 
 input = new InputHandler();
@@ -123,4 +131,5 @@ scene = new Scene();
 //scene.Start();
 playSoundtrack(0, menuList);
 oldTime = performance.now(); //start time of scene (needed for delatime)
-requestAnimationFrame(GameLoop); //starts game loop
+setTimeout(GameLoop, 0);
+requestAnimationFrame(Draw); //starts game loop
