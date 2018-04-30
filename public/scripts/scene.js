@@ -222,7 +222,7 @@ Scene.prototype.tileCollision = function(object) {
 
     for(let i = 0; i <= this._w; i++) {
         for(let j = 0; j <= this._h; j++) {
-            if(this.tilemap[this._y+j][this._x+i]) this.checkSolidCollision(object, this.tilemap[this._y+j][this._x+i]);
+            if(this.tilemap[this._y+j]) this.checkSolidCollision(object, this.tilemap[this._y+j][this._x+i]);
         }
     }
 
