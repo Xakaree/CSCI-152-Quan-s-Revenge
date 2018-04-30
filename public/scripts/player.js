@@ -203,7 +203,6 @@ Player.prototype.onCollision = function(collider) {
     }
     if(collider.entity.tag == "fp" && collider.parent != this) // freeze projectile
     {
-      console.log("Freeze Projectile");
       this.knockback = true;
       this.animation.image = this.sprite.damage;
       this.knockcnt = 0;
