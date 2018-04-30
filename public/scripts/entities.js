@@ -163,22 +163,22 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "player" && collider != this.parent) {
         
 
-        for(var i =0.1 ; i < 2;  i+= 0.1)
+        for(var i =0.1 ; i < 0.5;  i+= 0.1)
         {
           let index  = Math.floor(Math.random() *color.length);
           createObject(Projectile, this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], this.explosivedmg);
         }
-        for(var i =0.1 ; i < 2;  i+= 0.1)
+        for(var i =0.1 ; i < 0.5;  i+= 0.1)
         {
           let index  = Math.floor(Math.random() *color.length);
           createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20, color[index], this.explosivedmg);
         }
-        for(var i =0.1 ; i < 2;  i+= 0.1) // up left
+        for(var i =0.1 ; i < 0.5;  i+= 0.1) // up left
         {
           let index  = Math.floor(Math.random() *color.length);
           createObject(Projectile, this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() ,-Math.random() , 20,  color[index], this.explosivedmg);
         }
-        for(var i =0.1 ; i < 2;  i+= 0.1) // up right
+        for(var i =0.1 ; i < 0.5;  i+= 0.1) // up right
         {
           let index  = Math.floor(Math.random() *color.length);
           createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , -Math.random() , 20,  color[index],this.explosivedmg);
@@ -188,22 +188,22 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
     if(collider.entity.tag == "solid") {
         
 
-          for(var i =0.1 ; i < 2;  i+= 0.1)
+          for(var i =0.1 ; i < 0.5;  i+= 0.1)
           {
             let index  = Math.floor(Math.random() *color.length);
             createObject(Projectile, this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], this.explosivedmg);
           }
-          for(var i =0.1 ; i < 2;  i+= 0.1)
+          for(var i =0.1 ; i < 0.5;  i+= 0.1)
           {
             let index  = Math.floor(Math.random() *color.length);
             createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20, color[index], this.explosivedmg);
           }
-          for(var i =0.1 ; i < 2;  i+= 0.1) // up left
+          for(var i =0.1 ; i < 0.5;  i+= 0.1) // up left
           {
             let index  = Math.floor(Math.random() *color.length);
             createObject(Projectile, this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() ,-Math.random() , 20,  color[index], this.explosivedmg);
           }
-          for(var i =0.1 ; i < 2;  i+= 0.1) // up right
+          for(var i =0.1 ; i < 0.5;  i+= 0.1) // up right
           {
             let index  = Math.floor(Math.random() *color.length);
             createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , -Math.random() , 20,  color[index],this.explosivedmg);

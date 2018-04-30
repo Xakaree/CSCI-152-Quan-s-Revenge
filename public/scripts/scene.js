@@ -58,6 +58,7 @@ function Scene() {
     this.score = [];
 
     this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka];
+    this.maps= [map,map,map,map];
     this.camera = new Camera();
     this.currStage  = 0;
     this.para =  null;
@@ -76,8 +77,9 @@ function Scene() {
 
 //runs at start of scene
 Scene.prototype.Start = function() {
-    this.loadMap(map);
-    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].objs ); // beta features
+    this.loadMap(this.maps[this.currStage]);
+    this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].gradient,stageData[this.currStage].objs ); // beta features
+
     for(let i = 0; i < this.players.length; i++) {
         this.score[i] = 0;
     }
@@ -144,7 +146,7 @@ runs update functions of each entity and then checks and resolve collisions
 Scene.prototype.Update  = function() {
 
     if(input.keyPress(82)) {
-        this.loadMap(map);
+        this.loadMap(this.maps[this.currStage]);
     }
     this.para.Update();
 
@@ -172,7 +174,7 @@ Scene.prototype.Update  = function() {
         if(this.wincnt >= this.winTime) {
             this.win = false;
             this.wincnt = 0;
-            this.loadMap(map);
+            this.loadMap(this.maps[this.currStage]);
         }
     }
 
