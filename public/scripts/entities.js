@@ -117,7 +117,7 @@ Projectile.prototype.deactivate = function() {
 FreezeProjectile.prototype = Object.create(Projectile.prototype);
 FreezeProjectile.prototype.constructor = FreezeProjectile;
 function FreezeProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
-    Projectile.call(this, parent,x,y,w,h, vx,vy, life, color, dmg = 5);
+    Projectile.call(this, parent,x,y,w,h, vx,vy, life, color, dmg);
     this.entity.tag = "fp";
     this.constructor.name = "FreezeProjectile";
 }
