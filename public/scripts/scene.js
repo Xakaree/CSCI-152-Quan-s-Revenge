@@ -55,6 +55,8 @@ function Scene() {
 
     this.freelist = new LLQueue(); //list of free projectiles
 
+    this.score = [];
+
     this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka];
     this.camera = new Camera();
     this.currStage  = 0;
@@ -76,7 +78,9 @@ function Scene() {
 Scene.prototype.Start = function() {
     this.loadMap(map);
     this.para = new Parallax(this.camera, stageData[this.currStage].background ,stageData[this.currStage].midground, stageData[this.currStage].foreground, stageData[this.currStage].objs ); // beta features
-
+    for(let i = 0; i < this.players.length; i++) {
+        this.score[i] = 0;
+    }
 }
 
 Scene.prototype.PassPlayers = function(selection){
@@ -195,6 +199,7 @@ Scene.prototype.checkWin = function() {
     }
     if(cnt <= 1) {
         this.winner = ind + 1;
+        this.score[ind]++;
         this.win = true;
 
     }
@@ -350,7 +355,22 @@ Scene.prototype.drawWin = function() {
 
     ctx1.fillStyle = "white";
     ctx1.font = "80px Arial";
-    ctx1.fillText("Player " + this.winner + " Wins!", this.camera.x + width/3, this.camera.y + height/2);
+    ctx1.fillText("Player " + this.winner + " Wins!", this.camera.x + width/3, this.camera.y + height*0.1);
+
+    ctx1.font = "60px Arial";
+    for(let i = 0; i < this.players.length; i++) {
+        if(this.winner == i+1)  {
+            ctx1.fillStyle = "green";
+            ctx1.fillRect(this.camera.x + width*0.01,this.camera.y + height*0.22+(i*100), width*0.98, 80);
+            ctx1.fillStyle = "white";
+        } 
+        else ctx1.fillStyle = "white";
+        ctx1.fillText("Player " + (i+1) + ": ", this.camera.x + width*0.05, this.camera.y + height*0.3+(i*100));
+        ctx1.fillStyle = "gold";
+        for(let j = 0; j < this.score[i]; j++) {
+            ctx1.fillRect(this.camera.x + width*0.25 + (j*100), this.camera.y + height*0.23+(i*100), 60, 60);
+        }
+    }
 }
 
 /*
@@ -359,15 +379,15 @@ clears canvas and runs draw function for each object
 Scene.prototype.Draw = function() {
     ctx1.clearRect(0,0,canvas.width,canvas.height);
 
-    ctx0.fillStyle = "#0f7dc6";
-    ctx0.fillRect(0,0,width,height);
+    //ctx0.fillStyle = "#0f7dc6";
+    //ctx0.fillRect(0,0,width,height);
 
     ctx1.save();
-    ctx0.save();
+    //ctx0.save();
     this.camera.Update(this.players);
     this.para.Draw();
 
-    ctx0.translate(-this.camera.x, -this.camera.y);
+    //ctx0.translate(-this.camera.x, -this.camera.y);
     ctx1.translate(-this.camera.x, -this.camera.y);
 
     for(var i = 0; i < this.solidentities.length; i++) {
@@ -389,6 +409,6 @@ Scene.prototype.Draw = function() {
         this.drawWin();
     }
 
-    ctx0.restore();
+    //ctx0.restore();
     ctx1.restore();
 }
