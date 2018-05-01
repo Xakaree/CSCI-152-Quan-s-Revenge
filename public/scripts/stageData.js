@@ -25,7 +25,7 @@ this.timer = 0 ;
 
     // Fill with gradient
     ctx1.fillStyle=grd;
-    ctx1.fillRect(-600,-250,width+1250,height+800);
+    ctx1.fillRect(-600,-500,width+1250,height+800);
   }
 }
 
