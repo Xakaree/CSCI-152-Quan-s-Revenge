@@ -113,7 +113,7 @@ Flamethrower.prototype.attack = function() {
             //scene.entities.push(new Projectile(this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20));
             createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 10,10,this.parent.facing, d * y, 20, colors[index]);
         }
-        
+
         if(this.parent.facing == -1) {
             //scene.entities.push(new Projectile(this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20));
             createObject(Projectile, this.parent, this.entity.x - 10 , this.entity.y, 10,10,this.parent.facing, d * y, 20, colors[index]);
@@ -239,6 +239,76 @@ Bazooka.prototype.attack = function() {
         if(this.parent.facing == -1) {
           //scene.entities.push(new ExplosiveProjectile(this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 15));
           createObject(ExplosiveProjectile, this.parent, this.entity.x - 20 , this.entity.y, 30,15,this.parent.facing*30, 0, 0,"red", 15);
+        }
+    }
+}
+
+BeamCannon.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
+function BeamCannon(cx, cy) {
+    this.width = 30
+    this.height = 16
+    this.sprite = BMC;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
+    this.offsetX = 27;
+    this.offsetY = 22;
+    this.atkDelay = 5;
+    this.atkHold = true;
+
+    this.maxAmmo = 15;
+    this.currAmmo = this.maxAmmo;
+    this.reloadSpeed = 90;
+}
+
+BeamCannon.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+
+        if(this.parent.facing == 1) {
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(BeamProjectile, this.parent,this.entity.getRight(), this.entity.y, 300,10,this.parent.facing, 0,0,"pink");
+        }
+        if(this.parent.facing == -1) {
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(BeamProjectile, this.parent, this.entity.x - 300 , this.entity.y, 300,10,this.parent.facing, 0,0, "pink");
+        }
+    }
+}
+
+StickyGun.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
+function StickyGun(cx, cy) {
+    this.width = 35
+    this.height = 18
+    this.sprite = STK;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
+    this.offsetX = 27;
+    this.offsetY = 22;
+    this.atkDelay = 5;
+    this.atkHold = true;
+
+    this.maxAmmo = 4;
+    this.currAmmo = this.maxAmmo;
+    this.reloadSpeed = 90;
+}
+
+StickyGun.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+
+        if(this.parent.facing == 1) {
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 20,20,this.parent.facing, 0,0,"green");
+        }
+        if(this.parent.facing == -1) {
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(Projectile, this.parent, this.entity.x -20 , this.entity.y, 20,20,this.parent.facing, 0,0, "green");
         }
     }
 }
