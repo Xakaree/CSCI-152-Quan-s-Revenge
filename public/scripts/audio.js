@@ -1,6 +1,8 @@
-
+var cityList = [];
 var battleList = [];
 var menuList = [];
+var spaceList = [];
+
 
 
 function setSoundtrackVolume(val, list){
@@ -111,12 +113,28 @@ var bg_2 = new sound("audioFiles/bg_2.mp3", false, 1);
 var bg_3 = new sound("audioFiles/bg_3.mp3", false , 1);
 
 
+var cityStart = new sound("audioFiles/bm1/START2.mp3", false , 1);
+var citySong = new sound("audioFiles/bm1/SONG.wav", false , 1);
+var cityEnd = new sound("audioFiles/bm1/END2.mp3", false , 1);
+
+var spaceStart = new sound("audioFiles/bm2/beginSpace2.mp3", false , 1);
+var spaceSong = new sound("audioFiles/bm2/continueSpace.wav", false , 1);
+var spaceEnd = new sound("audioFiles/bm2/endSpace2.mp3", false , 1);
+
+
 
 // in-game soundtrack list
 battleList.push(bg_2);
 battleList.push(bg);
 battleList.push(bg_3);
 
+cityList.push(cityStart);
+cityList.push(citySong);
+cityList.push(cityEnd);
+
+spaceList.push(spaceStart);
+spaceList.push(spaceSong);
+spaceList.push(spaceEnd);
 
 //menu music 
 //var menu_1 = new sound("audioFiles/menu_1.mp3", false, 1);
