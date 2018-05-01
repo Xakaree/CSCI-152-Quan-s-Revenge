@@ -94,11 +94,29 @@ it('data for object should not be null: SH sprite', function(){
 it('should have an object for SH2 sprite', function(){
     assert.isObject(SHsprite2);
 });
+it('data for object should not be null: SH2 sprite', function(){
+    assert.isNotNull(SHsprite2.image);
+    assert.isNotNull(SHsprite2.damage);
+    assert.isNotNull(SHsprite2.portrait);
+    assert.isNotNull(SHsprite2.frameLimits);
+    assert.isNotNull(SHsprite2.width);
+    assert.isNotNull(SHsprite2.height);
+});
+
 it('should have an object for UFO sprite', function(){
     assert.isObject(UFOsprite);
 });
+it('data for object image, frameLimits, width, height, should not be null: UFO sprite', function(){
+    assert.isNotNull(UFOsprite.image);
+    assert.isNotNull(UFOsprite.frameLimits);
+    assert.isNotNull(UFOsprite.width);
+    assert.isNotNull(UFOsprite.height);
+});
+it('data for object damage and portrait should be null: UFO sprite', function(){
+    assert.isNull(UFOsprite.damage);
+    assert.isNull(UFOsprite.portrait);
 
-
+});
 
 });
       });

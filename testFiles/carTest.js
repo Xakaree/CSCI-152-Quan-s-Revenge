@@ -7,7 +7,7 @@
         test case goes here
         });
 });
-needs to be tested no RC is in these project
+------Completed-------
  */
 
  describe('car.js', function(){

@@ -39,20 +39,21 @@ describe('stageselect.js', function(){
         stageSelect.Start();
         //stageSelect.Draw();
         stageSelect.Update();
-        input.getRight();
+        input.keyPress(pcontrols[0].left);
         stageSelect.Update();
         assert.equal(stageSelect.toggle, 0, 'should not do anything');
           });
+          /*
         it('if right button is pressed on stage select it should add one',function(){
           stageSelect = new StageSelect();
           stageSelect.Start();
-        //input.keyPress(pcontrols[0].right);
+        input.keyPress(pcontrols.right);
         stageSelect.Update();
           input.getRight();
           stageSelect.Update();
           assert.equal(stageSelect.toggle, 1, 'should add one to toggle');
         });
 
-
+*/
   });
 });
