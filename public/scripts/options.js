@@ -1,4 +1,4 @@
-function Options() {
+function Options(background) {
   this.active = false;
   this.option = 0;
   this.controlMapping = null;
@@ -6,6 +6,7 @@ function Options() {
   this.back = null;
   this.specialMenu = null;
   this.map = {}
+  this.background = background;
 
   this.Mapping = function(){
       this.map = {
@@ -29,6 +30,8 @@ function Options() {
       ctx1.fillStyle = "white";
       ctx1.fillRect(0,0,width,height);
 
+      this.background.Draw();
+
       for(let key in this.map){ // call draw on all components
         this.map[key].Draw();
       }
@@ -51,6 +54,7 @@ function Options() {
 
   this.Update = function(){
     this.map[this.option].Unselect();
+    this.background.Update();
     if(this.active){
           if (input.getUp() && this.option > 0){
                 this.option -= 1;
@@ -64,13 +68,13 @@ function Options() {
   //process command
      if(input.getAttack() && this.option == 0){
        input.resetKeys();
-       this.controlMapping = new SelectPlayer();
+       this.controlMapping = new SelectPlayer(this.background);
        this.controlMapping.Start();
        this.active = false;
      }
      else if(input.getAttack() && this.option == 1){
        input.resetKeys();
-       this.VolumeOptions = new VolumeOptions();
+       this.VolumeOptions = new VolumeOptions(this.background);
        this.VolumeOptions.Start();
        this.active = false;
      }
@@ -84,7 +88,7 @@ function Options() {
 
      if (this.option == 3 && input.getAttack()) {
        input.resetKeys();
-       this.back = new Menu();
+       this.back = new Menu(this.background);
        this.back.Start();
        this.active = false;
        console.log("back start");

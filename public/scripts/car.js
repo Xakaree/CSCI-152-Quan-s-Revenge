@@ -3,19 +3,21 @@ function Car()
   this.image = RC;
   this.width = 200;
   this.height = 100;
-  this.xPos =  -275;
-  this.yPos = 750
-  this.cx = 440;
-  this.cy = 260;
-  this.radius = 400;
+  this.xPos =  -250;
+  this.yPos = 550
   this.framestart = 0;
   this.timer = 0;
 
   this.Update = function()
   {
-    this.xPos = this.xPos + 1;
-    if(this.xPos >1280) this.xPos = -275;
+    if(this.xPos != 500)
+      this.xPos +=1;
 
+    if(this.xPos > 500 && this.xPos < 1280)
+      this.xPos +=10;
+
+    if(this.xPos >1280)
+      this.xpos = -250
   }
 
   this.Draw =  function()

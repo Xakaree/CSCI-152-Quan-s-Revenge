@@ -1,4 +1,3 @@
-
 function GradientForCity(){
   this.Draw =  function()
   {

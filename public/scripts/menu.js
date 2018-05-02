@@ -1,9 +1,11 @@
-function Menu(){
+function Menu(background){
   this.active = false;
   this.menuOption = 0;
   this.options = null;
   this.cSelect = null;
   this.map = {};
+
+  this.background = background;
 
   this.Mapping = function(){
     var PLYRACT = document.getElementById("PLYRACT");
@@ -27,6 +29,7 @@ function Menu(){
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height);
 
+    this.background.Draw();
     for(let key in this.map){ // call draw on all components
       this.map[key].Draw();
     }
@@ -50,7 +53,7 @@ function Menu(){
 
   this.Update = function(){
     this.map[this.menuOption].Unselect(); // Unselect last selected
-
+    this.background.Update();
     if (this.active){
         if (input.getUp() && this.menuOption > 0){
               this.menuOption -= 1;
@@ -71,7 +74,8 @@ function Menu(){
       }
       else if (this.menuOption == 1 && input.getAttack()){
         input.resetKeys();
-        this.options = new Options();
+        this.options = new Options(this.background);
+        this.background.xPos += 5;
         this.active = false;
         this.options.Start();
       }
