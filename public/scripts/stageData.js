@@ -79,10 +79,10 @@ var stageData = {
     gradient : new GradientForCity()
   },
   2:{
-    background :  "background/Rocks.png",
+    background :"background/Rocks.png",
     midground  : "background/Reef.png",
     foreground  :"background/waterDome.png",
-    objs : [],
+    objs : [new Squid()],
     gradient : new GradientForSeaWorld()
 
   },
