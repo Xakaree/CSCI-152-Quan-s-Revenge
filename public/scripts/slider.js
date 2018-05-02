@@ -2,7 +2,7 @@ function Slider(x, y, cont, list){
   this.xpos = x;
   this.ypos = y;
   this.context = cont;
-  this.toggleBar = 500;
+  this.toggleBar = 100;
   this.selected = false;
 
   this.Draw = function() {

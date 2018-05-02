@@ -101,6 +101,7 @@ function Scene() {
     this.playersPassed = [];
     this.players = [];
     this.projectiles = [];
+    this.spawners = [];
     this.collisions = []; //list of collision to resolve
 
     this.freelist = new LLQueue(); //list of free projectiles
@@ -114,7 +115,9 @@ function Scene() {
     this.para =  null;
     this.active = true;
 
+    this.numRounds = 5;
     this.win = false;
+    this.finalwin = false;
     this.wincnt = 0;
     this.winTime = 240;
     this.winner;
@@ -145,6 +148,12 @@ Scene.prototype.Start = function() {
     }
 }
 
+Scene.prototype.resetScore = function() {
+    for(let i = 0; i < this.score.length; i++) {
+        this.score[i] = 0;
+    }
+}
+
 Scene.prototype.PassPlayers = function(selection){
   for (var i = 0; i < selection.length; i++) {
     this.playersPassed[i] = selection[i];
@@ -156,6 +165,7 @@ Scene.prototype.loadMap = function(map) {
     this.entities.length = 0;
     this.solidentities.length = 0;
     this.players.length = 0;
+    this.spawners.length = 0;
     this.freelist = new LLQueue();
 
     for(let i = 0; i < this.projectiles.length; i++) {
@@ -186,8 +196,9 @@ Scene.prototype.loadMap = function(map) {
                     if(this.playersPassed[3]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[3][1], this.playersPassed[3][0]));
                     break;
                 case 6:
-                    var k = Math.floor(Math.random() * this.items.length);
-                    this.entities.push(new this.items[k](j, i));
+                    //var k = Math.floor(Math.random() * this.items.length);
+                    //this.entities.push(new this.items[k](j, i));
+                    this.spawners.push(new ItemSpawn(this.items, j,i));
                     break;
                 case 7:
                     this.solidentities.push(new SolidTile(j,i, 1,1,IRON));
@@ -209,7 +220,7 @@ Scene.prototype.loadMap = function(map) {
         }
     }
 
-    this.entities.push(new deathTile(-500*tileScale,height+500*tileScale,width,1));
+    this.entities.push(new deathTile(-5000*tileScale,height+500*tileScale,width + 5000,1));
 }
 
 /*
@@ -232,21 +243,30 @@ Scene.prototype.Update  = function() {
         for(var i = 0; i < this.projectiles.length; i++) {
             this.projectiles[i].Update();
         }
+        for(var i = 0; i < this.spawners.length; i++) {
+            this.spawners[i].Update();
+        }
         /*for(var i = 0; i < this.solidentities.length; i++) {
             this.solidentities[i].Update();
         }*/
         this.checkCollisions();
         this.resolveCollisions();
 
-        if(!this.win) this.checkWin();
+        if(!this.win && !this.finalwin)  this.checkWin();
     }
 
-    if(this.win) {
+    if(this.win || this.finalwin) {
         this.wincnt++;
         if(this.wincnt >= this.winTime) {
+            if(this.finalwin) location.reload(); //TEMPORARY - eventually will just return to main menu
             this.win = false;
             this.wincnt = 0;
-            this.loadMap(this.maps[this.currStage]);
+            if(this.score[this.winner-1] >= this.numRounds) {
+                this.finalwin = true;
+                this.resetScore();
+                
+            }
+            else this.loadMap(this.maps[this.currStage]);
         }
     }
 
@@ -448,22 +468,37 @@ Scene.prototype.drawWin = function() {
     }
 }
 
+Scene.prototype.drawFinalWin = function() {
+    ctx1.globalAlpha = 0.5;
+    ctx1.fillStyle = "black";
+    ctx1.fillRect(this.camera.x,this.camera.y,width,height);
+    ctx1.globalAlpha = 1.0;
+
+    ctx1.fillStyle = "white";
+    ctx1.font = "80px Arial";
+    ctx1.fillText("Player " + this.winner + " is the champion!", this.camera.x + width*0.15, this.camera.y + height*0.5);
+}
+
 /*
 clears canvas and runs draw function for each object
 */
 Scene.prototype.Draw = function() {
-    ctx1.clearRect(0,0,canvas.width,canvas.height);
+    ctx1.clearRect(this.camera.x,this.camera.y,canvas.width,canvas.height);
 
     //ctx0.fillStyle = "#0f7dc6";
     //ctx0.fillRect(0,0,width,height);
 
-    ctx1.save();
+    //ctx1.save();
+    
     //ctx0.save();
     this.camera.Update(this.players);
+
+    ctx1.setTransform(1,0,0,1,-this.camera.x,-this.camera.y);
+    
     this.para.Draw();
 
     //ctx0.translate(-this.camera.x, -this.camera.y);
-    ctx1.translate(-this.camera.x, -this.camera.y);
+   // ctx1.translate(-this.camera.x, -this.camera.y);
 
     for(var i = 0; i < this.solidentities.length; i++) {
         if(this.solidentities[i].entity.x > this.camera.x - tileSize && this.solidentities[i].entity.x * scale < this.camera.x + width + tileSize && this.solidentities[i].entity.y * scale > this.camera.y - tileSize && this.solidentities[i].entity.y * scale < this.camera.y + height + tileSize) {
@@ -480,10 +515,14 @@ Scene.prototype.Draw = function() {
 
     this.drawHealth();
 
+    //ctx0.restore();
+
     if(this.win) {
         this.drawWin();
     }
 
-    //ctx0.restore();
-    ctx1.restore();
+    if(this.finalwin) {
+        this.drawFinalWin();
+    }
+    //ctx1.restore();
 }

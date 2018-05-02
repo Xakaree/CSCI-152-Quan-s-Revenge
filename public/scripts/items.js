@@ -1,3 +1,41 @@
+function ItemSpawn(itemList, x, y) {
+    this.active = true;
+    this.x = x * tileSize; //actual position
+    this.y = y * tileSize; //actual position
+    this.tx = x; //tile position
+    this.ty = y; //tile position
+    this.lastItem = null;
+    this.itemList = itemList;
+    this.spawnTimer = 0;
+    this.spawnTime = 240;
+    this.spawning = false;
+
+    this.spawnItem();
+}
+
+ItemSpawn.prototype.Update = function() {
+    if(this.lastItem != null && this.lastItem.parent != null) {
+        this.lastItem = null;
+        this.spawning = true;
+        console.log("spawning");
+    }
+
+    if(this.spawning) {
+        this.spawnTimer++;
+        if(this.spawnTimer >= this.spawnTime) {
+            this.spawning = false;
+            this.spawnItem();
+            this.spawnTimer = 0;
+        }
+    }
+}
+
+ItemSpawn.prototype.spawnItem = function() {
+    var k = Math.floor(Math.random() * this.itemList.length);
+    this.lastItem = new this.itemList[k](this.tx,this.ty);
+    scene.entities.push(this.lastItem);
+}
+
 TommyGun.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
 function TommyGun(cx, cy) {
     this.width = 36
@@ -18,6 +56,8 @@ function TommyGun(cx, cy) {
 
 TommyGun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+        var tmy = new sound("audioFiles/sfx/tmygun.mp3", false, 1);
+        tmy.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -43,7 +83,7 @@ function Shotgun(cx,cy) {
     this.height = 13;
     this.sprite = DBS;
     Gun.call(this,this.sprite,cx,cy,this.width,this.height);
-
+    
     this.offsetX = 32;
     this.offsetY = 22;
     this.atkDelay = 0;
@@ -55,6 +95,8 @@ function Shotgun(cx,cy) {
 
 Shotgun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+        var shotgunsnd = new sound("audioFiles/sfx/shotgun.mp3", false, 1);
+        shotgunsnd.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -133,7 +175,6 @@ function Lazer(cx,cy)
   this.offsetY = 28;
   this.atkDelay = 0;
   this.atkHold = false;
-
   this.maxAmmo = 10;
   this.currAmmo = this.maxAmmo;
   this.reloadSpeed = 85;
@@ -142,6 +183,8 @@ function Lazer(cx,cy)
 Lazer.prototype.attack = function()
 {
   if(!this.atkCool && !this.reloading) {
+      var lasersnd = new sound("audioFiles/sfx/laser.mp3", false, 1);
+      lasersnd.play();
       this.currAmmo--;
       if(this.currAmmo <= 0) {
           this.reloading = true;

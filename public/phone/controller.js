@@ -22,11 +22,26 @@
         1: false,
         2: false,
         3: false,
-        5: false,
-        4: false
+        4: false,
+        5: false
     }
 
-    var oldinp = oldinp = Object.assign({}, inp);
+    var oldinp = Object.assign({}, inp);
+
+    function copyinp() {
+        for (let k in inp) {
+            oldinp[k] = inp[k];
+        }
+    }
+
+    function compinp() {
+        for(let i = 0; i <= 5; i++) {
+            if(oldinp[i] != inp[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     function Button(code, x, y , w, h, color) {
         this.x = x;
@@ -65,13 +80,15 @@
                 }
             }
         }
+
+        send();
     }
 
     interval = 1/60;
 
     function send() {     
-        if(oldinp != inp) socket.emit('input', inp);
-        requestAnimationFrame(send);
+        if(!compinp()) socket.emit('input', inp);
+        //requestAnimationFrame(send);
         
     }
 
@@ -119,6 +136,17 @@
         main();
     }
 
+    function drawInp() {
+        ctx.fillText(inp[0], 0,this.height*0.3);
+        ctx.fillText(inp[1], 0,this.height*0.3);
+        ctx.fillText(inp[2], 0,this.height*0.3);
+        ctx.fillText(inp[3], 0,this.height*0.3);
+        ctx.fillText(inp[4], 0,this.height*0.3);
+        ctx.fillText(inp[5], 0,this.height*0.3);
+
+        requestAnimationFrame(drawInp());
+    }
+
     function main() {
 
         ctx.fillStyle = "white";
@@ -137,7 +165,8 @@
             buttons[i].Draw();
         }
 
-        requestAnimationFrame(send);
+        //requestAnimationFrame(send);
+
     }
 
     //main();

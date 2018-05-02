@@ -9,14 +9,13 @@ function Item(sprite,cx,cy,w,h) {
     this.atkCool = false;
     this.offsetX = 0;
     this.offsetY = 0;
-    this.itmSnd = new   sound("audioFiles/Swagger.mp3", false, 1);
-    this.itmSnd.changeVolume(1);
+
 }
 
 Item.prototype.pickUp = function(parent) {
     this.parent = parent;
     this.entity.active = false;
-    this.itmSnd.play();
+    
 }
 
 Item.prototype.drop = function(facing) {

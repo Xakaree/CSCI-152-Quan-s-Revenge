@@ -97,7 +97,7 @@ Main loop for the game
 function GameLoop() {
     newTime = performance.now(); //time at start of new frame
     //calculates the time in seconds between last frame and new one (should be small, capped at 1 second)
-    deltaTime += Math.min(1, (newTime - oldTime)/1000);
+    deltaTime += (newTime - oldTime)/1000;
     oldTime = newTime;
 
     /*
@@ -124,12 +124,20 @@ function Draw() {
 
 }
 
-input = new InputHandler();
-startScreen = new startScreen();
+var input = new InputHandler();
+if(typeof io != 'undefined') {
+    input.initSocket();   
+}
+var startScreen = new startScreen();
 
-scene = new Scene();
+var scene = new Scene();
 //scene.Start();
+setSoundtrackVolume(100, spaceList);
+setSoundtrackVolume(100, cityList);
+setSoundtrackVolume(100, battleList);
+setSoundtrackVolume(100, menuList);
 playSoundtrack(0, menuList);
-oldTime = performance.now(); //start time of scene (needed for delatime)
+
+var oldTime = performance.now(); //start time of scene (needed for delatime)
 setTimeout(GameLoop, 0);
 requestAnimationFrame(Draw); //starts game loop

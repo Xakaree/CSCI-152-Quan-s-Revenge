@@ -240,9 +240,8 @@ function InputHandler() {
     }
 }
 
-if(typeof io != 'undefined') {
+InputHandler.prototype.initSocket = function() {
     var socket = io();
-    var oldinp;
 
     socket.emit('coderequest');
 
@@ -263,22 +262,25 @@ if(typeof io != 'undefined') {
         input.serverUp(id, inp);
     });
 
-    socket.on('input', function(id, inp) {
-        if(!oldinp) oldinp = Object.assign({}, inp);
-        //console.log(inp);
-        for(let key in inp) {
-            if(inp[key]) {
-                if(!econtrols[id]) {
-                    console.log("making new controller");
-                    econtrols[id] = new mobile(id);
-                }
-                if(inp[key] != oldinp[key]) input.serverDown(id,key);
-            }
-            else {
-                if(inp[key] != oldinp[key]) input.serverUp(id, key)
-            }
-        }
-        oldinp = Object.assign({}, inp);
+    socket.on('input', function(id,inp) {
+        input.onInput(id, inp)
     });
 }
+
+InputHandler.prototype.onInput = function(id, inp) {
+    for(let key in inp) {
+        if(inp[key]) {
+            if(!econtrols[id]) {
+                console.log("making new controller");
+                econtrols[id] = new mobile(id);
+            }
+            input.serverDown(id,key);
+        }
+        else {
+            input.serverUp(id, key)
+        }
+    }
+}
+
+
 

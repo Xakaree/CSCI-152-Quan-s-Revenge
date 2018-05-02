@@ -1,4 +1,5 @@
 var LCsprite={
+  name:"Luchador",
   image:LC1,
   damage:LC1D,
   portrait:LCP,
@@ -8,6 +9,7 @@ var LCsprite={
 }
 
 var LCsprite2={
+  name:"Luchador",
   image:LC2,
   damage:LC2D,
   portrait:LCP2,
@@ -17,6 +19,7 @@ var LCsprite2={
 }
 
 var QSsprite={
+  name:"Quan",
   image:QS1,
   damage:QS1D,
   portrait:QSP,
@@ -26,6 +29,7 @@ var QSsprite={
 }
 
 var QSsprite2={
+  name:"Quan",
   image:QS2,
   damage:QS2D,
   portrait:QSP,
@@ -35,6 +39,7 @@ var QSsprite2={
 }
 
 var GZsprite={
+  name:"Not a Gundam",
   image:GZ1,
   damage:GZ1D,
   portrait:GZP,
@@ -44,6 +49,7 @@ var GZsprite={
 }
 
 var GZsprite2={
+  name:"Not a Gundam",
   image:GZ2,
   damage:GZ2D,
   portrait:GZP2,
@@ -53,6 +59,7 @@ var GZsprite2={
 }
 
 var SHsprite={
+  name:"Senor Huevo",
   image:SH1,
   damage:SH1D,
   portrait:SHP,
@@ -62,6 +69,7 @@ var SHsprite={
 }
 
 var SHsprite2={
+  name:"Senor Huevo",
   image:SH2,
   damage:SH2D,
   portrait:SHP2,
