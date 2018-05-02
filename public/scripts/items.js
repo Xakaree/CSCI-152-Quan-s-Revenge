@@ -133,7 +133,6 @@ function Lazer(cx,cy)
   this.offsetY = 28;
   this.atkDelay = 0;
   this.atkHold = false;
-
   this.maxAmmo = 10;
   this.currAmmo = this.maxAmmo;
   this.reloadSpeed = 85;
@@ -142,6 +141,8 @@ function Lazer(cx,cy)
 Lazer.prototype.attack = function()
 {
   if(!this.atkCool && !this.reloading) {
+      var lasersnd = new sound("audioFiles/sfx/laser.mp3", false, 1);
+      lasersnd.play();
       this.currAmmo--;
       if(this.currAmmo <= 0) {
           this.reloading = true;

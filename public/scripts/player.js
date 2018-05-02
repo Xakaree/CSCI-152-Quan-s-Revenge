@@ -5,7 +5,7 @@ function Player(x, y,w,h, controls, sprite) {
     this.accel = 2.0 * tileScale; //UNUSED FOR NOW
     this.decel = 2.0 * tileScale;
     this.controls = controls || defaultcontrols;
-    this.jumpsnd =  new sound("audioFiles/jump_3.wav", false, 1);
+    this.jumpsnd =  new sound("audioFiles/sfx/jump.mp3", false, 1);
 	  this.sprite = sprite;
     this.freezeTimer = 0;
 

@@ -129,7 +129,12 @@ startScreen = new startScreen();
 
 scene = new Scene();
 //scene.Start();
+setSoundtrackVolume(100, spaceList);
+setSoundtrackVolume(100, cityList);
+setSoundtrackVolume(100, battleList);
+setSoundtrackVolume(100, menuList);
 playSoundtrack(0, menuList);
+
 oldTime = performance.now(); //start time of scene (needed for delatime)
 setTimeout(GameLoop, 0);
 requestAnimationFrame(Draw); //starts game loop
