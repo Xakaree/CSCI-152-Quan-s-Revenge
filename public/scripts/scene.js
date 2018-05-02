@@ -205,7 +205,7 @@ Scene.prototype.loadMap = function(map) {
         }
     }
 
-    this.entities.push(new deathTile(-500*tileScale,height+500*tileScale,width,1));
+    this.entities.push(new deathTile(-5000*tileScale,height+500*tileScale,width + 5000,1));
 }
 
 /*
@@ -464,18 +464,22 @@ Scene.prototype.drawFinalWin = function() {
 clears canvas and runs draw function for each object
 */
 Scene.prototype.Draw = function() {
-    ctx1.clearRect(0,0,canvas.width,canvas.height);
+    ctx1.clearRect(this.camera.x,this.camera.y,canvas.width,canvas.height);
 
     //ctx0.fillStyle = "#0f7dc6";
     //ctx0.fillRect(0,0,width,height);
 
-    ctx1.save();
+    //ctx1.save();
+    
     //ctx0.save();
     this.camera.Update(this.players);
+
+    ctx1.setTransform(1,0,0,1,-this.camera.x,-this.camera.y);
+    
     this.para.Draw();
 
     //ctx0.translate(-this.camera.x, -this.camera.y);
-    ctx1.translate(-this.camera.x, -this.camera.y);
+   // ctx1.translate(-this.camera.x, -this.camera.y);
 
     for(var i = 0; i < this.solidentities.length; i++) {
         if(this.solidentities[i].entity.x > this.camera.x - tileSize && this.solidentities[i].entity.x * scale < this.camera.x + width + tileSize && this.solidentities[i].entity.y * scale > this.camera.y - tileSize && this.solidentities[i].entity.y * scale < this.camera.y + height + tileSize) {
@@ -501,5 +505,5 @@ Scene.prototype.Draw = function() {
     if(this.finalwin) {
         this.drawFinalWin();
     }
-    ctx1.restore();
+    //ctx1.restore();
 }
