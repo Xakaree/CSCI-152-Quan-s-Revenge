@@ -430,7 +430,8 @@ Scene.prototype.drawWin = function() {
         ctx1.fillText("Player " + (i+1) + ": ", this.camera.x + width*0.05, this.camera.y + height*0.3+(i*100));
         ctx1.fillStyle = "gold";
         for(let j = 0; j < this.score[i]; j++) {
-            ctx1.fillRect(this.camera.x + width*0.25 + (j*100), this.camera.y + height*0.23+(i*100), 60, 60);
+            //ctx1.fillRect(this.camera.x + width*0.25 + (j*100), this.camera.y + height*0.23+(i*100), 60, 60);
+            ctx1.drawImage(TRPHY,this.camera.x + width*0.25 + (j*100), this.camera.y + height*0.23+(i*100), 60, 60);
         }
     }
 }

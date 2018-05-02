@@ -287,7 +287,7 @@ function StickyGun(cx, cy) {
     this.offsetX = 27;
     this.offsetY = 22;
     this.atkDelay = 5;
-    this.atkHold = true;
+    this.atkHold = false;
 
     this.maxAmmo = 4;
     this.currAmmo = this.maxAmmo;
