@@ -69,12 +69,14 @@ function Options(background) {
      if(input.getAttack() && this.option == 0){
        input.resetKeys();
        this.controlMapping = new SelectPlayer(this.background);
+       this.background.Drive();
        this.controlMapping.Start();
        this.active = false;
      }
      else if(input.getAttack() && this.option == 1){
        input.resetKeys();
        this.VolumeOptions = new VolumeOptions(this.background);
+       this.background.Drive();
        this.VolumeOptions.Start();
        this.active = false;
      }

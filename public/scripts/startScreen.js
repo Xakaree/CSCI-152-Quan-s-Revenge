@@ -28,7 +28,7 @@ function startScreen(){
 				this.background.Update();
 			 if (input.getAttack()){ //start game
 						input.resetKeys(); //  needed when
-						this.background.xPos += 5;
+						this.background.Drive();
 						this.menu =  new Menu(this.background);
 						this.menu.Start();
 						this.active = false;

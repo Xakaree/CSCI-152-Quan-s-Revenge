@@ -17,7 +17,7 @@ function Car()
       this.xPos +=10;
 
     if(this.xPos >1280)
-      this.xpos = -250
+      this.xPos = -250
   }
 
   this.Draw =  function()

@@ -75,7 +75,7 @@ var stageData = {
     background : "background/Skyscrapers.png",
     midground  : "background/MoreBuildings.png",
     foreground  :"background/Buildings.png",
-    objs : [new Car()],
+    objs : [new Heli()],
     gradient : new GradientForCity()
   },
   2:{

@@ -37,4 +37,6 @@ function Background()
     if (this.xsky2 <= -(canvas.width+500))
         this.xsky2 = this.x + canvas.width*2;
     }
+
+    this.Drive = function () {this.car.xPos +=1;}
 }
