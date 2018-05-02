@@ -3,7 +3,7 @@ function Background()
     this.speed = -1;
     this.x = 0;
     this.y =0;
-    this.car = new Car();
+    this.car = new Truck();
     this.xsky = canvas.width;
     this.xsky2 = 2*canvas.width;
     this.xHwy  = 0;

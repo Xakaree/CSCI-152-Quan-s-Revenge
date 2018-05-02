@@ -7,7 +7,7 @@ function Heli(){
   this.yPos = -100;
   this.angle = 0;
   this.right  =  true;
-  this.counter = 0.5;
+  this.counter = 2;
 
   this.framestart = 0;
   this.timer = 0;

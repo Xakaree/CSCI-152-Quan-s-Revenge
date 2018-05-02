@@ -193,6 +193,14 @@ Player.prototype.onCollision = function(collider) {
         this.entity.vx = collider.entity.vx;
         this.health -= collider.entity.dmg; //  test
     }
+    if(collider.entity.tag == "knock" && collider.parent != this) {
+        this.knockback = true;
+        this.animation.image = this.sprite.damage;
+        this.knockcnt = 0;
+        this.knockTime = 20; 
+        this.entity.vx = collider.entity.vx;
+        this.health -= collider.entity.dmg; //  test
+    }
     if(collider.entity.tag == "Exprojectile" && collider.parent != this) {
         this.knockback = true;
         this.animation.image = this.sprite.damage;
@@ -221,7 +229,7 @@ Player.prototype.onCollision = function(collider) {
     }
     if(collider.entity.tag =="stick" && collider.parent != this)
     {
-      
+
     }
     if(collider.entity.tag == "dead") {
         this.health = 0;
