@@ -495,7 +495,6 @@ Scene.prototype.Draw = function() {
     //ctx0.restore();
 
     if(this.win) {
-        console.log("drawwin");
         this.drawWin();
     }
 
