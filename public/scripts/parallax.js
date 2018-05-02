@@ -36,7 +36,7 @@ this.Update = function()
 
         //ctx1.translate(-this.camera.x, -this.camera.y);
 
-                this.imgGradient.Draw();
+        this.imgGradient.Draw();
         ctx1.drawImage(background, (xdir*3) + (-this.camera.x*0.25), (ydir*3) + (-this.camera.y*0.25),(canvas.width +1500) *scale,(canvas.height + 1500)*scale);
 
 
