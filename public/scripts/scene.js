@@ -107,7 +107,7 @@ function Scene() {
 
     this.score = [];
 
-    this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka,BeamCannon,StickyGun];
+    this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka,BeamCannon,StickyGun,Revolver];
     this.maps= [map,map2,map3,map];
     this.camera = new Camera();
     this.currStage  = 0;
@@ -133,7 +133,7 @@ Scene.prototype.Start = function() {
     for(let i = 0; i < this.players.length; i++) {
         this.score[i] = 0;
     }
-    
+
     if(this.currStage == 0){
     pauseSoundtrack(menuList);
     playSoundtrack(0, spaceList);

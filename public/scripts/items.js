@@ -304,11 +304,46 @@ StickyGun.prototype.attack = function() {
 
         if(this.parent.facing == 1) {
             //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
-            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 20,20,this.parent.facing, 0,0,"green");
+            createObject(StickyProjectile, this.parent,this.entity.getRight(), this.entity.y, 20,20,this.parent.facing, 0,0,"green");
         }
         if(this.parent.facing == -1) {
             //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
-            createObject(Projectile, this.parent, this.entity.x -20 , this.entity.y, 20,20,this.parent.facing, 0,0, "green");
+            createObject(StickyProjectile, this.parent, this.entity.x -20 , this.entity.y, 20,20,this.parent.facing, 0,0, "green");
+        }
+    }
+}
+
+Revolver.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
+function Revolver(cx, cy) {
+    this.width = 20
+    this.height = 15
+    this.sprite = RLV;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
+    this.offsetX = 27;
+    this.offsetY = 22;
+    this.atkDelay = 10;
+    this.atkHold = false;
+
+    this.maxAmmo = 6;
+    this.currAmmo = this.maxAmmo;
+    this.reloadSpeed = 90;
+}
+
+Revolver.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+
+        if(this.parent.facing == 1) {
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(Projectile, this.parent,this.entity.getRight(), this.entity.y, 15,8,this.parent.facing, 0,0,"Red",20);
+        }
+        if(this.parent.facing == -1) {
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(Projectile, this.parent, this.entity.x -20 , this.entity.y, 10,5,this.parent.facing, 0,0, "Red",20);
         }
     }
 }
