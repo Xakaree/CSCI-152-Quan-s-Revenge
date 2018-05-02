@@ -75,8 +75,6 @@ function CSelect(){
       if(this.char3.controller != null) this.selection.push([this.characters[this.char3.character][this.char3.color], this.char3.controller]);
       if(this.char4.controller != null) this.selection.push([this.characters[this.char4.character][this.char4.color], this.char4.controller]);
 
-      pauseSoundtrack(menuList);
-      playSoundtrack(0, battleList);
       input.resetKeys();
       this.stageselect = new StageSelect(this.selection); //save characters
       this.stageselect.Start();

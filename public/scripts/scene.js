@@ -133,6 +133,16 @@ Scene.prototype.Start = function() {
     for(let i = 0; i < this.players.length; i++) {
         this.score[i] = 0;
     }
+    
+    if(this.currStage == 0){
+    pauseSoundtrack(menuList);
+    playSoundtrack(0, spaceList);
+    }
+    // space stage
+    if(this.currStage == 1){
+    pauseSoundtrack(menuList);
+    playSoundtrack(0, cityList);
+    }
 }
 
 Scene.prototype.PassPlayers = function(selection){

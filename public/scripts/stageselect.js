@@ -71,8 +71,6 @@ function StageSelect(characters)
 
          if(input.getAttack())
          {
-           pauseSoundtrack(menuList);
-           playSoundtrack(0, battleList);
            this.scene = scene;
            scene.currStage = this.toggle;
            this.scene.PassPlayers(this.selection);
