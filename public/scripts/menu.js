@@ -75,6 +75,7 @@ function Menu(background){
       else if (this.menuOption == 1 && input.getAttack()){
         input.resetKeys();
         this.options = new Options(this.background);
+        this.background.Drive();
         this.background.xPos += 5;
         this.active = false;
         this.options.Start();

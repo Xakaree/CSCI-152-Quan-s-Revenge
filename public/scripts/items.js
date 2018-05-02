@@ -347,3 +347,40 @@ Revolver.prototype.attack = function() {
         }
     }
 }
+
+KnockbackGun.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
+function KnockbackGun(cx, cy) {
+    this.width = 20
+    this.height = 20
+    this.sprite = KBG;
+    Gun.call(this,this.sprite,cx,cy,this.width,this.height); //inherit item attributes --REQUIRED--
+    this.offsetX = 31;
+    this.offsetY = 20;
+    this.atkDelay = 15;
+    this.atkHold = false;
+
+    this.maxAmmo = 5;
+    this.currAmmo = this.maxAmmo;
+    this.reloadSpeed = 90;
+}
+
+KnockbackGun.prototype.attack = function() {
+    if(!this.atkCool && !this.reloading) {
+        this.currAmmo--;
+        if(this.currAmmo <= 0) {
+            this.reloading = true;
+        }
+        else this.atkCool = true;
+
+        this.offset = -this.offset;
+        if(this.offset < 0) this.offset = -(Math.random(6) + 3);
+        if(this.parent.facing == 1) {
+            //scene.entities.push(new Projectile(this.parent,this.entity.getRight() + 10, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(KnockProjectile, this.parent,this.entity.getRight() + 10, this.entity.y, 10,10,this.parent.facing, 0,7,"grey");
+        }
+        if(this.parent.facing == -1) {
+            //scene.entities.push(new Projectile(this.parent, this.entity.x - 20, this.entity.y + this.offset, 10,10,this.parent.facing, 0));
+            createObject(KnockProjectile, this.parent, this.entity.x - 20, this.entity.y, 10,10,this.parent.facing, 0,7,"grey");
+        }
+    }
+}

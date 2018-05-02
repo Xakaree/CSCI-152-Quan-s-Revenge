@@ -122,6 +122,14 @@ function FreezeProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
     this.constructor.name = "FreezeProjectile";
 }
 
+KnockProjectile.prototype = Object.create(Projectile.prototype);
+KnockProjectile.prototype.constructor = KnockProjectile;
+function KnockProjectile(parent,x,y,w,h, vx,vy, life, color ="grey", dmg = 2) {
+    Projectile.call(this, parent,x,y,w,h, vx,vy, life, color, dmg);
+    this.entity.tag = "knock";
+    this.constructor.name = "KnockProjectile";
+}
+
 //beam projectile
 BeamProjectile.prototype = Object.create(Projectile.prototype);
 BeamProjectile.prototype.constructor = BeamProjectile;
