@@ -1,3 +1,41 @@
+function ItemSpawn(itemList, x, y) {
+    this.active = true;
+    this.x = x * tileSize; //actual position
+    this.y = y * tileSize; //actual position
+    this.tx = x; //tile position
+    this.ty = y; //tile position
+    this.lastItem = null;
+    this.itemList = itemList;
+    this.spawnTimer = 0;
+    this.spawnTime = 240;
+    this.spawning = false;
+
+    this.spawnItem();
+}
+
+ItemSpawn.prototype.Update = function() {
+    if(this.lastItem != null && this.lastItem.parent != null) {
+        this.lastItem = null;
+        this.spawning = true;
+        console.log("spawning");
+    }
+
+    if(this.spawning) {
+        this.spawnTimer++;
+        if(this.spawnTimer >= this.spawnTime) {
+            this.spawning = false;
+            this.spawnItem();
+            this.spawnTimer = 0;
+        }
+    }
+}
+
+ItemSpawn.prototype.spawnItem = function() {
+    var k = Math.floor(Math.random() * this.itemList.length);
+    this.lastItem = new this.itemList[k](this.tx,this.ty);
+    scene.entities.push(this.lastItem);
+}
+
 TommyGun.prototype = Object.create(Gun.prototype); //Inherit item methods --REQUIRED--
 function TommyGun(cx, cy) {
     this.width = 36

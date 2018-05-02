@@ -101,6 +101,7 @@ function Scene() {
     this.playersPassed = [];
     this.players = [];
     this.projectiles = [];
+    this.spawners = [];
     this.collisions = []; //list of collision to resolve
 
     this.freelist = new LLQueue(); //list of free projectiles
@@ -164,6 +165,7 @@ Scene.prototype.loadMap = function(map) {
     this.entities.length = 0;
     this.solidentities.length = 0;
     this.players.length = 0;
+    this.spawners.length = 0;
     this.freelist = new LLQueue();
 
     for(let i = 0; i < this.projectiles.length; i++) {
@@ -194,8 +196,9 @@ Scene.prototype.loadMap = function(map) {
                     if(this.playersPassed[3]) this.players.push(new Player(j*tileSize,i*tileSize,tileSize,tileSize,this.playersPassed[3][1], this.playersPassed[3][0]));
                     break;
                 case 6:
-                    var k = Math.floor(Math.random() * this.items.length);
-                    this.entities.push(new this.items[k](j, i));
+                    //var k = Math.floor(Math.random() * this.items.length);
+                    //this.entities.push(new this.items[k](j, i));
+                    this.spawners.push(new ItemSpawn(this.items, j,i));
                     break;
                 case 7:
                     this.solidentities.push(new SolidTile(j,i, 1,1,IRON));
@@ -227,6 +230,9 @@ Scene.prototype.Update  = function() {
         }
         for(var i = 0; i < this.projectiles.length; i++) {
             this.projectiles[i].Update();
+        }
+        for(var i = 0; i < this.spawners.length; i++) {
+            this.spawners[i].Update();
         }
         /*for(var i = 0; i < this.solidentities.length; i++) {
             this.solidentities[i].Update();
