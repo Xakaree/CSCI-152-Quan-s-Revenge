@@ -139,10 +139,11 @@ spaceList.push(spaceEnd);
 //menu music 
 //var menu_1 = new sound("audioFiles/menu_1.mp3", false, 1);
 var menu_2 = new sound("audioFiles/menu_2.mp3", false, 1);
-
+var menu_3 = new sound("audioFiles/menu_3.mp3", false, 1);
 
 // menu soundtrack list
 //menuList.push(menu_1);
+menuList.push(menu_3);
 menuList.push(menu_2);
 
 
