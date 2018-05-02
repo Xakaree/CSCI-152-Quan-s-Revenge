@@ -107,7 +107,7 @@ function Scene() {
 
     this.score = [];
 
-    this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka,BeamCannon,StickyGun,Revolver,KnockbackGun];
+    this.items = [TommyGun, Shotgun, Flamethrower, Lazer,Freeze,Bazooka,BeamCannon,StickyGun,Revolver,KnockbackGun,HornGun];
     this.maps= [map,map2,map3,map];
     this.camera = new Camera();
     this.currStage  = 0;
