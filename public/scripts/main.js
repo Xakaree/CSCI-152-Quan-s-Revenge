@@ -125,6 +125,9 @@ function Draw() {
 }
 
 input = new InputHandler();
+if(typeof io != 'undefined') {
+    input.initSocket();   
+}
 startScreen = new startScreen();
 
 scene = new Scene();
