@@ -18,6 +18,8 @@ function TommyGun(cx, cy) {
 
 TommyGun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+        var tmy = new sound("audioFiles/sfx/tmygun.mp3", false, 1);
+        tmy.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -43,7 +45,7 @@ function Shotgun(cx,cy) {
     this.height = 13;
     this.sprite = DBS;
     Gun.call(this,this.sprite,cx,cy,this.width,this.height);
-
+    
     this.offsetX = 32;
     this.offsetY = 22;
     this.atkDelay = 0;
@@ -55,6 +57,8 @@ function Shotgun(cx,cy) {
 
 Shotgun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+        var shotgunsnd = new sound("audioFiles/sfx/shotgun.mp3", false, 1);
+        shotgunsnd.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
