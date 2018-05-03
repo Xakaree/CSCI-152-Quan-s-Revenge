@@ -40,3 +40,67 @@ function UFObgi(){
       }
   }
 }
+
+function Meteor()
+{
+  this.image = ASTRD;
+  this.width = 50;
+  this.height = 50;
+  this.xPos = 1500;
+  this.yPos = -500;
+  this.framestart = 0;
+  this.timer = 0;
+
+    this.Draw = function()
+    {
+      if(this.timer < 15)
+      {
+        ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+
+        this.timer += 1;
+      }
+      else if(this.timer < 30)
+      {
+        this.framestart = 51;
+        ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+        this.timer += 1;
+        if (this.timer > 30)
+        {
+          this.framestart = 101 ;
+        }
+      }
+      else if(this.timer <45)
+      {
+        this.framestart = 101;
+        ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+        this.timer += 1;
+        if (this.timer > 60)
+        {
+          this.framestart = 151 ;
+        }
+      }
+      else
+      {
+        this.framestart = 151;
+        ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+        this.timer += 1;
+        if (this.timer > 75)
+        {
+          this.framestart = 0;
+          this.timer = 0;
+        }
+      }
+    }
+
+    this.Update = function()
+    {
+      this.xPos = this.xPos -2;
+      this.yPos =this.yPos +1;
+
+      if(this.xPos <-300)
+      {
+        this.xPos = 1500;
+        this.yPos = -500;
+      }
+    }
+}

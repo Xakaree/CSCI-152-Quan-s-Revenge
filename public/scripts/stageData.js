@@ -68,7 +68,7 @@ var stageData = {
    background :  "background/Space.png",
    midground  : "background/Planets.png",
    foreground  :"background/Moon.png",
-   objs : [new UFObgi(), new Spaceship()],
+   objs : [new UFObgi(), new Spaceship(), new Meteor()],
    gradient : new GradientForSpace()
   },
   1:{

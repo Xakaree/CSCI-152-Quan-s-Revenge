@@ -12,8 +12,7 @@ function Options(background) {
       this.map = {
         0 : new Button(100,100,ctx1,CACT,CNULL),
         1 : new Button(120,210,ctx1,SACT, SNULL),
-        3 : new Button(1000,600,ctx1,BACT,BNULL),
-        2 : new Button(100,320,ctx1, OPTACT, OPTNULL)
+        2 : new Button(1000,600,ctx1,BACT,BNULL),
       };
 
       this.map[0].Select(); // first options should be selected
@@ -59,7 +58,7 @@ function Options(background) {
           if (input.getUp() && this.option > 0){
                 this.option -= 1;
           }
-          else if (input.getDown() && this.option < 3){
+          else if (input.getDown() && this.option < 2){
                 this.option += 1;
           }
 
@@ -80,20 +79,12 @@ function Options(background) {
        this.VolumeOptions.Start();
        this.active = false;
      }
-     else if(this.option == 2 && input.getAttack())
-     {
-       input.resetKeys();
-       this.specialMenu =  new specialMenu();
-       this.active = false;
-       this.specialMenu.Start();
-     }
 
-     if (this.option == 3 && input.getAttack()) {
+    else if (this.option == 2 && input.getAttack()) {
        input.resetKeys();
        this.back = new Menu(this.background);
        this.back.Start();
        this.active = false;
-       console.log("back start");
      }
 
      }//end active
