@@ -416,6 +416,8 @@ function KnockbackGun(cx, cy) {
 
 KnockbackGun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+    var knck =  new sound("audioFiles/sfx/knockback.mp3", false, 1);
+        knck.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -453,6 +455,8 @@ function HornGun(cx,cy) {
 
 HornGun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+        var horn = new sound("audioFiles/sfx/horn.mp3", false, 1);
+    horn.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
