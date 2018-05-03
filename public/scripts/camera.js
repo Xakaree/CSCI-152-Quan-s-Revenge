@@ -71,7 +71,6 @@ Camera.prototype.Update = function(players) {
         this.midX = ((this.lowX + this.highX) / 2);
         this.midY = ((this.lowY + this.highY) / 2);
     }
-    //if(this.midX+this.width > scene.tilemap[0].length) this.midX = width - this.width;
     this.x = this.x + this.moveSpeed * ((this.midX - (this.width/2) - this.x));
     this.y = this.y + this.moveSpeed * ((this.midY - (this.height/2) - this.y));
 

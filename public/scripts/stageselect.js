@@ -6,13 +6,14 @@ function StageSelect(characters)
      this.numstages = 4;
      this.toggle = 0;
      this.animators = [];
+     this.select = new sound("audioFiles/sfx/charSelect.mp3", false, 1);
+     this.nav = new sound("audioFiles/sfx/changeColor.mp3", false, 1);
 
      this.Start = function()
      {
        this.active = true;
        for(let x =0;  x < this.selection.length;  x++)
        {
-         console.log(characters[x]);
          this.animators[x] = new animation(characters[x][0]);
        }
      }
@@ -85,15 +86,20 @@ function StageSelect(characters)
 
          if(this.toggle > 0 && input.getLeft())
          {
+          this.nav.load();
+          this.nav.play();
           this.toggle-= 1;
          }
          else if(this.toggle < this.numstages-1 && input.getRight())
          {
+          this.nav.load();
+          this.nav.play();
            this.toggle +=1;
          }
 
          if(input.getAttack())
          {
+           this.select.play();
            this.scene = scene;
            scene.currStage = this.toggle;
            this.scene.PassPlayers(this.selection);

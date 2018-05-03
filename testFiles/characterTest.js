@@ -71,7 +71,8 @@
             var cSelect = new CSelect();
             assert.isArray(cSelect.characters);
         });
-    /*    it('after menu starts character screen should be populated',function(){
+        /*
+      it('after menu starts character screen should be populated',function(){
           var cSelect = new CSelect();
           cSelect.Start();
           cSelect.checkController = true;
@@ -80,16 +81,20 @@
           assert.equal(char.color, '1', '0');
         });
 
-      it('unconfirms selected player if space is pressed twice', function(){
+      it('confirms selected player if space is pressed', function(){
           var cSelect = new CSelect();
-          cSelect.char1.controller = char1;
-          cSelect.char1.confirmed = true;
-          input.keyPress(32) = true;
-          input.keyPress.updateKeys;
-          console.log(input.keyPress(32));
-          input.keyPress(char.controller.attack);
-          assert.isFalse(cSelect.char1.confirmed);
+          cSelect.Start();
+          cSelect.char1.controller = p1controls;
+          console.log(input.keyPress(cSelect.char1.controller[32]));
+          var key =input.keyPress(cSelect.char1.controller[32]);
+          key = true;
+          console.log(input.keyPress(cSelect.char1.controller[32]));
+          cSelect.checkInput(cSelect.char1);
+          console.log(cSelect.char1.confirmed);
+
+          assert.isTrue(cSelect.char1.confirmed);
       });
+
       it('confirms players selection', function(){
           var cSelect = new CSelect();
           cSelect.char1.controller = cSelect.char1;

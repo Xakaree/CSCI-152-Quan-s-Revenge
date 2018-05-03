@@ -21,11 +21,16 @@
     it('TommyGun attack function check', function(){
       assert.isFunction(TommyGun.prototype.attack);
        });
-    it('TommyGun correct sprite check', function(){
-      assert.equal(TommyGun.prototype.sprite, TMY, 'TommyGun should be the sprite');
+    it('Tommy gun correct sprite check', function(){
+        var gun = new TommyGun(64,64);
+      assert.equal(gun.sprite, TMY, 'TommyGun should be the sprite');
     });
   it('Shotgun function check', function(){
     assert.isFunction(Shotgun);
+   });
+   it('Shot gun correct sprite check', function(){
+       var gun = new Shotgun(64,64);
+     assert.equal(gun.sprite, DBS, 'DBS should be the sprite');
    });
    it('Shotgun attack function check', function(){
      assert.isFunction(Shotgun.prototype.attack);
@@ -38,6 +43,10 @@
     it('Flamethrower attack function check', function(){
       assert.isFunction(Flamethrower.prototype.attack);
        });
+     it('Flamethrower correct sprite check', function(){
+         var gun = new Flamethrower(64,64);
+       assert.equal(gun.sprite, FLM, 'TommyGun should be the sprite');
+      });
     it('Lazer function check', function(){
       assert.isFunction(Lazer);
      });

@@ -121,96 +121,9 @@ function Entity(x,y,w,h,tag, dmg = 5) {
         if(this.cdir == 0) return this.horizontalCollision(collider);
         else return this.verticalCollision(collider);
     }
-
-    /*this.solidCollision = function(collider) {
-    if(this.vx > 0) this.tx = this.getMidX() - Math.min(10*tileScale, (this.vx * interval)/2);
-        else this.tx = this.getMidX() - Math.max(-10*tileScale, (this.vx * interval)/2);
-        if(this.vy > 0) this.ty = this.getMidY() - Math.min(10*tileScale, (this.vy * interval)/2);
-        else this.ty = this.getMidY() - Math.max(-10*tileScale, (this.vy * interval)/2);
-
-        //calculate a normalized distance between entity and colliding entity
-        this.dx = (collider.entity.getMidX() - this.tx) / (collider.entity.width/2.0);
-        this.dy = (collider.entity.getMidY() - this.ty) / (collider.entity.height/2.0);
-
-        this.dx = collider.entity.getMidX() - this.getMidX();
-        this.dy = collider.entity.getMidY() - this.getMidY();
-
-        //absolute values of the above variables
-        this.absDx = Math.abs(this.dx);
-        this.absDy = Math.abs(this.dy);
-
-         collision return codes (numbers are this entity's position relative to collidee)
-          4 0 4
-          3| |1
-          4 2 4
-        
-
-        //if x and y absolutes are close to each other then entity is on a corner
-        if(Math.abs(this.absDx - this.absDy) < 0.01) {
-            if(this.dx < 0) { //approaching from right
-                this.x = collider.entity.getRight()+1;
-            }
-            else { //appraoching from left
-                this.x = collider.entity.getLeft() - this.width-1;
-            }
-            if(this.dy < 0) { //approaching from bottom
-                this.y = collider.entity.getBot()+1;
-            }
-            else { //approaching from top
-                this.y = collider.entity.getTop() - this.height-1;
-            }
-            return 4;
-        }
-        if(this.absDx > this.absDy) { //appraoching from the side
-            if(this.dx < 0) { //approaching from the right
-                this.x = collider.entity.getRight()+1;
-                this.vx = 0;
-                this.ax = 0;
-                return 1;
-            }
-            else { //approaching from left
-                this.x = collider.entity.getLeft() - this.width-1;
-                this.vx = 0;
-                this.ax = 0;
-                return 3;
-            }
-        }
-        else { //approaching from the top/bottom
-            if(this.dy < 0) { //approaching from bottom
-                this.y = collider.entity.getBot()+1;
-                //console.log("top)")
-                this.vy = 0;
-                this.ay = 0;
-                return 2;
-            }
-            else { //approaching from top
-                this.y = collider.entity.getTop() - this.height-1;
-                this.vy = 0;
-                this.ay = 0;
-
-                if(this.vx > 0) {
-                    this.vx = Math.max(0.0, this.vx - (this.friction * interval));
-                }
-                else if(this.vx < 0) {
-                    this.vx = Math.min(0.0, this.vx + (this.friction * interval));
-                }
-                return 0;
-            }
-        }
-    }*/
 }
 
 function collisionCheck(collider, collidee) {
-    
-    /*var l1 = collider.entity.getLeft();
-    var r1 = collider.entity.getRight();
-    var b1 = collider.entity.getBot();
-    var t1 = collider.entity.getTop();
-
-    var l2 = collidee.entity.getLeft();
-    var r2 = collidee.entity.getRight();
-    var b2 = collidee.entity.getBot();
-    var t2 = collidee.entity.getTop();*/
 
     if(collider.entity.y+collider.entity.height < collidee.entity.y
         || collider.entity.y > collidee.entity.y+collidee.entity.height
@@ -219,10 +132,6 @@ function collisionCheck(collider, collidee) {
             return false;
         }
 
-    //checks if any edges of the box colliders are intersecting
-    /*if(b1 < t2 || t1 > b2 || r1 < l2 || l1 > r2) {
-        return false;
-    }*/
     else return true;
 }
 

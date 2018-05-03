@@ -86,6 +86,19 @@ function InputHandler() {
             input[i].keyDown = input[i].key;
         }
 
+        /*for(let i = 0; i < pcontrols.length; i++) {
+            for(let k in pcontrols[i]) {
+                if(input[pcontrols[i][k]].keyPress) {
+                    input[pcontrols[i][k]].keyPress = false;
+                }
+                if(!input[pcontrols[i][k]].keyDown && input[pcontrols[i][k]].key) {
+                    input[pcontrols[i][k]].keyPress = true;
+                }
+                input[pcontrols[i][k]].keyDown = input[pcontrols[i][k]].key;
+
+            }
+        }*/
+
         for(let k in einput) {
             for(let l in einput[k]) {
                 if(einput[k][l].keyPress) {
@@ -123,22 +136,22 @@ function InputHandler() {
     }
 
     this.resetKeys = function() {
-        for(var i = 0; i < input.length; i++) {
-            input[i].key = false;
-            input[i].keyDown = false;
+        for(let i = 0; i < input.length; i++) {
+            //input[i].key = false;
+            //input[i].keyDown = false;
             input[i].keyPress = false;
         }
         for(let k in einput) {
             for(let l in einput[k]) {
-                einput[k][l].key = false;
+                //einput[k][l].key = false;
                 einput[k][l].keyPress = false;
-                einput[k][l].keyDown = false;
+                //einput[k][l].keyDown = false;
             }
         }
     }
 
     this.getKeyPress = function() {
-        for(var i = 0; i < input.length; i++) {
+        for(let i = 0; i < input.length; i++) {
             if(input[i].keyPress == true) return i;
         }
         for(let k in einput) {
@@ -241,28 +254,16 @@ function InputHandler() {
 }
 
 InputHandler.prototype.initSocket = function() {
-    var socket = io();
+    this.socket = io();
 
-    socket.emit('coderequest');
+    this.socket.emit('coderequest');
 
-    socket.on('code', function(code) {
+    this.socket.on('code', function(code) {
         console.log("code recieved");
         sessionCode = code;
     });
 
-    socket.on('hosttdown', function(id, inp) {
-        if(!econtrols[id]) {
-            console.log("making new controller");
-            econtrols[id] = new mobile(id);
-        }
-        input.serverDown(id, inp);
-    });
-
-    socket.on('hosttup', function(id, inp) {
-        input.serverUp(id, inp);
-    });
-
-    socket.on('input', function(id,inp) {
+    this.socket.on('input', function(id,inp) {
         input.onInput(id, inp)
     });
 }

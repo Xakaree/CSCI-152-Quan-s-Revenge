@@ -17,29 +17,16 @@ var interval = 1/fps; //interval time (see game loop)
 var oldTime, newTime, deltaTime = 0; //var for storing frame time difference
 
 //Note: width and height below do not change canvas size
-var width = 1280; //width of game level
-var height = 720; //height of game level
+var width = canvas.width; //width of game level
+var height = canvas.height; //height of game level
 var tileSize = 32; //size of tiles in level
 var tileScale = tileSize/32;
 
 var scale = 1.0;
 
-var step = false;
 var sessionCode = "";
 
-//Draw tile grid -- TEMPORARY
-/*ctx0.fillStyle = "grey";
-ctx0.fillRect(0,0,width,height);
-ctx0.fillStyle = "black";
-for(var i = 0; i < width/tileSize; i++) {
-    for(var j = 0; j < height/tileSize; j++) {
-        ctx0.rect(i*tileSize,j*tileSize,tileSize,tileSize);
-    }
-}
-ctx0.stroke();*/
-
-/*
-control mapping
+/*control mapping
   -set values equal to the keycode of the desired key
   -pass as parameter when creating player
 
@@ -95,6 +82,7 @@ Main loop for the game
 	-runs the update function based on the interval set above (1/fps)
 */
 function GameLoop() {
+    requestAnimationFrame(GameLoop);
     newTime = performance.now(); //time at start of new frame
     //calculates the time in seconds between last frame and new one (should be small, capped at 1 second)
     deltaTime += (newTime - oldTime)/1000;
@@ -105,24 +93,20 @@ function GameLoop() {
     keeps updates consistent across varying framerates
     */
     while(deltaTime >= interval) {
+
         deltaTime -= interval;
         //scene.Update();
         input.Update();
         startScreen.Update();
+        startScreen.Draw();
+
+        if(deltaTime > 5) {
+            deltaTime = 0;
+        }
     }
-    //scene.Draw();
-    
-    setTimeout(GameLoop, 0);
-	
-
-    
 }
 
-function Draw() {
-    startScreen.Draw();
-    requestAnimationFrame(Draw);
 
-}
 
 var input = new InputHandler();
 if(typeof io != 'undefined') {
@@ -139,5 +123,6 @@ setSoundtrackVolume(100, menuList);
 playSoundtrack(0, menuList);
 
 var oldTime = performance.now(); //start time of scene (needed for delatime)
-setTimeout(GameLoop, 0);
-requestAnimationFrame(Draw); //starts game loop
+//setTimeout(GameLoop, 0);
+//requestAnimationFrame(Draw); //starts game loop
+requestAnimationFrame(GameLoop);

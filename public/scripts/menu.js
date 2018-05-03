@@ -4,8 +4,8 @@ function Menu(background){
   this.options = null;
   this.cSelect = null;
   this.map = {};
-  this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
-  this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
+  this.selectSnd = new sound("audioFiles/sfx/charSelect.mp3", false, 1);
+  this.nav = new sound("audioFiles/sfx/changeColor.mp3", false, 1);
 
   this.background = background;
 
@@ -26,14 +26,15 @@ function Menu(background){
   }
 
   this.Draw = function() {
+    if(this.active) {
+      ctx1.clearRect(0,0,width,height);
+      ctx1.fillStyle = "white";
+      ctx1.fillRect(0,0,width,height);
 
-    ctx1.clearRect(0,0,width,height);
-    ctx1.fillStyle = "white";
-    ctx1.fillRect(0,0,width,height);
-
-    this.background.Draw();
-    for(let key in this.map){ // call draw on all components
-      this.map[key].Draw();
+      this.background.Draw();
+      for(let key in this.map){ // call draw on all components
+        this.map[key].Draw();
+      }
     }
 
     if(this.options != null){
