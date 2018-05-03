@@ -85,10 +85,14 @@ function CSelect(){
       if(!char.confirmed) {
         if (input.keyPress(char.controller.up)) // up
         {
+              var colorSnd = new sound("audioFiles/sfx/changeColor.mp3", false, 1);
+              colorSnd.play();
               char.color = (char.color + 1)% this.versions;
         }
         else if (input.keyPress(char.controller.down)) // down
         {
+              var colorSnd = new sound("audioFiles/sfx/changeColor.mp3", false, 1);
+              colorSnd.play();
               char.color = (char.color -1)% this.versions;
               if (char.color < 0){
                 char.color = this.versions-1;
@@ -96,6 +100,8 @@ function CSelect(){
         }
   
         else if (input.keyPress(char.controller.left)) { //left
+              var nextChar = new sound("audioFiles/sfx/nextChar.mp3", false, 1);
+              nextChar.play();
               char.color = 0;
               char.character = (char.character-1)% this.characters.length;
               if (char.character < 0){
@@ -103,12 +109,16 @@ function CSelect(){
               }
         }
         else if (input.keyPress(char.controller.right)) { // right
+              var nextChar = new sound("audioFiles/sfx/nextChar.mp3", false, 1);
+              nextChar.play();
               char.color = 0;
               char.character = (char.character+1)% this.characters.length;
         }
       }
       
       if (input.keyPress(char.controller.attack)) {
+            var charSelect = new sound("audioFiles/sfx/charSelect.mp3", false, 1);
+            charSelect.play();
             if(this.checkReadyStart()) this.startGame();
             else if(char.confirmed == false) char.confirmed = true;
       }
@@ -137,18 +147,26 @@ function CSelect(){
           }
           else {
             if(inp == p1controls.attack && !this.checkController(p1controls)) {
+            var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
+              joinSnd.play();
               curchar.controller = p1controls;
               input.resetKeys();
             } 
             else if(inp == p2controls.attack && !this.checkController(p2controls)) {
+            var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
+              joinSnd.play();
               curchar.controller = p2controls;
               input.resetKeys();
             } 
             else if(inp == p3controls.attack && !this.checkController(p3controls)) {
+            var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
+              joinSnd.play();
               curchar.controller = p3controls;
               input.resetKeys();
             } 
             else if(inp == p4controls.attack && !this.checkController(p4controls)) {
+            var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
+              joinSnd.play();
               curchar.controller = p4controls;
               input.resetKeys();
             } 

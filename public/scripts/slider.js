@@ -29,9 +29,13 @@ function Slider(x, y, cont, list){
     if(this.selected){
         if (input.getRight() && this.toggleBar < 500)
           {this.toggleBar +=5;
+          var sliderSnd = new sound("audioFiles/sfx/sliderSnd.mp3", false , 1);
+          sliderSnd.play();
           setSoundtrackVolume(this.toggleBar, list);}
         else if (input.getLeft() && this.toggleBar > 0)
           {this.toggleBar -=5;
+          var sliderSnd = new sound("audioFiles/sfx/sliderSnd.mp3", false , 1);
+          sliderSnd.play();
           setSoundtrackVolume(this.toggleBar, list);}
    } // end selected
  }// end update

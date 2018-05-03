@@ -186,7 +186,7 @@ function ExplosiveProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5)
     this.cnt = 0;
     this.life = life;
     this.explosivedmg = 0.5;
-
+    this.snd = new sound("audioFiles/sfx/launcherCollision.mp3", false, 1);
     //for linked list
     this.next = null;
     this.prev = null;
@@ -209,13 +209,14 @@ ExplosiveProjectile.prototype.init = function(parent,x,y,w,h, vx,vy, life, color
 }
 
 ExplosiveProjectile.prototype.onCollision = function(collider) {
+
     let color = ["red","orange", "white", "yellow", "brown"];
     if(collider.entity.tag == "projectile" || collider.entity.tag == "fp" || collider.entity.tag == "Exprojectile" ) {
 
     }
     if(collider.entity.tag == "player" && collider != this.parent) {
 
-
+        this.snd.play();
         for(var i =0.1 ; i < 0.5;  i+= 0.1)
         {
           let index  = Math.floor(Math.random() *color.length);
@@ -240,7 +241,7 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
     }
     if(collider.entity.tag == "solid") {
 
-
+            this.snd.play();
           for(var i =0.1 ; i < 0.5;  i+= 0.1)
           {
             let index  = Math.floor(Math.random() *color.length);
@@ -314,7 +315,7 @@ function StickyProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
     this.timer = 0;
     this.life = life;
     this.explosivedmg = 1.5;
-
+    this.snd = new sound("audioFiles/sfx/launcherCollision.mp3", false, 1);
     //for linked list
     this.next = null;
     this.prev = null;
@@ -339,10 +340,12 @@ StickyProjectile.prototype.init = function(parent,x,y,w,h, vx,vy, life, color, d
 }
 
 StickyProjectile.prototype.onCollision = function(collider) {
+    
     if(collider.entity.tag == "projectile" || collider.entity.tag == "fp" || collider.entity.tag == "Exprojectile" ) {
 
     }
     if(collider.entity.tag == "player" && collider != this.parent) {
+    
       this.attached = collider.entity;
       this.entity.x = this.attached.getMidX();
       this.entity.y = this.attached.getMidY();
@@ -356,6 +359,7 @@ StickyProjectile.prototype.onCollision = function(collider) {
       }
       if(this.attached)
       {
+        
         this.entity.x = this.hitx;
         this.entity.y = this.hity;
       }
@@ -407,7 +411,7 @@ StickyProjectile.prototype.deactivate = function() {
 StickyProjectile.prototype.Kaboom = function()
 {
   let color = ["red","orange", "white", "yellow", "brown"];
-
+this.snd.play();
     for(var i =0.1 ; i < 0.5;  i+= 0.1)
     {
       let index  = Math.floor(Math.random() *color.length);

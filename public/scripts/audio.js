@@ -123,28 +123,37 @@ var spaceEnd = new sound("audioFiles/bm2/endSpace2.mp3", false , 1);
 
 
 
-// in-game soundtrack list
-battleList.push(bg_2);
-battleList.push(bg);
-battleList.push(bg_3);
-
-cityList.push(cityStart);
-cityList.push(citySong);
-cityList.push(cityEnd);
-
-spaceList.push(spaceStart);
-spaceList.push(spaceSong);
-spaceList.push(spaceEnd);
 
 //menu music 
 //var menu_1 = new sound("audioFiles/menu_1.mp3", false, 1);
 var menu_2 = new sound("audioFiles/menu_2.mp3", false, 1);
 var menu_3 = new sound("audioFiles/menu_3.mp3", false, 1);
-
+var menu_4 = new sound("audioFiles/sfx/hero.mp3", false, 1);
+var menu_5 = new sound("audioFiles/sfx/power.mp3", false, 1);
+var menu_6 = new sound("audioFiles/sfx/optionMenu.mp3", false, 1);
 // menu soundtrack list
 //menuList.push(menu_1);
-menuList.push(menu_3);
+menuList.push(menu_4);
 menuList.push(menu_2);
+menuList.push(menu_5);
+menuList.push(menu_6);
+menuList.push(menu_3);
+
+// in-game soundtrack list
+battleList.push(bg);
+battleList.push(bg_2);
+battleList.push(bg_3);
+
+cityList.push(cityStart);
+cityList.push(citySong);
+cityList.push(cityEnd);
+cityList.push(bg);
+
+spaceList.push(spaceStart);
+spaceList.push(spaceSong);
+spaceList.push(spaceEnd);
+spaceList.push(bg);
+
 
 
 
