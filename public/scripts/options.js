@@ -6,6 +6,7 @@ function Options(background) {
   this.back = null;
   this.specialMenu = null;
   this.map = {}
+  this.background =background;
   this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
   this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
 
