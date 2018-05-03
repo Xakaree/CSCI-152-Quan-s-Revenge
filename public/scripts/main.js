@@ -104,8 +104,6 @@ function GameLoop() {
             deltaTime = 0;
         }
     }
-
- 
 }
 
 

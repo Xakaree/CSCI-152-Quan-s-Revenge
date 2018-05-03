@@ -137,15 +137,15 @@ function InputHandler() {
 
     this.resetKeys = function() {
         for(let i = 0; i < input.length; i++) {
-            input[i].key = false;
-            input[i].keyDown = false;
+            //input[i].key = false;
+            //input[i].keyDown = false;
             input[i].keyPress = false;
         }
         for(let k in einput) {
             for(let l in einput[k]) {
-                einput[k][l].key = false;
+                //einput[k][l].key = false;
                 einput[k][l].keyPress = false;
-                einput[k][l].keyDown = false;
+                //einput[k][l].keyDown = false;
             }
         }
     }
@@ -254,28 +254,16 @@ function InputHandler() {
 }
 
 InputHandler.prototype.initSocket = function() {
-    var socket = io();
+    this.socket = io();
 
-    socket.emit('coderequest');
+    this.socket.emit('coderequest');
 
-    socket.on('code', function(code) {
+    this.socket.on('code', function(code) {
         console.log("code recieved");
         sessionCode = code;
     });
 
-    socket.on('hosttdown', function(id, inp) {
-        if(!econtrols[id]) {
-            console.log("making new controller");
-            econtrols[id] = new mobile(id);
-        }
-        input.serverDown(id, inp);
-    });
-
-    socket.on('hosttup', function(id, inp) {
-        input.serverUp(id, inp);
-    });
-
-    socket.on('input', function(id,inp) {
+    this.socket.on('input', function(id,inp) {
         input.onInput(id, inp)
     });
 }

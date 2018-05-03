@@ -77,7 +77,7 @@ Camera.prototype.Update = function(players) {
     if(this.x < -5*tileSize) this.x = -5*tileSize;
     if(this.x + this.width > scene.maps[scene.currStage][0].length*tileSize + 5*tileSize) this.x = scene.maps[scene.currStage][0].length*tileSize + 5*tileSize - this.width;
 
-    if(this.y+this.height > scene.maps[scene.currStage].length*tileSize) this.y = scene.maps[scene.currStage].length*tileSize - this.height;
+    if(this.y+this.height > scene.maps[scene.currStage].length*tileSize + 5*tileSize) this.y = scene.maps[scene.currStage].length*tileSize + 5*tileSize - this.height;
     //console.log(scene.tilemap[0].length*tileSize);
     //console.log(this.y+this.height);
 }
