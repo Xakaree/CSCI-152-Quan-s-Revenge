@@ -90,6 +90,7 @@ var stageData = {
     background : "background/Clouds.png",
     midground  : "background/Mountains.png",
     foreground  :"background/Ship.png",
+    objs :[new Jet()],
     gradient : new GradientForMileHigh()
   }
 };

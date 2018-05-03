@@ -1,17 +1,29 @@
 function Jet()
 {
   this.image = JET;
-  this.width = 100;
-  this.height = 80;
-  this.xPos = 0;
-  this.yPos = 0;
-  this.angle = 0;
-  this.cx = 440;
-  this.cy = 260;
-  this.radius = 400;
-  this.framestart = 0;
-  this.timer = 0;
+  this.width = 250;
+  this.height = 150;
+  this.xPos = -200;
+  this.yPos = -100;
+  this.increment = 5;
+  this.right = true;
 
-  this.Update = function(){}
-  this.Draw =  function (){}
+  this.Draw = function()
+  {
+    if(this.right)
+      ctx1.drawImage(this.image,0,0,this.width,this.height,this.xPos,this.yPos,150*scale,75*scale);
+    else
+      ctx1.drawImage(this.image,0,150,this.width,this.height,this.xPos,this.yPos,150*scale,75*scale);
+
+  }
+
+  this.Update = function ()
+  {
+      this.xPos +=  this.increment;
+      if(this.xPos < -800 || this.xPos > 1800)
+      {
+        this.increment *=-1;
+        this.right = !this.right;
+      }
+  }
 }

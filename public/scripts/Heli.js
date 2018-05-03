@@ -28,7 +28,7 @@ function Heli(){
     {
     if(this.timer < 5)
     {
-      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
 
       this.timer += 1;
     }
@@ -36,7 +36,7 @@ function Heli(){
     {
       this.framestart = 201;
       this.timer += 1;
-      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
       if (this.timer > 10)
       {
         this.framestart = 401 ;
@@ -45,7 +45,7 @@ function Heli(){
     else if (this.timer < 15)
     {
       this.framestart = 401;
-      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
       this.timer += 1;
       if (this.timer > 15)
       {
@@ -55,7 +55,7 @@ function Heli(){
     else
     {
       this.framestart = 601;
-      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,0,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
       this.timer += 1;
       if (this.timer > 20)
       {
@@ -68,7 +68,7 @@ function Heli(){
   {
     if(this.timer < 5)
     {
-      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
 
       this.timer += 1;
     }
@@ -76,7 +76,7 @@ function Heli(){
     {
       this.framestart = 201;
       this.timer += 1;
-      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
       if (this.timer > 10)
       {
         this.framestart = 401 ;
@@ -85,7 +85,7 @@ function Heli(){
     else if (this.timer < 15)
     {
       this.framestart = 401;
-      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
       this.timer += 1;
       if (this.timer > 15)
       {
@@ -95,7 +95,7 @@ function Heli(){
     else
     {
       this.framestart = 601;
-      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,this.width*scale,this.height*scale);
+      ctx1.drawImage(this.image,this.framestart,201,this.width,this.height,this.xPos*scale,this.yPos*scale,100*scale,100*scale);
       this.timer += 1;
       if (this.timer > 20)
       {
