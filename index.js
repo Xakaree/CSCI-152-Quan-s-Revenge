@@ -33,11 +33,11 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  console.log(socket.client.id + ' connected');
+  //console.log(socket.client.id + ' connected');
 
   socket.on('coderequest', function() {
     var code = generateRoomCode();
-    console.log("new code: " + code);
+    //console.log("new code: " + code);
     socket.join(code);
     host[code] = socket.id;
     io.to(socket.id).emit('code', code);
@@ -55,15 +55,19 @@ io.on('connection', function(socket){
 
   socket.on('join', function(code) {
     if(host[code])  {
-      console.log("client joining " + code);
+      //console.log("client joining " + code);
       io.to(socket.id).emit('accept');
       socket.join(code);
       room[socket.id] = code;
     }
     else {
-      console.log("room doesn't exist");
+      //console.log("room doesn't exist");
       io.to(socket.id).emit('reject');
     }
+  });
+
+  socket.on('disconnect', function() {
+      console.log(socket.id + " disconnected");
   });
 });
 

@@ -63,6 +63,8 @@ function Options(background) {
                 this.option -= 1;
           }
           else if (input.getDown() && this.option < 2){
+                this.nav.load();
+                this.nav.play();
                 this.option += 1;
           }
 
@@ -87,6 +89,7 @@ function Options(background) {
      }
 
     else if (this.option == 2 && input.getAttack()) {
+        this.selectSnd.play();
        input.resetKeys();
        this.back = new Menu(this.background);
        this.back.Start();
