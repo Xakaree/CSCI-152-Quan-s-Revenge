@@ -115,7 +115,7 @@ Projectile.prototype.Update = function() {
             else this.cnt++;
         }
     }
-    
+
 
 }
 
@@ -132,7 +132,7 @@ Projectile.prototype.deactivate = function() {
         scene.freelist.push(this);
     }
 }
-
+// freeze projectile
 FreezeProjectile.prototype = Object.create(Projectile.prototype);
 FreezeProjectile.prototype.constructor = FreezeProjectile;
 function FreezeProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
@@ -141,6 +141,52 @@ function FreezeProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
     this.constructor.name = "FreezeProjectile";
 }
 
+KnockProjectile.prototype = Object.create(Projectile.prototype);
+KnockProjectile.prototype.constructor = KnockProjectile;
+function KnockProjectile(parent,x,y,w,h, vx,vy, life, color ="grey", dmg = 2) {
+    Projectile.call(this, parent,x,y,w,h, vx,vy, life, color, dmg);
+    this.entity.tag = "knock";
+    this.constructor.name = "KnockProjectile";
+}
+
+//beam projectile
+BeamProjectile.prototype = Object.create(Projectile.prototype);
+BeamProjectile.prototype.constructor = BeamProjectile;
+function BeamProjectile(parent,x,y,w,h, vx,vy, life, color ="pink", dmg = 0.15) {
+    Projectile.call(this, parent,x,y,w,h, vx,vy, life, color, dmg);
+    this.entity.tag = "Beam";
+    this.constructor.name = "BeamProjectile";
+}
+
+BeamProjectile.prototype.onCollision = function(collider) {
+    if(collider.entity.tag == "projectile" || collider.entity.tag == "fp" || collider.entity.tag == "Exprojectile") {
+
+    }
+    if(collider.entity.tag == "player" && collider != this.parent) {
+
+    }
+    if(collider.entity.tag == "solid") {
+        this.deactivate();
+    }
+}
+
+Projectile.prototype.Update = function() {
+    this.entity.updatePhysics(this);
+    if(this.entity.active) {
+        if(this.life > 0) {
+            if(this.cnt >= this.life) {
+                this.deactivate();
+            }
+            else this.cnt++;
+        }
+    }
+    if(this.entity.x > 1500 || this.entity.x < -1500)
+    {
+      this.deactivate();
+    }
+}
+
+//explosive projectile
 function ExplosiveProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
     this.dmg = dmg;
     this.entity = new Entity(x,y,w,h,"Exprojectile", this.dmg);
@@ -180,7 +226,7 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
 
     }
     if(collider.entity.tag == "player" && collider != this.parent) {
-        
+
 
         for(var i =0.1 ; i < 0.5;  i+= 0.1)
         {
@@ -205,7 +251,7 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
         this.deactivate();
     }
     if(collider.entity.tag == "solid") {
-        
+
 
           for(var i =0.1 ; i < 0.5;  i+= 0.1)
           {
@@ -255,5 +301,131 @@ ExplosiveProjectile.prototype.deactivate = function() {
         this.entity.y = -2000;
         scene.freelist.push(this);
     }
-    
+
+}
+
+
+// sticky
+StickyProjectile.prototype = Object.create(Projectile.prototype);
+StickyProjectile.prototype.constructor = StickyProjectile;
+function StickyProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
+    this.dmg = dmg;
+    this.entity = new Entity(x,y,w,h,"stick", this.dmg);
+    this.entity.vx = 800 * vx * tileScale;
+    this.entity.vy = 800 * vy * tileScale;
+    this.color = ["green", "Yellow", "red"];
+    this.entity.grav = 0;
+    this.parent = parent;
+    this.cnt = 0;
+    this.timer = 0;
+    this.life = life;
+    this.explosivedmg = 1.5;
+
+    //for linked list
+    this.next = null;
+    this.prev = null;
+}
+
+StickyProjectile.prototype.init = function(parent,x,y,w,h, vx,vy, life, color, dmg) {
+    this.entity.x = x;
+    this.entity.y = y;
+    this.entity.width = w
+    this.entity.height = h;
+    this.entity.vx = 800 * vx * tileScale;
+    this.entity.vy = 800 * vy * tileScale;
+    this.entity.grav = 0;
+    this.dmg = dmg || 5;
+    this.parent = parent;
+    this.attached = null;
+    this.cnt = 0;
+    this.life = life;
+    this.entity.active = true;
+    this.hitx = 0;
+    this.hity = 0;
+}
+
+StickyProjectile.prototype.onCollision = function(collider) {
+    if(collider.entity.tag == "projectile" || collider.entity.tag == "fp" || collider.entity.tag == "Exprojectile" ) {
+
+    }
+    if(collider.entity.tag == "player" && collider != this.parent) {
+      this.attached = collider.entity;
+      this.entity.x = this.attached.getMidX();
+      this.entity.y = this.attached.getMidY();
+    }
+    if(collider.entity.tag == "solid") {
+      if(!this.attached)
+      {
+        this.attached = collider.entity;
+        this.hitx =  this.entity.x
+        this.hity =  this.entity.y
+      }
+      if(this.attached)
+      {
+        this.entity.x = this.hitx;
+        this.entity.y = this.hity;
+      }
+    }
+}
+
+StickyProjectile.prototype.Update = function() {
+   if(this.attached){this.timer = this.timer + 1;}//  increment timer
+
+    this.entity.updatePhysics(this);
+    if(this.life > 0) {
+        if(this.cnt >= this.life) {
+            this.deactivate();
+        }
+        else this.cnt++;
+    }
+
+    if(this.timer > 44)
+    {
+      this.Kaboom();
+    }
+}
+
+StickyProjectile.prototype.Draw = function() {
+    ctx1.fillStyle = this.color[Math.floor(this.timer/15)];
+
+    ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
+}
+
+StickyProjectile.prototype.deactivate = function() {
+    if(this.entity.active) {
+        this.entity.active = false;
+        this.entity.x = -2000;
+        this.entity.y = -2000;
+        this.timer = 0;
+        this.attached = null;
+        scene.freelist.push(this);
+    }
+
+}
+
+StickyProjectile.prototype.Kaboom = function()
+{
+  let color = ["red","orange", "white", "yellow", "brown"];
+
+    for(var i =0.1 ; i < 0.5;  i+= 0.1)
+    {
+      let index  = Math.floor(Math.random() *color.length);
+      createObject(Projectile, this,this.entity.getLeft(), this.entity.y, 10,10,-Math.random(), i, 20, color[index], this.explosivedmg);
+    }
+    for(var i =0.1 ; i < 0.5;  i+= 0.1)
+    {
+      let index  = Math.floor(Math.random() *color.length);
+      createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random(), i, 20, color[index], this.explosivedmg);
+    }
+    for(var i =0.1 ; i < 0.5;  i+= 0.1) // up left
+    {
+      let index  = Math.floor(Math.random() *color.length);
+      createObject(Projectile, this,this.entity.getLeft(), this.entity.y, 10,10, -Math.random() ,-Math.random() , 20,  color[index], this.explosivedmg);
+    }
+    for(var i =0.1 ; i < 0.5;  i+= 0.1) // up right
+    {
+      let index  = Math.floor(Math.random() *color.length);
+      createObject(Projectile, this,this.entity.getRight(), this.entity.y, 10,10,Math.random() , -Math.random() , 20,  color[index],this.explosivedmg);
+    }
+    this.deactivate();
 }

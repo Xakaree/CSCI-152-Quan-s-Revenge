@@ -1,15 +1,15 @@
 function startScreen(){
 		this.active = true;
 		this.menu = null;
-
+		this.background = new Background();
 
 		this.Draw = function (){
 			if (this.active){
 				ctx1.clearRect(0,0,width,height); //clears canvas
 				ctx1.fillStyle = "white"; // background color
 				ctx1.fillRect(0,0,width,height);
+				this.background.Draw();
 				ctx1.fillStyle = "grey";
-
 				ctx1.font ="60px Arial";
 				ctx1.fillText("QUAN'S REVENGE", 350,200);
 				ctx1.font = "40px Arial";
@@ -25,9 +25,11 @@ function startScreen(){
 
 	this.Update = function(){
 			if (this.active){
+				this.background.Update();
 			 if (input.getAttack()){ //start game
 						input.resetKeys(); //  needed when
-						this.menu =  new Menu();
+						this.background.Drive();
+						this.menu =  new Menu(this.background);
 						this.menu.Start();
 						this.active = false;
 					}

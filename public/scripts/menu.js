@@ -1,4 +1,4 @@
-function Menu(){
+function Menu(background){
   this.active = false;
   this.menuOption = 0;
   this.options = null;
@@ -6,6 +6,8 @@ function Menu(){
   this.map = {};
   this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
   this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
+
+  this.background = background;
 
   this.Mapping = function(){
     var PLYRACT = document.getElementById("PLYRACT");
@@ -29,6 +31,7 @@ function Menu(){
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height);
 
+    this.background.Draw();
     for(let key in this.map){ // call draw on all components
       this.map[key].Draw();
     }
@@ -52,7 +55,7 @@ function Menu(){
 
   this.Update = function(){
     this.map[this.menuOption].Unselect(); // Unselect last selected
-
+    this.background.Update();
     if (this.active){
         if (input.getUp() && this.menuOption > 0){
               this.nav.load();
@@ -79,7 +82,9 @@ function Menu(){
       else if (this.menuOption == 1 && input.getAttack()){
         this.selectSnd.play();
         input.resetKeys();
-        this.options = new Options();
+        this.options = new Options(this.background);
+        this.background.Drive();
+        this.background.xPos += 5;
         this.active = false;
         this.options.Start();
       }

@@ -1,7 +1,8 @@
-function SelectPlayer(){
+function SelectPlayer(background){
 this.controlMapping = null;
 this.active = false;
 this.option = 0;
+this.background = background;
 
 this.map = {}
 
@@ -35,6 +36,7 @@ this.Draw = function (){
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height);
 
+    this.background.Draw();
     ctx1.font = "50px Arial";
     ctx1.fillStyle = "grey"
     ctx1.fillText("Which player's controls would you like to remap?",100, 300);
@@ -54,6 +56,7 @@ this.Update = function(){
   if(this.active){
     this.map[this.option].Unselect();
 
+    this.background.Update();
     if (input.keyPress(pcontrols[0].left) && this.option > 0){
           this.option -= 1;
     }
@@ -65,7 +68,7 @@ this.Update = function(){
 
     if(input.keyPress(pcontrols[0].attack)){
       input.resetKeys();
-      this.controlMapping = new controlMapping(this.option);
+      this.controlMapping = new controlMapping(this.option,this.background);
       this.controlMapping.Start();
       this.active = false;
     }

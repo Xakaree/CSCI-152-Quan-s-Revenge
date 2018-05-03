@@ -1,4 +1,4 @@
-function Options() {
+function Options(background) {
   this.active = false;
   this.option = 0;
   this.controlMapping = null;
@@ -6,6 +6,7 @@ function Options() {
   this.back = null;
   this.specialMenu = null;
   this.map = {}
+  this.background =background;
   this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
   this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
 
@@ -13,8 +14,7 @@ function Options() {
       this.map = {
         0 : new Button(100,100,ctx1,CACT,CNULL),
         1 : new Button(120,210,ctx1,SACT, SNULL),
-        3 : new Button(1000,600,ctx1,BACT,BNULL),
-        2 : new Button(100,320,ctx1, OPTACT, OPTNULL)
+        2 : new Button(1000,600,ctx1,BACT,BNULL),
       };
 
       this.map[0].Select(); // first options should be selected
@@ -30,6 +30,8 @@ function Options() {
       ctx1.clearRect(0,0,width,height);
       ctx1.fillStyle = "white";
       ctx1.fillRect(0,0,width,height);
+
+      this.background.Draw();
 
       for(let key in this.map){ // call draw on all components
         this.map[key].Draw();
@@ -53,15 +55,14 @@ function Options() {
 
   this.Update = function(){
     this.map[this.option].Unselect();
+    this.background.Update();
     if(this.active){
           if (input.getUp() && this.option > 0){
                 this.nav.load();
                 this.nav.play();
                 this.option -= 1;
           }
-          else if (input.getDown() && this.option < 3){
-                this.nav.load();
-                this.nav.play();
+          else if (input.getDown() && this.option < 2){
                 this.option += 1;
           }
 
@@ -71,33 +72,25 @@ function Options() {
      if(input.getAttack() && this.option == 0){
        this.selectSnd.play();
        input.resetKeys();
-       this.controlMapping = new SelectPlayer();
+       this.controlMapping = new SelectPlayer(this.background);
+       this.background.Drive();
        this.controlMapping.Start();
        this.active = false;
      }
      else if(input.getAttack() && this.option == 1){
        this.selectSnd.play();
        input.resetKeys();
-       this.VolumeOptions = new VolumeOptions();
+       this.VolumeOptions = new VolumeOptions(this.background);
+       this.background.Drive();
        this.VolumeOptions.Start();
        this.active = false;
      }
-     else if(this.option == 2 && input.getAttack())
-     {
-       this.selectSnd.play();
-       input.resetKeys();
-       this.specialMenu =  new specialMenu();
-       this.active = false;
-       this.specialMenu.Start();
-     }
 
-     if (this.option == 3 && input.getAttack()) {
-       this.selectSnd.play();
+    else if (this.option == 2 && input.getAttack()) {
        input.resetKeys();
-       this.back = new Menu();
+       this.back = new Menu(this.background);
        this.back.Start();
        this.active = false;
-       console.log("back start");
      }
 
      }//end active

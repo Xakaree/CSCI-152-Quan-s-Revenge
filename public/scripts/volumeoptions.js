@@ -1,7 +1,8 @@
-function VolumeOptions(){
+function VolumeOptions(background){
   this.active = false;
   this.toggle = 0;
   this.back = null;
+  this.background = background;
 
   this.map = {}
   this.Mapping = function(){
@@ -25,6 +26,7 @@ function VolumeOptions(){
     ctx1.fillStyle = "white";
     ctx1.fillRect(0,0,width,height); //paint background white
 
+    this.background.Draw();
     //draw sliders on screen
     for(let key in this.map)
     {
@@ -40,7 +42,7 @@ function VolumeOptions(){
 
   this.Update = function(){
     if(this.active){
-
+    this.background.Update();
       for(let key in this.map)
       {
         this.map[key].Update(); // update all componenets
@@ -60,7 +62,7 @@ function VolumeOptions(){
 
         if (this.toggle == 4 && input.getAttack()) {
           input.resetKeys();
-          this.back = new Options();
+          this.back = new Options(this.background);
           this.back.Start();
           this.active = false;
           console.log("back start");

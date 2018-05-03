@@ -1,4 +1,4 @@
-function controlMapping(current){
+function controlMapping(current,background){
   this.active = false;
   this.requestingKey = false;
   this.currentPlayer = current;
@@ -12,7 +12,7 @@ function controlMapping(current){
   "jump": false
   };
   this.lastOption = "";
-
+  this.background = background;
   this.Start = function(){
     this.active = true;
   }
@@ -23,6 +23,7 @@ function controlMapping(current){
       ctx1.fillStyle = "white";
       ctx1.fillRect(0,0,width,height);
 
+      this.background.Draw();
       ctx1.font = " 40px Arial"
       ctx1.fillStyle = "grey";
       ctx1.fillText("Remap Player " + (this.currentPlayer + 1)+" Controls", 150, 100);
@@ -77,6 +78,7 @@ function controlMapping(current){
 
   this.Update = function(){
     if(this.active){
+      this.background.Update();
       if(this.requestingKey) { //waiting for key pess
           var k = input.getKeyPress(); //returns first keyPress == true it finds
           if(k != null) {
@@ -123,7 +125,7 @@ function controlMapping(current){
         }
         else if(input.keyPress(66))
         {
-            this.back = new Options();
+            this.back = new Options(this.background);
             this.active = false;
             this.back.Start();
         }
