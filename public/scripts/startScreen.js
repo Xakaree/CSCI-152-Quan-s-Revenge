@@ -2,6 +2,7 @@ function startScreen(){
 		this.active = true;
 		this.menu = null;
 		this.background = new Background();
+		this.snd = new sound("audioFiles/sfx/charSelect.mp3", false , 1);
 
 		this.Draw = function (){
 			if (this.active){
@@ -27,6 +28,7 @@ function startScreen(){
 			if (this.active){
 				this.background.Update();
 			 if (input.getAttack()){ //start game
+			            this.snd.play();
 						input.resetKeys(); //  needed when
 						this.background.Drive();
 						this.menu =  new Menu(this.background);

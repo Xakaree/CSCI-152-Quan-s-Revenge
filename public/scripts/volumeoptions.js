@@ -3,6 +3,8 @@ function VolumeOptions(background){
   this.toggle = 0;
   this.back = null;
   this.background = background;
+  this.nav = new sound("audioFiles/sfx/changeColor.mp3", false , 1);
+  this.select = new sound("audioFiles/sfx/charSelect.mp3", false , 1);
 
   this.map = {}
   this.Mapping = function(){
@@ -50,17 +52,22 @@ function VolumeOptions(background){
 
         ///switch between sliders
         if(input.getDown() && this.toggle < 4){
+          this.nav.load();
+          this.nav.play();
           this.map[this.toggle].Unselect();
           this.toggle += 1;
           this.map[this.toggle].Select();
         }
         else if (input.getUp()  && this.toggle > 0){
+          this.nav.load();
+          this.nav.play();
           this.map[this.toggle].Unselect();
           this.toggle -= 1;
           this.map[this.toggle].Select();
         }
 
         if (this.toggle == 4 && input.getAttack()) {
+            this.select.play();
           input.resetKeys();
           this.back = new Options(this.background);
           this.back.Start();

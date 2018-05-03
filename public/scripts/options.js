@@ -7,8 +7,8 @@ function Options(background) {
   this.specialMenu = null;
   this.map = {}
   this.background =background;
-  this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
-  this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
+  this.selectSnd = new sound("audioFiles/sfx/charSelect.mp3", false, 1);
+  this.nav = new sound("audioFiles/sfx/changeColor.mp3", false, 1);
 
   this.Mapping = function(){
       this.map = {
