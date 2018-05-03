@@ -59,7 +59,7 @@ var GZsprite2={
 }
 
 var SHsprite={
-  name:"Senor Huevo",
+  name:"Señor Huevo",
   image:SH1,
   damage:SH1D,
   portrait:SHP,
@@ -69,7 +69,7 @@ var SHsprite={
 }
 
 var SHsprite2={
-  name:"Senor Huevo",
+  name:"Señor Huevo",
   image:SH2,
   damage:SH2D,
   portrait:SHP2,
