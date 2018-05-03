@@ -208,7 +208,12 @@ Scene.prototype.loadMap = function(map) {
         }
     }
 
-    this.entities.push(new deathTile(-5000*tileScale,height+500*tileScale,width + 5000,1));
+    //this.entities.push(new deathTile("left", tileSize, canvas.height));
+    //this.entities.push(new deathTile("up", canvas.width, tileSize));
+    this.entities.push(new deathTile("down", canvas.width, tileSize));
+    //this.entities.push(new deathTile("right", tileSize, canvas.height));
+
+    this.camera.initPos(this.players);
 }
 
 /*

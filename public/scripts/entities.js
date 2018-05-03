@@ -28,16 +28,35 @@ function SolidTile(cx,cy,cw,ch, image) {
 
 }
 
-function deathTile(cx,cy,cw,ch) {
-    this.entity = new Entity(cx,cy, cw*tileSize,ch*tileSize, "dead");
+function deathTile(pos,cw,ch) {
+    this.entity = new Entity(0,0, cw,ch, "dead");
 
     this.Update = function() {
+        if(pos == "left") {
+            this.entity.x = scene.camera.x-tileSize;
+            this.entity.y = scene.camera.y;
+        }
 
+        if(pos == "right") {
+            this.entity.x = scene.camera.x + scene.camera.width + tileSize;
+            this.entity.y = scene.camera.y;
+        }
+
+        if(pos == "up") {
+            this.entity.x = scene.camera.x;
+            this.entity.y = scene.camera.y-tileSize;
+        }
+
+        if(pos == "down") {
+            this.entity.x = scene.camera.x - 20*tileSize;
+            this.entity.y = scene.camera.y+ scene.camera.height+tileSize + 4*tileSize*(1/scale);
+            this.entity.width = this.entity.width*(1/scale);
+        }
     }
 
     this.Draw = function() {
-        /*ctx1.fillStyle = "red";
-        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);*/
+        ctx1.fillStyle = "red";
+        ctx1.fillRect(this.entity.x * scale,this.entity.y * scale,this.entity.width * scale,this.entity.height * scale);
     }
 }
 
