@@ -115,8 +115,10 @@ Projectile.prototype.Update = function() {
             else this.cnt++;
         }
     }
-
-
+    if(this.entity.x > 1500 || this.entity.x < -1500)
+    {
+      this.deactivate();
+    }
 }
 
 Projectile.prototype.Draw = function() {
@@ -170,21 +172,7 @@ BeamProjectile.prototype.onCollision = function(collider) {
     }
 }
 
-Projectile.prototype.Update = function() {
-    this.entity.updatePhysics(this);
-    if(this.entity.active) {
-        if(this.life > 0) {
-            if(this.cnt >= this.life) {
-                this.deactivate();
-            }
-            else this.cnt++;
-        }
-    }
-    if(this.entity.x > 1500 || this.entity.x < -1500)
-    {
-      this.deactivate();
-    }
-}
+
 
 //explosive projectile
 function ExplosiveProjectile(parent,x,y,w,h, vx,vy, life, color ="red", dmg = 5) {
@@ -281,11 +269,17 @@ ExplosiveProjectile.prototype.onCollision = function(collider) {
 
 ExplosiveProjectile.prototype.Update = function() {
     this.entity.updatePhysics(this);
-    if(this.life > 0) {
-        if(this.cnt >= this.life) {
-            this.deactivate();
+    if(this.entity.active) {
+        if(this.life > 0) {
+            if(this.cnt >= this.life) {
+                this.deactivate();
+            }
+            else this.cnt++;
         }
-        else this.cnt++;
+    }
+    if(this.entity.x > 1500 || this.entity.x < -1500)
+    {
+      this.deactivate();
     }
 
 }
@@ -376,11 +370,18 @@ StickyProjectile.prototype.Update = function() {
    if(this.attached){this.timer = this.timer + 1;}//  increment timer
 
     this.entity.updatePhysics(this);
-    if(this.life > 0) {
-        if(this.cnt >= this.life) {
-            this.deactivate();
+    if(this.active) {
+        if(this.life > 0) {
+            if(this.cnt >= this.life) {
+                this.deactivate();
+            }
+            else this.cnt++;
         }
-        else this.cnt++;
+    }
+
+    if(this.entity.x > 1500 || this.entity.x < -1500)
+    {
+      this.deactivate();
     }
 
     if(this.timer > 44)

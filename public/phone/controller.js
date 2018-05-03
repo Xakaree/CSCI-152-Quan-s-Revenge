@@ -26,7 +26,7 @@
         5: false
     }
 
-    var oldinp = Object.assign({}, inp);
+    //var oldinp = Object.assign({}, inp);
 
     function copyinp() {
         for (let k in inp) {
@@ -66,7 +66,7 @@
 
 
     function checkInput(ts) {
-        oldinp = Object.assign({}, inp);
+        //oldinp = Object.assign({}, inp);
 
         for(let i in inp) {
             inp[i] = false;
@@ -81,14 +81,15 @@
             }
         }
 
-        send();
+        //send();
     }
 
     interval = 1/60;
 
     function send() {     
-        if(!compinp()) socket.emit('input', inp);
-        //requestAnimationFrame(send);
+        //if(!compinp()) 
+        socket.emit('input', inp);
+        requestAnimationFrame(send);
         
     }
 
@@ -105,6 +106,8 @@
         canvas.addEventListener("click", function() {
             toggleFullScreen();
             e.preventDefault();
+            var ts = e.touches;
+            checkInput(ts);
         }, false);
     
         canvas.addEventListener("touchmove", function(e) {
@@ -136,17 +139,6 @@
         main();
     }
 
-    function drawInp() {
-        ctx.fillText(inp[0], 0,this.height*0.3);
-        ctx.fillText(inp[1], 0,this.height*0.3);
-        ctx.fillText(inp[2], 0,this.height*0.3);
-        ctx.fillText(inp[3], 0,this.height*0.3);
-        ctx.fillText(inp[4], 0,this.height*0.3);
-        ctx.fillText(inp[5], 0,this.height*0.3);
-
-        requestAnimationFrame(drawInp());
-    }
-
     function main() {
 
         ctx.fillStyle = "white";
@@ -165,7 +157,7 @@
             buttons[i].Draw();
         }
 
-        //requestAnimationFrame(send);
+        requestAnimationFrame(send);
 
     }
 

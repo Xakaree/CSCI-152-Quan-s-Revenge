@@ -42,12 +42,6 @@ io.on('connection', function(socket){
     host[code] = socket.id;
     io.to(socket.id).emit('code', code);
   });
-  socket.on('tdown', function(input) {
-    io.to(room[socket.id]).emit('hosttdown', socket.id, input);
-  });
-  socket.on('tup', function(input) {
-    io.to(room[socket.id]).emit('hosttup', socket.id, input);
-  });
 
   socket.on('input', function(inp) {
     io.to(room[socket.id]).emit('input', socket.id, inp);
@@ -71,7 +65,7 @@ io.on('connection', function(socket){
   });
 });
 
-var port = 7778;
+var port = 7777;
 http.listen(port, function(){
   console.log('listening on *:' + port);
 });

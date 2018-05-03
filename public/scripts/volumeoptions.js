@@ -12,8 +12,7 @@ function VolumeOptions(background){
     0:  new Slider(550,100,ctx1,battleList),
     1:  new Slider(550, 200,ctx1, battleList),
     2 : new Slider(550, 300,ctx1,menuList),
-    3:  new Slider(550,400,ctx1,battleList),
-    4 : new Button(1000,600,ctx1,BACT, BNULL)
+    3:  new Button(1000,600,ctx1,BACT, BNULL),
     }
     this.map[0].Select();
   }
@@ -35,6 +34,10 @@ function VolumeOptions(background){
       this.map[key].Draw(); // draw all components
     }
 
+    ctx1.fillStyle ="red";
+    ctx1.fillText("Stage Music",200 ,125);
+    ctx1.fillText("Sound Effects", 200, 225);
+    ctx1.fillText("Menu Music", 200, 325);
   }//end active
 
   if(this.back != null){
@@ -51,7 +54,7 @@ function VolumeOptions(background){
       }
 
         ///switch between sliders
-        if(input.getDown() && this.toggle < 4){
+        if(input.getDown() && this.toggle < 3){
           this.nav.load();
           this.nav.play();
           this.map[this.toggle].Unselect();
@@ -66,8 +69,8 @@ function VolumeOptions(background){
           this.map[this.toggle].Select();
         }
 
-        if (this.toggle == 4 && input.getAttack()) {
-            this.select.play();
+        if (this.toggle == 3 && input.getAttack()) {
+          this.select.play();
           input.resetKeys();
           this.back = new Options(this.background);
           this.back.Start();

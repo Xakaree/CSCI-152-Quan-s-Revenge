@@ -26,14 +26,15 @@ function Menu(background){
   }
 
   this.Draw = function() {
+    if(this.active) {
+      ctx1.clearRect(0,0,width,height);
+      ctx1.fillStyle = "white";
+      ctx1.fillRect(0,0,width,height);
 
-    ctx1.clearRect(0,0,width,height);
-    ctx1.fillStyle = "white";
-    ctx1.fillRect(0,0,width,height);
-
-    this.background.Draw();
-    for(let key in this.map){ // call draw on all components
-      this.map[key].Draw();
+      this.background.Draw();
+      for(let key in this.map){ // call draw on all components
+        this.map[key].Draw();
+      }
     }
 
     if(this.options != null){
@@ -45,7 +46,7 @@ function Menu(background){
 
 
     if(this.active) {
-      ctx1.fillStyle = "grey";
+      ctx1.fillStyle = "red";
       ctx1.font = "40px Arial";
       ctx1.fillText("Session Code", width*0.8, height*0.05);
       ctx1.fillText(sessionCode, width*0.8, height*0.1);

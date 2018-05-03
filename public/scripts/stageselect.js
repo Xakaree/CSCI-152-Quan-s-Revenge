@@ -14,7 +14,6 @@ function StageSelect(characters)
        this.active = true;
        for(let x =0;  x < this.selection.length;  x++)
        {
-         console.log(characters[x]);
          this.animators[x] = new animation(characters[x][0]);
        }
      }

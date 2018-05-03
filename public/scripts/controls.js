@@ -23,7 +23,6 @@ function mobile(id) {
 }
 
 var p1controls = { //Default Player 1 Controls
-    id: 0,
     left: 37,   //left arrow
     right: 39,  //right arrow
     up: 38,     //up arrow
@@ -33,17 +32,15 @@ var p1controls = { //Default Player 1 Controls
 }
 
 var p2controls = { //Default Player 2 Controls
-    id: 0,
     left: 65,   //a
     right: 68,  //d
     up: 87,     //w
     down: 83,   //s
     jump: 87,   //w
-    attack: null
+    attack: 90
 }
 
 var p3controls = {  //Default Player 3 Controls
-    id: 0,
     left: null,
     right: null,
     up: null,
@@ -53,7 +50,6 @@ var p3controls = {  //Default Player 3 Controls
 }
 
 var p4controls = {  //Default Player 4 Controls
-    id: 0,
     left: null,
     right: null,
     up: null,
@@ -66,8 +62,8 @@ var econtrols = []; //external controls (phone)
 var pcontrols = [];
 pcontrols.push(p1controls);
 pcontrols.push(p2controls);
-pcontrols.push(p3controls);
-pcontrols.push(p4controls);
+//pcontrols.push(p3controls);
+//pcontrols.push(p4controls);
 
 if(localStorage.p1left == undefined) {
     console.log("creating new local pcontrols")
@@ -94,7 +90,7 @@ function storeLocalControls() {
     localStorage.p2jump = pcontrols[1].jump;
     localStorage.p2attack = pcontrols[1].attack;
 
-    localStorage.p3left = pcontrols[2].left;
+    /*localStorage.p3left = pcontrols[2].left;
     localStorage.p3right = pcontrols[2].right;
     localStorage.p3up = pcontrols[2].up;
     localStorage.p3down = pcontrols[2].down;
@@ -106,7 +102,7 @@ function storeLocalControls() {
     localStorage.p4up = pcontrols[3].up;
     localStorage.p4down = pcontrols[3].down;
     localStorage.p4jump = pcontrols[3].jump;
-    localStorage.p4attack = pcontrols[3].attack;
+    localStorage.p4attack = pcontrols[3].attack;*/
 }
 
 function loadLocalControls() {
@@ -125,7 +121,7 @@ function loadLocalControls() {
     pcontrols[1].jump = localStorage.p2jump;
     pcontrols[1].attack = localStorage.p2attack;
 
-    pcontrols[2].left = localStorage.p3left;
+    /*pcontrols[2].left = localStorage.p3left;
     pcontrols[2].right = localStorage.p3right
     pcontrols[2].up = localStorage.p3up;
     pcontrols[2].down = localStorage.p3down;
@@ -137,5 +133,5 @@ function loadLocalControls() {
     pcontrols[3].up = localStorage.p4up;
     pcontrols[3].down = localStorage.p4down;
     pcontrols[3].jump = localStorage.p4jump;
-    pcontrols[3].attack = localStorage.p4attack;
+    pcontrols[3].attack = localStorage.p4attack;*/
 }

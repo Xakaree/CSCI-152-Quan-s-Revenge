@@ -10,7 +10,7 @@ function Slider(x, y, cont, list){
     this.context.fillRect(this.xpos,this.ypos,500,25);
     //toggle bar
     if(this.selected){
-      this.context.fillStyle = "green";
+      this.context.fillStyle = "red";
     }
     else {
       this.context.fillStyle ="grey";
@@ -21,7 +21,7 @@ function Slider(x, y, cont, list){
 
     //need to ask joey about this !!!!!!!!!!!!!!!
      this.context.font = "30px Arial";
-     this.context.fillStyle = "grey";
+     this.context.fillStyle = "red";
      ctx1.fillText(this.toggleBar/5,this.xpos+550,this.ypos+20);
   }
 

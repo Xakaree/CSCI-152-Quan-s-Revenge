@@ -98,7 +98,7 @@ function CSelect(){
                 char.color = this.versions-1;
               }
         }
-  
+
         else if (input.keyPress(char.controller.left)) { //left
               var nextChar = new sound("audioFiles/sfx/nextChar.mp3", false, 1);
               nextChar.play();
@@ -115,7 +115,7 @@ function CSelect(){
               char.character = (char.character+1)% this.characters.length;
         }
       }
-      
+
       if (input.keyPress(char.controller.attack)) {
             var charSelect = new sound("audioFiles/sfx/charSelect.mp3", false, 1);
             charSelect.play();
@@ -128,7 +128,7 @@ function CSelect(){
           char.confirmed = false;
         }
       }
-      
+
     }
   }
 
@@ -143,7 +143,7 @@ function CSelect(){
             if(inp[1] == 4 && !this.checkController(econtrols[inp[0]])) {
               curchar.controller = econtrols[inp[0]];
               input.resetKeys();
-            } 
+            }
           }
           else {
             if(inp == p1controls.attack && !this.checkController(p1controls)) {
@@ -151,25 +151,25 @@ function CSelect(){
               joinSnd.play();
               curchar.controller = p1controls;
               input.resetKeys();
-            } 
+            }
             else if(inp == p2controls.attack && !this.checkController(p2controls)) {
             var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
               joinSnd.play();
               curchar.controller = p2controls;
               input.resetKeys();
-            } 
+            }
             else if(inp == p3controls.attack && !this.checkController(p3controls)) {
             var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
               joinSnd.play();
               curchar.controller = p3controls;
               input.resetKeys();
-            } 
+            }
             else if(inp == p4controls.attack && !this.checkController(p4controls)) {
             var joinSnd = new sound("audioFiles/sfx/joinSnd.mp3", false, 1);
               joinSnd.play();
               curchar.controller = p4controls;
               input.resetKeys();
-            } 
+            }
           }
         }
     }
@@ -196,10 +196,10 @@ function CSelect(){
     ctx1.fillRect(this.char1.x, this.char1.y, this.char1.w, this.char1.h);
     ctx1.fillRect(150,height/5,150,150);
     if(this.char1.controller != null) {
-    
+
     ctx1.drawImage(this.characters[this.char1.character][this.char1.color].portrait,0, 0, 64, 64,200,height/4,150,150);
     //ctx1.fillStyle = "navy";
-    
+
     ctx1.drawImage(this.characters[this.char1.character][this.char1.color].image,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
 
     ctx1.fillStyle = "white";
@@ -211,7 +211,7 @@ function CSelect(){
       ctx1.font = "20px Arial";
       ctx1.fillText("Press Attack", this.char1.x + 15, this.char1.y + 70);
       ctx1.fillText("to Join", this.char1.x + 15, this.char1.y + 90);
-    } 
+    }
 
     /*if (this.char1.color == 0) {
       ctx1.drawImage(this.characters[this.char1.character].image,0, 0, 64, 64,this.char1.x, this.char1.y, this.char1.w, this.char1.h );
@@ -230,13 +230,13 @@ function CSelect(){
     ctx1.fillRect(this.char2.x, this.char2.y, this.char2.w, this.char2.h);
     ctx1.fillRect(350,height/5,150,150);
     if(this.char2.controller != null) {
-    
+
     ctx1.fillStyle = "navy";
 
     ctx1.drawImage(this.characters[this.char2.character][this.char2.color].portrait,0, 0, 64, 64,400,height/4,150,150);
 
     ctx1.drawImage(this.characters[this.char2.character][this.char2.color].image,0, 0, 64, 64,this.char2.x, this.char2.y, this.char2.w, this.char2.h );
-    
+
     ctx1.fillStyle = "white";
       ctx1.font = "40px Arial";
       ctx1.fillText(this.characters[this.char2.character][this.char2.color].name, this.char2.x-(this.characters[this.char2.character][this.char2.color].name.length), this.char2.y + 250);
@@ -246,7 +246,7 @@ function CSelect(){
       ctx1.font = "20px Arial";
       ctx1.fillText("Press Attack", this.char2.x + 15, this.char2.y + 70);
       ctx1.fillText("to Join", this.char2.x + 15, this.char2.y + 90);
-    } 
+    }
 
     /*if (this.char2.color == 0) {
       ctx1.drawImage(this.characters[this.char2.character].image,0, 0, 64, 64,this.char2.x, this.char2.y, this.char2.w, this.char2.h );
@@ -263,7 +263,7 @@ function CSelect(){
     ctx1.fillRect(this.char3.x, this.char3.y, this.char3.w, this.char3.h);
     ctx1.fillRect(550,height/5,150, 150);
     if(this.char3.controller != null) {
-    
+
 
     //ctx1.fillStyle = "navy";
     ctx1.drawImage(this.characters[this.char3.character][this.char3.color].portrait,0, 0, 64, 64,600,height/4,150, 150);
@@ -275,14 +275,14 @@ function CSelect(){
       ctx1.fillText(this.characters[this.char3.character][this.char3.color].name, this.char3.x-(this.characters[this.char3.character][this.char3.color].name.length), this.char3.y + 250);
     }
 
-    
+
 
     else {
       ctx1.fillStyle = "black";
       ctx1.font = "20px Arial";
       ctx1.fillText("Press Attack", this.char3.x + 15, this.char3.y + 70);
       ctx1.fillText("to Join", this.char3.x + 15, this.char3.y + 90);
-    } 
+    }
 
     /*if (this.char3.color == 0) {
       ctx1.drawImage(this.characters[this.char3.character].image,0, 0, 64, 64,this.char3.x, this.char3.y, this.char3.w, this.char3.h );
@@ -301,7 +301,7 @@ function CSelect(){
     ctx1.fillRect(this.char4.x, this.char4.y, this.char4.w, this.char4.h);
     ctx1.fillRect(750,height/5,150,150);
     if(this.char4.controller != null) {
-    
+
     ctx1.drawImage(this.characters[this.char4.character][this.char4.color].portrait,0, 0, 64, 64,800,height/4,150,150);
     //ctx1.fillStyle = "navy";
 
@@ -317,7 +317,7 @@ function CSelect(){
       ctx1.font = "20px Arial";
       ctx1.fillText("Press Attack", this.char4.x + 15, this.char4.y + 70);
       ctx1.fillText("to Join", this.char4.x + 15, this.char4.y + 90);
-    } 
+    }
 
     /*if (this.char4.color == 0) {
       ctx1.drawImage(this.characters[this.char4.character].image,0, 0, 64, 64,this.char4.x, this.char4.y, this.char4.w, this.char4.h );
@@ -328,7 +328,7 @@ function CSelect(){
 
 
 //-End of character select and color select
-    ctx1.fillStyle = "grey";
+    ctx1.fillStyle = "white";
     ctx1.font = "40px Arial";
     ctx1.fillText("Session Code", width*0.8, height*0.05);
     ctx1.fillText(sessionCode, width*0.8, height*0.1);
