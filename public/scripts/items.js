@@ -123,7 +123,7 @@ function Flamethrower(cx,cy) {
     this.height = 18;
     this.sprite = FLM;
     Gun.call(this, this.sprite,cx,cy,this.width,this.height);
-
+    this.snd = new sound("audioFiles/sfx/flamethrower.mp3", false, 1);
     this.offsetX = 32;
     this.offsetY = 22;
     this.atkDelay = 0;
@@ -136,7 +136,7 @@ function Flamethrower(cx,cy) {
 Flamethrower.prototype.attack = function() {
     
     if(!this.atkCool && !this.reloading) {
-        
+        this.snd.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -342,6 +342,8 @@ function StickyGun(cx, cy) {
 
 StickyGun.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+    var stky = new sound("audioFiles/sfx/launcher.mp3", false, 1);
+    stky.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -377,6 +379,8 @@ function Revolver(cx, cy) {
 
 Revolver.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+        var rev =  new sound("audioFiles/sfx/revolver.mp3", false, 1);
+        rev.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
