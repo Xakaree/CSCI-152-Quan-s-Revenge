@@ -5,10 +5,16 @@ function StageSelect(characters)
      this.selection = characters;
      this.numstages = 4;
      this.toggle = 0;
+     this.animators = [];
 
      this.Start = function()
      {
        this.active = true;
+       for(let x =0;  x < this.selection.length;  x++)
+       {
+         console.log(characters[x]);
+         this.animators[x] = new animation(characters[x][0]);
+       }
      }
 
      this.Draw = function()
@@ -19,34 +25,44 @@ function StageSelect(characters)
           ctx1.fillStyle = "white";
           ctx1.fillRect(0,0,canvas.width,canvas.height);
 
-          ctx1.drawImage(MPSPC,100,150, 300,150);
-          ctx1.drawImage(MPCTY,500,150,300,150);
-          ctx1.drawImage(MPWTR,100,400, 300,150);
-          ctx1.drawImage(MPSKY,500, 400, 300,150 );
+          ctx1.fillStyle = "black";
+          ctx1.fillRect(0,0,canvas.width,canvas.height);
+
+          ctx1.drawImage(MPSPC,200,100, 300,150);
+          ctx1.drawImage(MPCTY,650,100,300,150);
+          ctx1.drawImage(MPWTR,200,350, 300,150);
+          ctx1.drawImage(MPSKY,650, 350, 300, 150);
 
           ctx1.font = "40px Arial";
-          ctx1.fillStyle = "grey";
-          ctx1.fillText("Stage Select", 100, 100);
+          ctx1.fillStyle = "white";
+          ctx1.fillText("Stage Select", 50, 75);
 
           if(this.toggle == 0){ ctx1.fillStyle = "green";}
-          else {ctx1.fillStyle = "grey";}
+          else {ctx1.fillStyle = "white";}
 
-          ctx1.fillText("Space",125,340);
+          ctx1.fillText("Space",280,290);
 
           if(this.toggle == 1){ ctx1.fillStyle = "green";}
-          else {ctx1.fillStyle = "grey";}
+          else {ctx1.fillStyle = "white";}
 
-          ctx1.fillText("City",525, 340);
+          ctx1.fillText("City",750, 290);
 
           if(this.toggle == 2){ ctx1.fillStyle = "green";}
-          else {ctx1.fillStyle = "grey";}
+          else {ctx1.fillStyle = "white";}
 
-          ctx1.fillText("Seaworld",125, 600);
+          ctx1.fillText("Seaworld",260, 545);
 
           if(this.toggle == 3){ ctx1.fillStyle = "green";}
-          else {ctx1.fillStyle = "grey";}
+          else {ctx1.fillStyle = "white";}
 
-          ctx1.fillText("Mile High Club",525, 600);
+          ctx1.fillText("Mile High Club",675, 545);
+
+          let x1 = 100;
+          for(let x =0;  x < this.selection.length;  x++)
+          {
+            x1+=x1;
+            this.animators[x].Draw(x1,canvas.height*0.80,64,64);
+          }
        }
 
 ///
@@ -60,6 +76,12 @@ function StageSelect(characters)
      {
        if(this.active)
        {
+         for(let x = 0; x < this.selection.length; x++)
+         {
+           this.animators[x].play(0,true);
+           this.animators[x].Update();
+         }
+
          if(this.toggle > 0 && input.getLeft())
          {
           this.toggle-= 1;

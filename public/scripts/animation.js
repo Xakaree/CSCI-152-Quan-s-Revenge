@@ -4,7 +4,7 @@
 function animation(sprite,controls){
   //Animation Variables
   var srcX=0; //To track frame
-  var srcY=0;	//To track animation
+  var srcY= null;	//To track animation
   var frameLimit = 4; //To keep row looping
   var counter=0;
   var aniSpd = 6; //Speed Cap on animation
