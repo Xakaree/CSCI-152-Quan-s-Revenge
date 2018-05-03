@@ -6,6 +6,8 @@ function Options() {
   this.back = null;
   this.specialMenu = null;
   this.map = {}
+  this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
+  this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
 
   this.Mapping = function(){
       this.map = {
@@ -53,9 +55,13 @@ function Options() {
     this.map[this.option].Unselect();
     if(this.active){
           if (input.getUp() && this.option > 0){
+                this.nav.load();
+                this.nav.play();
                 this.option -= 1;
           }
           else if (input.getDown() && this.option < 3){
+                this.nav.load();
+                this.nav.play();
                 this.option += 1;
           }
 
@@ -63,12 +69,14 @@ function Options() {
 
   //process command
      if(input.getAttack() && this.option == 0){
+       this.selectSnd.play();
        input.resetKeys();
        this.controlMapping = new SelectPlayer();
        this.controlMapping.Start();
        this.active = false;
      }
      else if(input.getAttack() && this.option == 1){
+       this.selectSnd.play();
        input.resetKeys();
        this.VolumeOptions = new VolumeOptions();
        this.VolumeOptions.Start();
@@ -76,6 +84,7 @@ function Options() {
      }
      else if(this.option == 2 && input.getAttack())
      {
+       this.selectSnd.play();
        input.resetKeys();
        this.specialMenu =  new specialMenu();
        this.active = false;
@@ -83,6 +92,7 @@ function Options() {
      }
 
      if (this.option == 3 && input.getAttack()) {
+       this.selectSnd.play();
        input.resetKeys();
        this.back = new Menu();
        this.back.Start();
