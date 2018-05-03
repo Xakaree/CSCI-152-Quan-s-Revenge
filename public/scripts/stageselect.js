@@ -57,11 +57,12 @@ function StageSelect(characters)
 
           ctx1.fillText("Mile High Club",675, 545);
 
-          let x1 = 100;
+          let x1 = 125;
           for(let x =0;  x < this.selection.length;  x++)
           {
             x1+=x1;
-            this.animators[x].Draw(x1,canvas.height*0.80,64,64);
+            this.animators[x].Draw(x1,750,64,64);
+            ctx1.drawImage(PTSD,(x1-20)*scale,(750+64)*scale,90,16); 
           }
        }
 
