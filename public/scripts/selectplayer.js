@@ -38,7 +38,7 @@ this.Draw = function (){
 
     this.background.Draw();
     ctx1.font = "50px Arial";
-    ctx1.fillStyle = "grey"
+    ctx1.fillStyle = "red"
     ctx1.fillText("Which player's controls would you like to remap?",100, 300);
 
       for(let key in this.map){

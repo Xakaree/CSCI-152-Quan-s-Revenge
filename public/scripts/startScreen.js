@@ -9,9 +9,9 @@ function startScreen(){
 				ctx1.fillStyle = "white"; // background color
 				ctx1.fillRect(0,0,width,height);
 				this.background.Draw();
-				ctx1.fillStyle = "grey";
+				ctx1.fillStyle = "red";
 				ctx1.font ="60px Arial";
-				ctx1.fillText("QUAN'S REVENGE", 350,200);
+				ctx1.fillText("Bullet Battle", 450,200);
 				ctx1.font = "40px Arial";
 				ctx1.fillText("Press Space to Continue", 400, 500);
 				ctx1.fillText("Session Code", width*0.8, height*0.05);
