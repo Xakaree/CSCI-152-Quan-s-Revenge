@@ -4,6 +4,8 @@ function Menu(background){
   this.options = null;
   this.cSelect = null;
   this.map = {};
+  this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
+  this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
 
   this.background = background;
 
@@ -56,9 +58,13 @@ function Menu(background){
     this.background.Update();
     if (this.active){
         if (input.getUp() && this.menuOption > 0){
+              this.nav.load();
+              this.nav.play();
               this.menuOption -= 1;
         }
         else if (input.getDown() && this.menuOption < 1){
+              this.nav.load();
+              this.nav.play();
               this.menuOption +=1;
         }
 
@@ -67,12 +73,14 @@ function Menu(background){
 
       if(this.menuOption == 0 && input.getAttack())
       {
+        this.selectSnd.play();
         input.resetKeys();
         this.cSelect = new CSelect();
         this.active = false;
         this.cSelect.Start();
       }
       else if (this.menuOption == 1 && input.getAttack()){
+        this.selectSnd.play();
         input.resetKeys();
         this.options = new Options(this.background);
         this.background.Drive();

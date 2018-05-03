@@ -6,7 +6,12 @@ function Options(background) {
   this.back = null;
   this.specialMenu = null;
   this.map = {}
+<<<<<<< HEAD
   this.background = background;
+=======
+  this.selectSnd = new sound("audioFiles/sfx/select.mp3", false, 1);
+  this.nav = new sound("audioFiles/sfx/navigate.mp3", false, 1);
+>>>>>>> master
 
   this.Mapping = function(){
       this.map = {
@@ -56,9 +61,17 @@ function Options(background) {
     this.background.Update();
     if(this.active){
           if (input.getUp() && this.option > 0){
+                this.nav.load();
+                this.nav.play();
                 this.option -= 1;
           }
+<<<<<<< HEAD
           else if (input.getDown() && this.option < 2){
+=======
+          else if (input.getDown() && this.option < 3){
+                this.nav.load();
+                this.nav.play();
+>>>>>>> master
                 this.option += 1;
           }
 
@@ -66,6 +79,7 @@ function Options(background) {
 
   //process command
      if(input.getAttack() && this.option == 0){
+       this.selectSnd.play();
        input.resetKeys();
        this.controlMapping = new SelectPlayer(this.background);
        this.background.Drive();
@@ -73,14 +87,29 @@ function Options(background) {
        this.active = false;
      }
      else if(input.getAttack() && this.option == 1){
+       this.selectSnd.play();
        input.resetKeys();
        this.VolumeOptions = new VolumeOptions(this.background);
        this.background.Drive();
        this.VolumeOptions.Start();
        this.active = false;
      }
+<<<<<<< HEAD
 
     else if (this.option == 2 && input.getAttack()) {
+=======
+     else if(this.option == 2 && input.getAttack())
+     {
+       this.selectSnd.play();
+       input.resetKeys();
+       this.specialMenu =  new specialMenu();
+       this.active = false;
+       this.specialMenu.Start();
+     }
+
+     if (this.option == 3 && input.getAttack()) {
+       this.selectSnd.play();
+>>>>>>> master
        input.resetKeys();
        this.back = new Menu(this.background);
        this.back.Start();

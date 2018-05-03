@@ -128,14 +128,15 @@ function Flamethrower(cx,cy) {
     this.offsetY = 22;
     this.atkDelay = 0;
     this.atkHold = true;
-
     this.maxAmmo = 100;
     this.currAmmo = this.maxAmmo;
     this.reloadSpeed = 120;
 }
 
 Flamethrower.prototype.attack = function() {
+    
     if(!this.atkCool && !this.reloading) {
+        
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
@@ -269,6 +270,8 @@ function Bazooka(cx, cy) {
 
 Bazooka.prototype.attack = function() {
     if(!this.atkCool && !this.reloading) {
+    var bzka = new sound("audioFiles/sfx/bazooka.mp3", false, 1);
+    bzka.play();
         this.currAmmo--;
         if(this.currAmmo <= 0) {
             this.reloading = true;
