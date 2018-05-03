@@ -65,7 +65,7 @@ io.on('connection', function(socket){
   });
 });
 
-var port = 7778;
+var port = 7777;
 http.listen(port, function(){
   console.log('listening on *:' + port);
 });
