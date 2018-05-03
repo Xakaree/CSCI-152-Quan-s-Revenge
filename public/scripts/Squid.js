@@ -83,3 +83,56 @@ function Squid()
     }
   }
 }
+
+function Bubble (xpos,ypos)
+{
+  this.image = BUB;
+  this.width = 20;
+  this.height = 20;
+  this.xPos = xpos;
+  this.yPos = ypos;
+
+  this.Draw = function()
+  {
+    ctx1.drawImage(this.image,0,0,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+  }
+
+  this.Update = function ()
+  {
+      this.yPos -=  1;
+      if(this.yPos < -100)
+      {
+        this.yPos = ypos;
+      }
+  }
+}
+
+function Sub()
+{
+  this.image = SUB;
+  this.width = 200;
+  this.height = 100;
+  this.xPos = -200;
+  this.yPos = 500;
+  this.increment = 1;
+  this.right = true;
+
+  this.Draw = function()
+  {
+    if(this.right)
+      ctx1.drawImage(this.image,0,0,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+    else
+      ctx1.drawImage(this.image,0,100,this.width,this.height,this.xPos,this.yPos,this.width,this.height);
+
+  }
+
+  this.Update = function ()
+  {
+      this.xPos +=  this.increment;
+      if(this.xPos < -300 || this.xPos > 1280)
+      {
+        this.increment *=-1;
+        this.right = !this.right;
+      }
+  }
+}
