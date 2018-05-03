@@ -86,6 +86,19 @@ function InputHandler() {
             input[i].keyDown = input[i].key;
         }
 
+        /*for(let i = 0; i < pcontrols.length; i++) {
+            for(let k in pcontrols[i]) {
+                if(input[pcontrols[i][k]].keyPress) {
+                    input[pcontrols[i][k]].keyPress = false;
+                }
+                if(!input[pcontrols[i][k]].keyDown && input[pcontrols[i][k]].key) {
+                    input[pcontrols[i][k]].keyPress = true;
+                }
+                input[pcontrols[i][k]].keyDown = input[pcontrols[i][k]].key;
+
+            }
+        }*/
+
         for(let k in einput) {
             for(let l in einput[k]) {
                 if(einput[k][l].keyPress) {
@@ -123,7 +136,7 @@ function InputHandler() {
     }
 
     this.resetKeys = function() {
-        for(var i = 0; i < input.length; i++) {
+        for(let i = 0; i < input.length; i++) {
             input[i].key = false;
             input[i].keyDown = false;
             input[i].keyPress = false;
@@ -138,7 +151,7 @@ function InputHandler() {
     }
 
     this.getKeyPress = function() {
-        for(var i = 0; i < input.length; i++) {
+        for(let i = 0; i < input.length; i++) {
             if(input[i].keyPress == true) return i;
         }
         for(let k in einput) {
