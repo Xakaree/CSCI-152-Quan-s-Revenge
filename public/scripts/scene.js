@@ -146,6 +146,14 @@ Scene.prototype.Start = function() {
     pauseSoundtrack(menuList);
     playSoundtrack(0, cityList);
     }
+    if(this.currStage == 2){
+    pauseSoundtrack(menuList);
+    playSoundtrack(0, battleList);
+    }
+    if(this.currStage == 3){
+    pauseSoundtrack(menuList);
+    playSoundtrack(0, battleList);
+    }
 }
 
 Scene.prototype.resetScore = function() {
